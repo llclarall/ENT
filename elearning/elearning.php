@@ -24,6 +24,8 @@
         </div>
       </div>
       <div class="course-card"></div>
+      <div class="course-card"></div>
+      <div class="course-card"></div>
     </div>
     <!-- Développement Web Section -->
     <div class="section-title">Développement web</div>
