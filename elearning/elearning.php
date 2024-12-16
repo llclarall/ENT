@@ -23,9 +23,24 @@
           <span>Eiffel Année universitaire 2024/2025</span>
         </div>
       </div>
-      <div class="course-card"></div>
-      <div class="course-card"></div>
-      <div class="course-card"></div>
+      <div class="course-card">
+      <div class="course-details">
+          <strong>R3.09 Création et Design interactif MMI2 - S3</strong>
+          <span>Eiffel Année universitaire 2024/2025</span>
+        </div>
+      </div>
+      <div class="course-card">
+      <div class="course-details">
+          <strong>R3.09 Création et Design interactif MMI2 - S3</strong>
+          <span>Eiffel Année universitaire 2024/2025</span>
+        </div>
+      </div>
+      <div class="course-card">
+      <div class="course-details">
+          <strong>R3.09 Création et Design interactif MMI2 - S3</strong>
+          <span>Eiffel Année universitaire 2024/2025</span>
+        </div>
+      </div>
     </div>
     <!-- Développement Web Section -->
     <div class="section-title">Développement web</div>
@@ -37,10 +52,28 @@
         </div>
       </div>
       <div class="course-card">
-    
+      <div class="course-details">
+          <strong>Déploiement de services MMI2 2024</strong>
+          <span>Eiffel Année universitaire 2024/2025</span>
+        </div>
       </div>
       <div class="course-card">
-
+      <div class="course-details">
+          <strong>Déploiement de services MMI2 2024</strong>
+          <span>Eiffel Année universitaire 2024/2025</span>
+        </div>
+      </div>
+      <div class="course-card">
+      <div class="course-details">
+          <strong>Déploiement de services MMI2 2024</strong>
+          <span>Eiffel Année universitaire 2024/2025</span>
+        </div>
+      </div>
+      <div class="course-card">
+      <div class="course-details">
+          <strong>Déploiement de services MMI2 2024</strong>
+          <span>Eiffel Année universitaire 2024/2025</span>
+        </div>
       </div>
     </div>
   </main>  
