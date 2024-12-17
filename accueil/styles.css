@@ -1,0 +1,86 @@
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #f4f4f4;
+    font-family: Arial, sans-serif;
+}
+
+
+/* ACCUEIL CLARA */
+
+.container {
+    display: grid;
+    grid-template-areas:
+        "applications applications messages"
+        "reservations reservations messages"
+        "rendus rendus menu"
+        "actualites actualites actualites";
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto;
+    gap: 15px;
+    padding: 20px;
+    margin: 0 auto;
+    max-width: 1000px;
+}
+
+/* Widget général */
+.widget {
+    background: #fff;
+    border-radius: 6px; /* Coins moins arrondis */
+    padding: 1rem; /* Réduction du padding */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Ombre plus subtile */
+    font-size: 0.9rem; /* Taille de police réduite */
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.widget:hover {
+    transform: scale(1.01);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+/* Flexbox pour les sous-blocs */
+.flex-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px; /* Réduction de l'espace entre sous-blocs */
+}
+
+.sub-block {
+    flex: 1;
+    height: 3.5rem; /* Réduction de la hauteur */
+    background-color: #e8e8e8;
+    border-radius: 4px;
+}
+
+/* Grid Area Positionnement */
+.applications {
+    grid-area: applications;
+    border: black 1px solid;
+    padding: 0.8rem;
+    border-radius: 6px;
+}
+
+.reservations {
+    grid-area: reservations;
+    border: black 1px solid;
+    padding: 0.8rem;
+    border-radius: 6px;
+}
+
+.menu {
+    grid-area: menu;
+}
+
+.messages {
+    grid-area: messages;
+}
+
+.rendus {
+    grid-area: rendus;
+}
+
+.actualites {
+    grid-area: actualites;
+}
