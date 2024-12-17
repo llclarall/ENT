@@ -1,22 +1,54 @@
+
+:root {
+    --bg-color : #FAFDF9;
+    --bleu : #2F4156;
+}
+
 body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    background-color: #f4f4f4;
+    background-color: var(--bg-color);
     font-family: Arial, sans-serif;
+}
+
+header {
+    background-color: var(--bleu);
+    color: white;
+    padding: 1rem;
+    text-align: center;
+    display: block;
+    text-align: left;
+}
+
+header img {
+    width: 50px;
+    height: 50px;
+    margin-left: 1rem;
 }
 
 
 /* ACCUEIL CLARA */
 
-.container {
+.accueil {
+    margin: 0 auto;
+    padding: 5rem 0;
+}
+
+.accueil h1 {
+    text-align: center;
+    font-size: 2rem;
+    margin: 1rem 0;
+}
+
+.accueil .container {
     display: grid;
     grid-template-areas:
-        "applications applications messages"
-        "reservations reservations messages"
-        "rendus rendus menu"
-        "actualites actualites actualites";
-    grid-template-columns: repeat(3, 1fr);
+        "applications messages"
+        "reservations rendus"
+        "menu rendus"
+        "actualites actualites";
+    grid-template-columns: repeat(2, 1fr);
     grid-template-rows: auto;
     gap: 15px;
     padding: 20px;
@@ -25,7 +57,7 @@ body {
 }
 
 /* Widget général */
-.widget {
+.accueil .widget {
     background: #fff;
     border-radius: 6px; /* Coins moins arrondis */
     padding: 1rem; /* Réduction du padding */
@@ -35,21 +67,22 @@ body {
     transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.widget:hover {
+.accueil .widget:hover {
     transform: scale(1.01);
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }
 
 /* Flexbox pour les sous-blocs */
-.flex-container {
+.accueil .flex-container {
     display: flex;
     justify-content: space-between;
-    gap: 8px; /* Réduction de l'espace entre sous-blocs */
+    align-items: center;
+    gap: 2rem; 
 }
 
-.sub-block {
+.accueil .sub-block {
     flex: 1;
-    height: 3.5rem; /* Réduction de la hauteur */
+    height: 4rem; 
     background-color: #e8e8e8;
     border-radius: 4px;
 }
@@ -83,4 +116,9 @@ body {
 
 .actualites {
     grid-area: actualites;
+}
+
+.accueil h2 {
+    font-size: 1.5rem;
+    margin-top: 0;
 }
