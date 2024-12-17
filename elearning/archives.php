@@ -28,10 +28,10 @@
     <div class="section-title">Création numérique</div>
     <div class="course-container">
       <div class="course-card">
-        <img src="img/creation.png" alt="">
+        <img src="img/prodgraphique.jpg" alt="">
         <div class="course-details">
-          <strong>R3.09 Création et Design interactif MMI2 - S3</strong>
-          <span>Eiffel Année universitaire 2024/2025</span>
+          <strong>R2.08 Prod. Graphique</strong>
+          <span>Eiffel Année universitaire 2023/2024</span>
         </div>
       </div>
       <div class="course-card">
@@ -53,24 +53,24 @@
     <div class="section-title">Développement web</div>
     <div class="course-container">
       <div class="course-card">
-        <img src="img/deploiement.jpg" alt="">
+        <img src="img/hebergement.jpg" alt="">
         <div class="course-details">
-          <strong>Déploiement de services MMI2 2024</strong>
-          <span>Eiffel Année universitaire 2024/2025</span>
+          <strong>Hébergement et gestion de contenu MMI1 2023</strong>
+          <span>Eiffel Année universitaire 2023/2024</span>
         </div>
       </div>
       <div class="course-card">
-        <img src="img/javascript.jpg" alt="">
+        <img src="img/ergonomie.jpg" alt="">
       <div class="course-details">
-          <strong>R3.12 Développement Javascript</strong>
-          <span>Eiffel Année universitaire 2024/2025</span>
+          <strong>Ergonomie et Accessibilité</strong>
+          <span>Eiffel Année universitaire 2023/2024</span>
         </div>
       </div>
       <div class="course-card">
-        <img src="img/integration.jpg" alt="">
+        <img src="img/systeme.jpg" alt="">
       <div class="course-details">
-          <strong>Intégration web - BUT MMI2</strong>
-          <span>Eiffel Année universitaire 2024/2025</span>
+          <strong>R2.14 Systèmes d'information</strong>
+          <span>Eiffel Année universitaire 2023/2024</span>
         </div>
       </div>     
     </div>

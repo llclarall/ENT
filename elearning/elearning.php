@@ -12,7 +12,7 @@
     <h1>E-learning</h1>
 
     <!-- Archives des cours -->
-    <a href="archives.php" class="archives-btn">Archives des cours</a>
+    <a href="archives.php" class="archives-btn">Accéder au archives des cours</a>
 
     <!-- Création numérique Section -->
      <div class="elearning-container">
