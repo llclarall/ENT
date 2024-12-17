@@ -51,6 +51,13 @@ body {
     justify-content: flex-end;
     position: relative;
     overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .course-card:hover {
+    transform: scale(1.05); /* Zoom léger */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    cursor: pointer; 
   }
   
   .course-img {
