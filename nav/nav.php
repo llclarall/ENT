@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Side Navigation Menu</title>
+  <title>Nav</title>
   <link
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
     rel="stylesheet"
@@ -12,9 +12,6 @@
 </head>
 <body>
   <div class="side-nav">
-    <button class="collapse-button">
-      <i class="fas fa-chevron-left"></i>
-    </button>
     <div class="logo">
       <img src="your-logo.png" alt="Logo" />
     </div>
@@ -22,41 +19,39 @@
 
         <!-- Acceuil -->
       <li>
-        <a href="accueil.html" class="menu-item"> 
+        <a href="accueil.php" class="menu-item"> 
           <i class="fas fa-home"></i>
           <span>Accueil</span>
         </a>
       </li>
 
-
         <!-- EDT -->      
       <li>
-        <a href="emploi-du-temps.html" class="menu-item dropdown-toggle"> 
+        <a href="#" class="menu-item dropdown-toggle"> 
           <i class="fas fa-calendar-alt"></i>
           <span>Emploi du temps</span>
         </a>
         <ul class="dropdown">
-          <li><a href="edt.html"><i class="fas fa-calendar-week"></i> <span>Emploi du temps</span></a></li>
-          <li><a href="absences.html"><i class="fas fa-times-circle"></i> <span>Absences</span></a></li> 
+          <li><a href="edt.php"><i class="fas fa-calendar-week"></i> <span>Emploi du temps</span></a></li>
+          <li><a href="absences.php"><i class="fas fa-times-circle"></i> <span>Absences</span></a></li> 
         </ul>
       </li>
 
-
        <!-- Messagerie -->      
       <li>
-        <a href="messagerie.html" class="menu-item dropdown-toggle">
+        <a href="#" class="menu-item dropdown-toggle">
           <i class="fas fa-comment-dots"></i>
           <span>Messagerie</span>
         </a>
         <ul class="dropdown">
-          <li><a href="messagerie.html"><i class="fas fa-inbox"></i> <span>Messagerie</span></a></li>
-          <li><a href="annuaire.html"><i class="fas fa-address-book"></i> <span>Annuaire</span></a></li>
+          <li><a href="messagerie.php"><i class="fas fa-inbox"></i> <span>Messagerie</span></a></li>
+          <li><a href="annuaire.php"><i class="fas fa-address-book"></i> <span>Annuaire</span></a></li>
         </ul>
       </li>
 
        <!-- Vie étudiante -->          
       <li>
-        <a href="vieetudiante.html" class="menu-item">
+        <a href="vieetudiante.php" class="menu-item">
           <i class="fas fa-users"></i>
           <span>Vie étudiante</span>
         </a>
@@ -64,34 +59,34 @@
       
       <!-- Réservations menu -->
       <li>
-        <a href="reservations.html" class="menu-item dropdown-toggle">
+        <a href="#" class="menu-item dropdown-toggle">
           <i class="fas fa-calendar-check"></i>
           <span>Réservations</span>
         </a>
         <ul class="dropdown">
-          <li><a href="reserver.html"><i class="fas fa-calendar-plus"></i> <span>Réserver</span></a></li> 
-          <li><a href="voir_reservations.html"><i class="fas fa-calendar-day"></i> <span>Voir les réservations</span></a></li> 
+          <li><a href="reserver.php"><i class="fas fa-calendar-plus"></i> <span>Réserver</span></a></li> 
+          <li><a href="voir_reservations.php"><i class="fas fa-calendar-day"></i> <span>Voir les réservations</span></a></li> 
         </ul>
       </li>
       
        <!-- Cours -->    
       <li>
-        <a href="cours.html" class="menu-item dropdown-toggle">
+        <a href="#" class="menu-item dropdown-toggle">
           <i class="fas fa-book"></i>
           <span>Cours</span>
         </a>
         <ul class="dropdown">
-          <li><a href="elearning.html"><i class="fas fa-laptop"></i> <span>Elearning</span></a></li> 
-          <li><a href="archives.html"><i class="fas fa-archive"></i> <span>Archives</span></a></li> 
-          <li><a href="rendus.html"><i class="fas fa-file-upload"></i> <span>Rendus</span></a></li>
-          <li><a href="notes.html"><i class="fas fa-graduation-cap"></i> <span>Notes</span></a></li>
+          <li><a href="elearning.php"><i class="fas fa-laptop"></i> <span>Elearning</span></a></li> 
+          <li><a href="archives.php"><i class="fas fa-archive"></i> <span>Archives</span></a></li> 
+          <li><a href="rendus.php"><i class="fas fa-file-upload"></i> <span>Rendus</span></a></li>
+          <li><a href="notes.php"><i class="fas fa-graduation-cap"></i> <span>Notes</span></a></li>
         </ul>
       </li>
     </ul>
     
        <!-- Deconnexion -->     
     <div class="logout">
-      <a href="connexion.html" class="logout-button">
+      <a href="connexion.php" class="logout-button">
         <i class="fas fa-sign-out-alt"></i>
         <span>Se déconnecter</span>
       </a>

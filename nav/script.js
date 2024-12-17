@@ -1,49 +1,25 @@
-// Toggle the collapse state for the sidebar
 const sideNav = document.querySelector('.side-nav');
 const collapseButton = document.querySelector('.collapse-button');
+const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
 
-collapseButton.addEventListener('click', () => {
-  // Toggle the collapsed state
-  sideNav.classList.toggle('collapsed');
 
-  // If the nav is collapsed, close any open dropdowns
-  if (sideNav.classList.contains('collapsed')) {
-    document.querySelectorAll('.dropdown.open').forEach((openDropdown) => {
-      openDropdown.classList.remove('open');
-    });
-  }
-});
+// Dropdown toggle functionality
+dropdownToggles.forEach(toggle => {
+  toggle.addEventListener('click', (e) => {
+    e.preventDefault();
 
-// Handle dropdown menu toggle when clicked
-document.querySelectorAll('.dropdown-toggle').forEach((toggle) => {
-  toggle.addEventListener('click', function (event) {
-    // Prevent default anchor link behavior
-    event.preventDefault();
+    const dropdown = toggle.nextElementSibling;
 
-    // Only toggle the dropdown if the side nav is expanded
-    if (!sideNav.classList.contains('collapsed')) {
-      const dropdown = this.nextElementSibling;
+    // Toggle current dropdown
+    dropdown.classList.toggle('open');
+    toggle.classList.toggle('rotate');
 
-      // Toggle the dropdown menu open/close
-      if (dropdown.classList.contains('open')) {
-        dropdown.classList.remove('open');
-      } else {
-        // Close all other open dropdowns
-        document.querySelectorAll('.dropdown.open').forEach((openDropdown) => {
-          openDropdown.classList.remove('open');
-        });
-        dropdown.classList.add('open');
+    // Close other dropdowns
+    document.querySelectorAll('.dropdown').forEach(otherDropdown => {
+      if (otherDropdown !== dropdown) {
+        otherDropdown.classList.remove('open');
+        otherDropdown.previousElementSibling.classList.remove('rotate');
       }
-    } else {
-      // If the nav is collapsed, we expand the nav and show the dropdown
-      sideNav.classList.remove('collapsed'); // Expand the nav
-      const dropdown = this.nextElementSibling;
-
-      // Show the dropdown menu
-      document.querySelectorAll('.dropdown.open').forEach((openDropdown) => {
-        openDropdown.classList.remove('open');
-      });
-      dropdown.classList.add('open');
-    }
+    });
   });
 });
