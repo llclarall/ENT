@@ -84,13 +84,19 @@ body {
   }
 
   .course-details strong {
-    font-size: 14px;
+    font-size: 0.9rem;
     display: block;
+  }  
+  .course-details span {
+    margin-top: 8px; 
+    display: block; 
+    font-size: 0.9rem;
   }
+  
 
   /* Archives Button */
   .archives-btn {
-    background-color: #ff5f5f;
+    background-color: #2F4156;
     padding: 10px 20px;
     color: white;
     text-decoration: none;
@@ -105,3 +111,33 @@ body {
   .archives-btn:hover {
     background-color: #640d0d;
   }
+
+
+
+
+  /* Style du conteneur du menu déroulant */
+.semestre-dropdown {
+  margin: 20px auto;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Style de la liste déroulante */
+.semestre-dropdown select {
+  padding: 8px 12px;
+  font-size: 16px;
+  border: 1px solid #bdbdbd;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  cursor: pointer;
+}
+
+/* Style au hover et focus */
+.semestre-dropdown select:hover, 
+.semestre-dropdown select:focus {
+  outline: none;
+  border-color: #888;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
