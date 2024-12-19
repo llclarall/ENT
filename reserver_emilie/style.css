@@ -67,7 +67,7 @@ body {
 }
 
 .connect{
-    color: white;
+    color: black;
 }
 
 h1 {
@@ -138,10 +138,15 @@ h2 {
     align-items: center;
     padding: 20px;
     box-sizing: border-box;
+    
 }
 .block {
     width: 250px; /* Réduction de la largeur */
+<<<<<<< Updated upstream
     height: 300px; /* Réduction de la hauteur */
+=======
+    height: 270px; /* Réduction de la hauteur */
+>>>>>>> Stashed changes
     background-color: #577C8E;
     border-radius: 10px;
     display: flex;
@@ -157,6 +162,7 @@ h2 {
     padding: 0;
     max-height: 300px; /* Mise à jour de la hauteur max */
 }
+
 
 
 .block .food {
@@ -195,7 +201,11 @@ h2 {
 }
 
 .block .description {
+<<<<<<< Updated upstream
     font-size: 0.8rem; /* Réduction de la taille de la description */
+=======
+    font-size: 0.7rem;
+>>>>>>> Stashed changes
     text-align: left;
     margin: 5px 10px; /* Ajustement des marges */
     font-weight: 400;
@@ -212,7 +222,11 @@ h2 {
 .resas {
     margin-top: 2px;
     padding: 10px 40px;
+<<<<<<< Updated upstream
     margin-left: 230px;
+=======
+    margin-left: 240px;
+>>>>>>> Stashed changes
     background-color: #2F4156;
     color: white;
     border: none;
@@ -236,10 +250,10 @@ h2 {
     font-size: 1rem; /* Réduction de la taille de la police */
 }
 .block .image {
-        width: 100%;
-        height: 40%;
-        object-fit: cover; 
-        border-top-left-radius: 10px;
-        border-top-right-radius: 10px;
-
+    width: 100%;
+    height: auto; /* Maintien du ratio de l'image */
+    max-height: 120px; /* Limite la hauteur de l'image */
+    object-fit: cover;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
 }
