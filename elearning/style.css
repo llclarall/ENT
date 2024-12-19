@@ -55,7 +55,7 @@ body {
   }
 
   .course-card:hover {
-    transform: scale(1.05); /* Zoom léger */
+    transform: scale(1.02); /* Zoom léger */
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     cursor: pointer; 
   }
