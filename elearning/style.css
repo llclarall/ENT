@@ -1,0 +1,187 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #FAFDF9;
+  }
+
+  main {
+    display: flex;
+    flex-direction: column;
+ 
+  }
+
+  h1 {
+    font-size: 2.2rem;
+    text-align: center;
+  }
+
+  /* Course section */
+  .section-title {
+    background-color: #2F4156;
+    color: white;
+    padding: 10px 30px;
+    border-radius: 10px;
+    font-weight: bold;
+    margin: 30px 0 10px 0;
+    text-align: center;
+    font-size: 1.4rem;    
+  }
+
+  .course-container {
+      display: flex;
+      justify-content: start;
+      flex-wrap: wrap;
+      gap: 50px;
+      width: 100%;  
+      margin-top: 30px;
+      margin-bottom: 70px;
+  }
+
+  .elearning-container {
+    margin: 30px auto;
+  }
+
+  .course-card {
+    width: 300px;
+    height: 190px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .course-card:hover {
+    transform: scale(1.02); /* Zoom léger */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    cursor: pointer; 
+  }
+  
+  .course-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+    
+  }
+
+  .course-details {
+    background-color: #2F4156;
+    color: white;
+    padding: 10px;
+    text-align: left;
+    z-index: 1;
+    height: 70px;
+    position: relative;
+    flex: 0 0 auto;
+
+  }
+
+  .course-details strong {
+    font-size: 0.9rem;
+    display: block;
+  }  
+  
+  .course-details span {
+    margin-top: 8px; 
+    display: block; 
+    font-size: 0.9rem;
+  }
+  
+
+  /* Archives Button */
+  .archives-btn {
+    background-color: #2F4156;
+    padding: 10px 20px;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    display: inline-block;
+    font-weight: bold;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+  }
+
+  .archives-btn:hover {
+    background-color: #567C8D;
+  }
+
+
+  /* Style du conteneur du menu déroulant */
+.semestre-dropdown {
+  margin: 20px auto;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Style de la liste déroulante */
+.semestre-dropdown select {
+  padding: 8px 12px;
+  font-size: 16px;
+  border: 1px solid #bdbdbd;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  cursor: pointer;
+}
+
+/* Style au hover et focus */
+.semestre-dropdown select:hover, 
+.semestre-dropdown select:focus {
+  outline: none;
+  border-color: #888;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .course-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 30px; 
+  }
+
+  .course-card {
+    width: 95%; 
+    max-width: 340px; 
+    height: 200px; 
+  }
+
+  .course-details {
+    text-align: center; 
+  }
+
+  .course-details strong{
+   margin-top: 5px;
+  }
+
+  .section-title {
+    font-size: 1.2rem; 
+    margin-top: -10px;
+  }
+
+  .semestre-dropdown {
+    flex-direction: column; 
+    text-align: center;
+    gap: 15px;
+  }
+
+  .semestre-dropdown select {
+    width: 90%; 
+  }
+
+  .archives-btn {
+    position: static; 
+    margin: 10px auto;
+  }
+}
+
+
