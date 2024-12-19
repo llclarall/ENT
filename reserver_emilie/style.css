@@ -143,7 +143,11 @@ h2 {
 .block {
     width: 250px; /* Réduction de la largeur */
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     height: 300px; /* Réduction de la hauteur */
+=======
+    height: 270px; /* Réduction de la hauteur */
+>>>>>>> Stashed changes
 =======
     height: 270px; /* Réduction de la hauteur */
 >>>>>>> Stashed changes
@@ -202,7 +206,11 @@ h2 {
 
 .block .description {
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     font-size: 0.8rem; /* Réduction de la taille de la description */
+=======
+    font-size: 0.7rem;
+>>>>>>> Stashed changes
 =======
     font-size: 0.7rem;
 >>>>>>> Stashed changes
@@ -223,7 +231,11 @@ h2 {
     margin-top: 2px;
     padding: 10px 40px;
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     margin-left: 230px;
+=======
+    margin-left: 240px;
+>>>>>>> Stashed changes
 =======
     margin-left: 240px;
 >>>>>>> Stashed changes
