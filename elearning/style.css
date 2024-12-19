@@ -87,6 +87,7 @@ body {
     font-size: 0.9rem;
     display: block;
   }  
+  
   .course-details span {
     margin-top: 8px; 
     display: block; 
@@ -109,10 +110,8 @@ body {
   }
 
   .archives-btn:hover {
-    background-color: #640d0d;
+    background-color: #567C8D;
   }
-
-
 
 
   /* Style du conteneur du menu déroulant */
@@ -141,3 +140,48 @@ body {
   border-color: #888;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .course-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 30px; 
+  }
+
+  .course-card {
+    width: 95%; 
+    max-width: 340px; 
+    height: 200px; 
+  }
+
+  .course-details {
+    text-align: center; 
+  }
+
+  .course-details strong{
+   margin-top: 5px;
+  }
+
+  .section-title {
+    font-size: 1.2rem; 
+    margin-top: -10px;
+  }
+
+  .semestre-dropdown {
+    flex-direction: column; 
+    text-align: center;
+    gap: 15px;
+  }
+
+  .semestre-dropdown select {
+    width: 90%; 
+  }
+
+  .archives-btn {
+    position: static; 
+    margin: 10px auto;
+  }
+}
+
+
