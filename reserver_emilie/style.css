@@ -7,67 +7,6 @@ body {
     height: 100vh;
     font-family: "Inter", "regular";
     background-color: #f4f4f4;
-   
-}
-
-
-.login-form {
-    background: #2F4156;
-    padding: 20px 30px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 400px;
-}
-
-.login-form h2 {
-    margin-bottom: 20px;
-    color: white;
-    text-align: center;
-    font-size: 1rem;
-}
-
-.login-form label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-}
-
-.login-form input[type="text"],
-.login-form input[type="password"] {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box;
-}
-
-
-.login-form button:hover {
-    background-color: #0056b3;
-}
-
-
-.login-form .forgot-password:hover {
-    text-decoration: underline;
-}
-
-
-
-.connecter{
-    display: flex;
-    padding: 10px 60px;
-   background-color: white;
-   color: black;
-   border: none;
-   border-radius: 16px;
-   cursor: pointer;
-   margin-top: 10px;
-}
-
-.connect{
-    color: black;
 }
 
 h1 {
@@ -90,67 +29,17 @@ h2 {
     gap: 30px;
     margin-top: 20px;
     justify-content: center;
-    width: 100%;
-    height: 100%;
-    
 }
-
 
 .item {
     display: flex;
     flex-direction: column; 
     align-items: center;
 }
-.left-block {
-    background-color: #577C8E; /* Couleur de fond */
-    color: white; /* Texte en blanc */
-    width: 35%; /* Bloc couvre 25% de la largeur */
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    box-sizing: border-box;
-    text-align: left;
-}
-.bienvenue{
-    font-size: 1.5rem;
-    margin-top: 20px;
-    text-align: left;
-}
-.left-block h1 {
-    margin: 0;
-    font-size: 2rem;
-    text-align: center;
-}
 
-.left-block p {
-    margin-top: 10px;
-    font-size: 1rem;
-    text-align: center;
-}
-
-.right-section {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    box-sizing: border-box;
-    
-}
 .block {
-    width: 250px; /* Réduction de la largeur */
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-    height: 300px; /* Réduction de la hauteur */
-=======
-    height: 270px; /* Réduction de la hauteur */
->>>>>>> Stashed changes
-=======
-    height: 270px; /* Réduction de la hauteur */
->>>>>>> Stashed changes
+    width: 310px;
+    height: 350px;
     background-color: #577C8E;
     border-radius: 10px;
     display: flex;
@@ -164,36 +53,34 @@ h2 {
     overflow: hidden;
     position: relative;
     padding: 0;
-    max-height: 300px; /* Mise à jour de la hauteur max */
+    max-height: 320px; 
 }
 
 
-
 .block .food {
-    width: 80px; /* Réduction de la taille de l'image */
-    height: 70px; /* Réduction de la hauteur de l'image */
-    margin-bottom: 15px; /* Espacement réduit */
+    width: 100px;
+    height: 85px;
+    margin-bottom: 20px;
     object-fit: contain;
 }
 
 
-
 .block p {
-    margin-top: 5px; /* Réduction de la marge du texte */
-    margin-bottom: 5px;
+    margin-top: 10px;
+    margin-bottom: 0;
     text-align: left;
 }
 
 .block .resa {
     display: flex;
-    padding: 8px 40px; /* Réduction des paddings du bouton */
-    background-color: #2F4156;
-    color: white;
-    border: none;
-    border-radius: 16px;
-    cursor: pointer;
-    margin-top: 10px;
-    font-size: 0.9rem; /* Réduction de la taille de la police */
+ padding: 10px 60px;
+background-color: #2F4156;
+color: white;
+border: none;
+border-radius: 16px;
+cursor: pointer;
+margin-top: 10px;
+        
 }
 
 
@@ -205,20 +92,12 @@ h2 {
 }
 
 .block .description {
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-    font-size: 0.8rem; /* Réduction de la taille de la description */
-=======
-    font-size: 0.7rem;
->>>>>>> Stashed changes
-=======
-    font-size: 0.7rem;
->>>>>>> Stashed changes
+    font-size: 0.9rem;
     text-align: left;
-    margin: 5px 10px; /* Ajustement des marges */
+    margin: 2px 10px;
     font-weight: 400;
     margin-top: 2px;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
     line-height: 1.6;
     display: flex;
     flex-direction: column;
@@ -230,15 +109,7 @@ h2 {
 .resas {
     margin-top: 2px;
     padding: 10px 40px;
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-    margin-left: 230px;
-=======
-    margin-left: 240px;
->>>>>>> Stashed changes
-=======
-    margin-left: 240px;
->>>>>>> Stashed changes
+    margin-left: 220px;
     background-color: #2F4156;
     color: white;
     border: none;
@@ -256,16 +127,19 @@ h2 {
 }
 
 .block .reservez {
-    text-align: left;
-    width: 90%;
-    margin: 8px 0; /* Réduction de la marge */
-    font-size: 1rem; /* Réduction de la taille de la police */
+   
+        text-align: left;
+        width: 90%;
+        margin: 10px 0;
+        margin-bottom: 2px;
+        font-size: 1.2rem; 
 }
+
 .block .image {
-    width: 100%;
-    height: auto; /* Maintien du ratio de l'image */
-    max-height: 120px; /* Limite la hauteur de l'image */
-    object-fit: cover;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
+        width: 100%;
+        height: 40%;
+        object-fit: cover; 
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+
 }
