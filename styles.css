@@ -25,14 +25,18 @@ header img {
     width: 50px;
     height: 50px;
     margin-left: 1rem;
+    transition: all 0.2s ease;
 }
 
+header img:hover {
+    transform: scale(1.05);
+}
 
 /* ACCUEIL CLARA */
 
 .accueil {
     margin: 0 auto;
-    padding: 5rem 0;
+    padding: 2rem 0;
 }
 
 .accueil h1 {
@@ -45,7 +49,7 @@ header img {
     display: grid;
     grid-template-areas:
         "applications messages"
-        "reservations rendus"
+        "notifs rendus"
         "menu rendus"
         "actualites actualites";
     grid-template-columns: repeat(2, 1fr);
@@ -58,13 +62,13 @@ header img {
 
 /* Widget général */
 .accueil .widget {
-    background: #fff;
-    border-radius: 6px; /* Coins moins arrondis */
+    border-radius: 15px; /* Coins moins arrondis */
     padding: 1rem; /* Réduction du padding */
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Ombre plus subtile */
     font-size: 0.9rem; /* Taille de police réduite */
     cursor: pointer;
     transition: transform 0.2s, box-shadow 0.2s;
+    border: var(--bleu) 1px solid;
 }
 
 .accueil .widget:hover {
@@ -77,29 +81,59 @@ header img {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 2rem; 
+    gap: 1.5rem; 
+}
+
+.accueil .applications .flex-container {
+    margin-top: 1rem;
 }
 
 .accueil .sub-block {
     flex: 1;
-    height: 4rem; 
-    background-color: #e8e8e8;
-    border-radius: 4px;
+    height: 4.5rem; 
+    background-color: #fff;
+    border-radius: 15px;
+    text-align: center;
+    border: black solid 1px;
 }
 
-/* Grid Area Positionnement */
+.accueil .absences, .accueil .notes, .accueil .reservations {
+    flex: 1;
+}
+
+.accueil img {
+    width: 40px;
+    margin: 0 auto;
+    display: block;
+    height: auto;
+    border-radius: 6px;
+    transition: transform 0.2s;
+    margin-bottom: .5rem;
+}
+
+.accueil .notifs h3 {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    margin-top: 0.2rem;
+}
+
+.accueil .big {
+    font-size: 2.5rem;
+}
+
+/* Grid Positionnement */
 .applications {
     grid-area: applications;
     border: black 1px solid;
     padding: 0.8rem;
-    border-radius: 6px;
+    border-radius: 10px;
 }
 
-.reservations {
-    grid-area: reservations;
+.notifs {
+    grid-area: notifs;
     border: black 1px solid;
     padding: 0.8rem;
-    border-radius: 6px;
+    border-radius: 10px;
 }
 
 .menu {
@@ -108,6 +142,8 @@ header img {
 
 .messages {
     grid-area: messages;
+    background-color: var(--bleu);
+    color: var(--bg-color);
 }
 
 .rendus {
@@ -116,9 +152,30 @@ header img {
 
 .actualites {
     grid-area: actualites;
+    background-color: var(--bleu);
+    color: var(--bg-color);
 }
 
 .accueil h2 {
     font-size: 1.5rem;
     margin-top: 0;
+    margin-bottom: 0;
+}
+
+.accueil hr {
+    margin-bottom: 1.5rem;
+}
+
+@media (width<=800px) {
+    .accueil .container {
+        grid-template-areas:
+            "applications"
+            "notifs"
+            "messages"
+            "rendus"
+            "menu"
+            "actualites";
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+    }
 }
