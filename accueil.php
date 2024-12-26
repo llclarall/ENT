@@ -1,6 +1,22 @@
 <?php 
     include('header.php');
     include('config.php');
+    include('nav.php');
+
+    // Vérifier si l'utilisateur est connecté
+    if (!isset($_SESSION['id'])) {
+        header("Location: index.php");
+        exit();
+    }
+
+    // Récupérer les informations de l'utilisateur
+    $id = $_SESSION['id'];
+    $requete = "SELECT * FROM utilisateurs WHERE id = :id";
+    $stmt = $db->prepare($requete);
+    $stmt->bindParam(':id', $id);
+    $stmt->execute();
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
 ?>
 
 <!DOCTYPE html>
@@ -17,7 +33,8 @@
 <body>
     
     <div class="accueil">
-        <h1>Bienvenue user !</h1>
+        <h1>Bienvenue <?php echo $user['prenom']; ?>!</h1>
+        
         
         <div class="container">
             <!-- Applications avec 3 sous-blocs -->
