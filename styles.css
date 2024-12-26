@@ -192,21 +192,19 @@ header img:hover {
 
 /* CONNEXION EMILIE */
 
-h1 {
+/* .connexion {
     margin: 0;
-    padding: 20px 0;
-    font-size: 2rem;
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    height: 100vh;
+    font-family: "Inter", "regular";
+    background-color: #f4f4f4;
 }
+ */
 
-h2 {
-    margin-top: 20px;
-    padding: 10px 0;
-    font-size: 2rem;
-    text-align: center;
-}
-
-.container {
+.connexion {
     display: flex;
     flex-direction: row; 
     gap: 30px;
@@ -214,7 +212,35 @@ h2 {
     justify-content: center;
 }
 
-.item {
+.connexion h1 {
+    margin: 0;
+    padding: 20px 0;
+    font-size: 2rem;
+    text-align: center;
+}
+
+.connexion h2 {
+    margin-top: 20px;
+    padding: 10px 0;
+    font-size: 2rem;
+    text-align: center;
+}
+
+.connexion .password-container {
+    position: relative;
+    display: inline-block;
+}
+
+.connexion .toggle-password {
+    position: absolute;
+    top: 50%;
+    right: 5px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: .9em;
+}
+
+.connexion .item {
     display: flex;
     flex-direction: column; 
     align-items: center;
@@ -262,8 +288,7 @@ color: white;
 border: none;
 border-radius: 16px;
 cursor: pointer;
-margin-top: 10px;
-        
+margin-top: 10px;      
 }
 
 
@@ -310,7 +335,6 @@ margin-top: 10px;
 }
 
 .block .reservez {
-   
         text-align: left;
         width: 90%;
         margin: 10px 0;
