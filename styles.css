@@ -12,6 +12,15 @@ body {
     font-family: Arial, sans-serif;
 }
 
+html {
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+html::-webkit-scrollbar {
+  width: .01rem;
+}
+
 header {
     background-color: var(--bleu);
     color: white;
