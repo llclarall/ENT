@@ -41,9 +41,15 @@
             <div class="applications">
                 <h2>Applications</h2>
                 <div class="flex-container">
-                    <div class="widget sub-block elearning"><img src="images/elearning2.png" alt="">Elearning</div>
-                    <div class="widget sub-block archives"><img src="images/archives.png" alt="">Archives</div>
-                    <div class="widget sub-block edt"><img src="images/edt.png" alt="">Emploi du temps</div>
+                    <a href="elearning.php" class="widget sub-block elearning">
+                            <img src="images/elearning2.png" alt="">Elearning
+                    </a>
+                    <a href="archives.php" class="widget sub-block archives">
+                            <img src="images/archives.png" alt="">Archives
+                    </a>
+                    <a href="edt.php" class="widget sub-block edt">
+                            <img src="images/edt.png" alt="">Emploi du temps
+                    </a>
                 </div>
             </div>
             <!-- Réservations avec 3 sous-blocs -->
@@ -52,34 +58,42 @@
                 <div class="flex-container">
                     <div class="absences">
                         <h3><i class="fa-solid fa-ghost"></i> Absences</h3>
-                        <div class="widget sub-block">
-                            <span class="big">8h</span> <br>
-                            <span>à justifier</span>
-                        </div>
+                        <a href="absences.php">
+                            <div class="widget sub-block">
+                                <span class="big">8h</span> <br>
+                                <span>à justifier</span>
+                            </div>
+                        </a>
                     </div>
                     <div class="notes">
                         <h3><i class="fa-solid fa-heart"></i> Notes</h3>
-                        <div class="widget sub-block">
-                            <span class="big">3+</span> <br>
-                            <span>notes</span>
-                        </div>
+                        <a href="notes.php">
+                            <div class="widget sub-block">
+                                <span class="big">3+</span> <br>
+                                <span>notes</span>
+                            </div>
+                        </a>
                     </div>
                     <div class="reservations">
                         <h3><i class="fa-solid fa-bookmark"></i> RSVP</h3>
-                        <div class="widget sub-block">
-                            <span class="big">1</span> <br>
-                            <span>réservation</span>
-                        </div>
+                        <a href="reservations.php">
+                            <div class="widget sub-block">
+                                <span class="big">1</span> <br>
+                                <span>réservation</span>
+                            </div>
+                        </a>
                     </div>
                 </div>
             </div>
         
             <!-- Derniers messages -->
-            <div class="widget messages">
-                <h2>Derniers messages</h2><hr>
-                <p>Le prochain QCM se...</p>
-                <p>Gaëlle Charpentier | 12/11</p>
-            </div>
+            <a href="messagerie.php">
+                <div class="widget messages">
+                    <h2>Derniers messages</h2><hr>
+                    <p>Le prochain QCM se...</p>
+                    <p>Gaëlle Charpentier | 12/11</p>
+                </div>
+            </a>
             <!-- Menu -->
             <div class="widget menu">
                 <h2>Menu du jour</h2> <hr>

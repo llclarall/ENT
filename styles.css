@@ -57,11 +57,11 @@ header img:hover {
 .accueil .container {
     display: grid;
     grid-template-areas:
-        "applications messages"
-        "notifs rendus"
-        "menu rendus"
-        "actualites actualites";
-    grid-template-columns: repeat(2, 1fr);
+        "applications applications messages"
+        "notifs notifs rendus"
+        "menu menu rendus"
+        "actualites actualites actualites";
+    grid-template-columns: repeat(3, 1fr);
     grid-template-rows: auto;
     gap: 15px;
     padding: 20px;
@@ -128,6 +128,12 @@ header img:hover {
 
 .accueil .big {
     font-size: 2.5rem;
+}
+
+.accueil .container a {
+    text-decoration: none;
+    color: var(--bleu);
+    font-weight: bold;
 }
 
 /* Grid Positionnement */
@@ -372,6 +378,7 @@ margin-top: 10px;
     overflow-y: auto;
     transition: width 0.3s ease;
     gap: 1rem;
+    z-index: 20;
 }
 
 .side-nav .logo {
