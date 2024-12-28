@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Emploi du Temps - Semaine</title>
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
 <h1>Emploi du Temps</h1>
@@ -18,18 +18,17 @@
 <th class="edt-day">Mercredi</th>
 <th class="edt-day">Jeudi</th>
 <th class="edt-day">Vendredi</th>
-<th class="edt-day">Samedi</th>
-<th class="edt-day">Dimanche</th>
+
 </tr>
 </thead>
 <tbody>
 <?php
-$hours = ["08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00"];
+$hours = ["07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00"];
 foreach ($hours as $hour) {
 echo "<tr>";
 echo "<td class='edt-cell'>$hour</td>"; // Heure affichée
 // Ajout des cellules avec data-time et data-day
-for ($i = 0; $i < 7; $i++) {
+for ($i = 0; $i < 5; $i++) {  // 5 jours (Lundi à Vendredi)
 echo "<td class='edt-cell' data-time='$hour' data-day='$i'></td>";
 }
 echo "</tr>";
@@ -60,7 +59,6 @@ const minutes = parseInt(timeParts[1]);
 return new Date(year, month, day, hours, minutes);
 }
 
-// Fonction pour ajouter les événements dans les bonnes cellules
 document.addEventListener('DOMContentLoaded', () => {
     fetch('edt_semaine.json')  // Charger le fichier JSON
     .then(response => response.json())
@@ -68,7 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log(events); // Debug : afficher les événements pour vérifier leur structure
 
         // Trier les événements par jour de la semaine (lundi = 1, dimanche = 0)
-        const daysOfWeek = [1, 2, 3, 4, 5, 6, 0]; // Lundi = 1, Dimanche = 0
+        const daysOfWeek = [1, 2, 3, 4, 5]; // Lundi = 1, Vendredi = 5
         const sortedEvents = daysOfWeek.map(day => {
             return events.filter(event => {
                 const eventDay = parseDate(event.debut).getDay();
@@ -89,6 +87,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 const endTime = parseDate(event.fin);
                 const startHour = startTime ? startTime.getHours() : null;  // Vérifier si startTime est défini
                 const startMinute = startTime ? startTime.getMinutes() : null;
+                const endHour = endTime ? endTime.getHours() : null;
+                const endMinute = endTime ? endTime.getMinutes() : null;
                 const duration = startTime && endTime ? (endTime - startTime) / (1000 * 60) : 0; // Durée en minutes
                 const cells = document.querySelectorAll('.edt-cell');
 
@@ -102,30 +102,36 @@ document.addEventListener('DOMContentLoaded', () => {
                     const cellDay = parseInt(cell.getAttribute('data-day'));   // Jour de la cellule (entier)
 
                     if (!cellTime) {
-                        console.error('Erreur: L\'heure de la cellule est invalide');
-                        return; // Si cellTime est invalide, on ignore cette cellule
+                        console.error(`Erreur: L'attribut 'data-time' est absent ou invalide pour la cellule`, cell);
+                        return; // Si l'attribut 'data-time' est absent, ignorer cette cellule
                     }
 
-                    // Comparer uniquement les heures (ignorer les minutes)
-                    const cellHour = parseInt(cellTime.split(':')[0]);  // Récupérer l'heure de la cellule
-                    if (cellHour === startHour && cellDay === daysOfWeek[dayIndex]) {
-                        // Ajouter l'événement dans la cellule de début
-                        cell.innerHTML = `${event.titre} <br> ${event.lieu}`;
-                        cell.style.backgroundColor = '#dfe';  // Changer la couleur de fond de la cellule
+                    const [cellHour, cellMinute] = cellTime.split(':').map(part => parseInt(part));  // Récupérer l'heure et les minutes de la cellule
+                    const cellTimeInMinutes = cellHour * 60 + cellMinute;  // Convertir l'heure de la cellule en minutes
 
-                        // Fusionner les cellules suivantes si l'événement dure plus longtemps
-                        const durationInHours = duration / 60; // Convertir la durée en heures
-                        for (let i = 1; i < durationInHours; i++) {
-                            const nextHour = startHour + i;  // Heure suivante
-                            const nextCell = document.querySelector(`.edt-cell[data-time='${nextHour}:00'][data-day='${cellDay}']`);
-                            if (nextCell) {
-                                nextCell.innerHTML = '';  // Ne rien afficher dans la cellule suivante
-                                nextCell.style.backgroundColor = '#dfe';  // Garder la même couleur de fond
-                                nextCell.setAttribute('colspan', 1);  // La cellule ne doit plus être fusionnée avec la suivante
+                    const eventStartInMinutes = startHour * 60 + startMinute;  // Heure de début de l'événement en minutes
+                    const eventEndInMinutes = endHour * 60 + endMinute;  // Heure de fin de l'événement en minutes
 
-                                // Si c'est la cellule suivante, on met à jour la cellule de départ pour fusionner
-                                const rowspanValue = durationInHours;  // La cellule de départ va couvrir toute la durée
-                                cell.setAttribute('rowspan', rowspanValue);  // Fusionner avec les cellules suivantes
+                    // Vérifier si l'événement se trouve dans le bon jour
+                    if (cellDay === daysOfWeek[dayIndex]) {
+                        // Vérifier si l'événement doit commencer dans cette cellule
+                        if (cellTimeInMinutes === eventStartInMinutes) {
+                            cell.innerHTML = event.titre + "<br>" + event.lieu;
+                            cell.style.backgroundColor = '#dfe';  // Changer la couleur de fond de la cellule
+                        }
+
+                        // Vérifier si l'événement dure plus d'une heure et l'afficher en plusieurs cellules
+                        if (eventEndInMinutes > cellTimeInMinutes && eventStartInMinutes <= cellTimeInMinutes) {
+                            cell.style.backgroundColor = '#dfe';  // Afficher l'événement dans la cellule
+                            const minutesLeft = eventEndInMinutes - cellTimeInMinutes;
+
+                            if (minutesLeft >= 60) {
+                                // Étendre l'événement sur plusieurs cellules si la durée dépasse une heure
+                                const nextCell = cell.nextElementSibling;
+                                if (nextCell) {
+                                    nextCell.style.backgroundColor = '#dfe';  // Afficher sur la cellule suivante
+                                    cell.style.height = 'calc(100% * (minutesLeft / 60))';
+                                }
                             }
                         }
                     }
@@ -137,7 +143,6 @@ document.addEventListener('DOMContentLoaded', () => {
         console.error('Erreur lors du chargement des événements:', error);
     }); // Gérer les erreurs de chargement des événements
 });
-
 
 
 </script>

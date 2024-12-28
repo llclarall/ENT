@@ -701,11 +701,11 @@ to {
 }
 
 .edt-cell {
-    width: 120px;
+    width: 100px;
     height: 50px;
     border: 1px solid #ddd;
     padding: 5px;
-    vertical-align: top;
+    vertical-align: bottom;
     text-align: center;
 }
 
@@ -718,4 +718,8 @@ to {
 
 .edt-cell:hover {
     background-color: #e0e0e0;
+}
+
+.edt-cell.event {
+    background-color: #dfe;  /* Ajoute une couleur de fond pour les événements */
 }
