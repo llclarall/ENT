@@ -1,5 +1,4 @@
 <?php
-    include('header.php');
     include('config.php');
 ?>
 
@@ -17,13 +16,16 @@
 </head>
 <body>
 <section class="connexion">
-    <div class="left-block">
-        <h1 class="welcome-message">Bienvenue sur l’ENT de Gustave Eiffel</h1>
+    <div class="left-section">
+        <div class="left-block">
+            <img src="images/logo.png" alt="">
+            <h1 class="welcome-message">Bienvenue sur l’ENT de Gustave Eiffel</h1>
+        </div>
     </div>
 
-    <div class="right-block">
+    <div class="right-section">
 
-        <h1>Se connecter</h1>
+        <h2>Se connecter</h2>
         <?php
     // Vérifie s'il y a une erreur dans l'URL
     if (isset($_GET['erreur']) && $_GET['erreur'] == 'login') {
@@ -36,14 +38,15 @@
         <input type="text" id="login" name="login" required>
         <br><br>
         
-        <label for="password">Mot de passe :</label><br>
+        <label for="password">Mot de passe :</label>
         <div class="password-container">
             <input type="password" id="password" name="password" required>
             <span class="toggle-password" onclick="togglePassword('password', this)">👁️</span>
         </div>
         <br><br>
-        
+
         <input type="submit" class="connecter" value="Se connecter">
+        <a href="#" class="forgot-password">Mot de passe oublié ?</a>
     </form>
 
     </div>
