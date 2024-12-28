@@ -690,3 +690,32 @@ to {
 }
 }
 
+
+
+
+/* EDT CLARA */
+
+#edt-container {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.edt-cell {
+    width: 120px;
+    height: 50px;
+    border: 1px solid #ddd;
+    padding: 5px;
+    vertical-align: top;
+    text-align: center;
+}
+
+.edt-day {
+    width: 100px;
+    text-align: center;
+    padding: 10px 0;
+    background-color: #f0f0f0;
+}
+
+.edt-cell:hover {
+    background-color: #e0e0e0;
+}

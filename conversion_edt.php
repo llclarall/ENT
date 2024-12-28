@@ -15,7 +15,7 @@ function telechargerIcal($url, $destination) {
     file_put_contents($destination, $fichier);
 }
 
-// Fonction pour convertir le fichier .ical en JSON
+// Fonction pour convertir le fichier .ical en JSON, avec filtrage par semaine
 function convertirIcalEnJson($icalPath, $jsonPath) {
     if (!file_exists($icalPath)) {
         die("Erreur : fichier iCal introuvable.\n");
@@ -23,6 +23,11 @@ function convertirIcalEnJson($icalPath, $jsonPath) {
 
     // Lire le contenu du fichier .ical
     $icalData = file_get_contents($icalPath);
+
+    // Calculer le début et la fin de la semaine à venir
+    $semaineProchaine = getSemaineProchaine();
+    $debutSemaine = $semaineProchaine['debut'];
+    $finSemaine = $semaineProchaine['fin'];
 
     // Extraire les événements
     $events = [];
@@ -37,13 +42,17 @@ function convertirIcalEnJson($icalPath, $jsonPath) {
             $debut = convertirDateLisible($start[1] ?? null);
             $fin = convertirDateLisible($end[1] ?? null);
 
-            // Ajouter l'événement au tableau
-            $events[] = [
-                "titre" => trim($summary[1] ?? 'Sans titre'),
-                "debut" => $debut,
-                "fin" => $fin,
-                "lieu" => trim($location[1] ?? 'Non spécifié')
-            ];
+            // Vérifier si l'événement est dans la semaine à venir
+            $eventStartDate = DateTime::createFromFormat('Ymd\THis\Z', $start[1]);
+            if ($eventStartDate >= $debutSemaine && $eventStartDate <= $finSemaine) {
+                // Ajouter l'événement au tableau
+                $events[] = [
+                    "titre" => trim($summary[1] ?? 'Sans titre'),
+                    "debut" => $debut,
+                    "fin" => $fin,
+                    "lieu" => trim($location[1] ?? 'Non spécifié')
+                ];
+            }
         }
     }
 
@@ -60,7 +69,7 @@ function convertirDateLisible($icalDate) {
     $format = 'Ymd\THis\Z';
 
     // Conversion de la date iCal en objet DateTime
-    $date = DateTime::createFromFormat($format, $&²²²²);
+    $date = DateTime::createFromFormat($format, $icalDate);
 
     // Vérifier si la conversion a réussi
     if (!$date) {
@@ -72,6 +81,23 @@ function convertirDateLisible($icalDate) {
 
     // Retourner la date formatée en "jour mois année à heurehminute"
     return $date->format('j F Y \à H\hi');
+}
+
+// Fonction pour obtenir le début et la fin de la semaine à venir
+function getSemaineProchaine() {
+    $aujourdHui = new DateTime();
+    $aujourdHui->modify('next monday'); // Aller au lundi suivant
+
+    // Début de la semaine (lundi)
+    $debutSemaine = clone $aujourdHui;
+    $debutSemaine->setTime(0, 0, 0); // Réinitialiser l'heure à minuit
+
+    // Fin de la semaine (dimanche)
+    $finSemaine = clone $debutSemaine;
+    $finSemaine->modify('sunday');
+    $finSemaine->setTime(23, 59, 59); // Réinitialiser l'heure à 23h59
+
+    return ['debut' => $debutSemaine, 'fin' => $finSemaine];
 }
 
 // Étapes du script
