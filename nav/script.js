@@ -1,20 +1,24 @@
 const sideNav = document.querySelector('.side-nav');
-const collapseButton = document.querySelector('.collapse-button');
+const toggleMenu = document.querySelector('.toggle-menu');
 const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
 
+// Basculer la visibilité du menu sur mobile
+toggleMenu.addEventListener('click', () => {
+  sideNav.classList.toggle('hidden'); // Basculer la classe 'hidden' pour afficher/masquer la barre latérale
+});
 
-// Dropdown toggle functionality
+// Fonctionnalité de bascule des menus déroulants
 dropdownToggles.forEach(toggle => {
   toggle.addEventListener('click', (e) => {
     e.preventDefault();
 
     const dropdown = toggle.nextElementSibling;
 
-    // Toggle current dropdown
+    // Basculer l'affichage du menu déroulant actuel
     dropdown.classList.toggle('open');
     toggle.classList.toggle('rotate');
 
-    // Close other dropdowns
+    // Fermer les autres menus déroulants
     document.querySelectorAll('.dropdown').forEach(otherDropdown => {
       if (otherDropdown !== dropdown) {
         otherDropdown.classList.remove('open');
