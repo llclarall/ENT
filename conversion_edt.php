@@ -1,6 +1,6 @@
 <?php
 // URL de l'EDT à télécharger
-$icalUrl = "https://edt.univ-eiffel.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?resources=1313&projectId=26&calType=ical&nbWeeks=4";
+$icalUrl = "https://edt.univ-eiffel.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?resources=1313&projectId=26&calType=ical&nbWeeks=1";
 
 // Chemins des fichiers sur le serveur
 $icalFile = 'edt_semaine.ics'; // Chemin du fichier .ical
@@ -30,7 +30,6 @@ function convertirIcalEnJson($icalPath, $jsonPath) {
     $finSemaine = $semaineProchaine['fin'];
 
     // Extraire les événements
-    $events = [];
     foreach (explode("BEGIN:VEVENT", $icalData) as $event) {
         if (strpos($event, "SUMMARY") !== false) {
             preg_match('/SUMMARY:(.+)/', $event, $summary);
@@ -45,8 +44,9 @@ function convertirIcalEnJson($icalPath, $jsonPath) {
             // Vérifier si l'événement est dans la semaine à venir
             $eventStartDate = DateTime::createFromFormat('Ymd\THis\Z', $start[1]);
             if ($eventStartDate >= $debutSemaine && $eventStartDate <= $finSemaine) {
-                // Ajouter l'événement au tableau
-                $events[] = [
+                // Ajouter l'événement au bon jour de la semaine
+                $jourSemaine = strtolower($eventStartDate->format('l')); // 'l' donne le nom du jour en anglais
+                $joursSemaine[$jourSemaine][] = [
                     "titre" => trim($summary[1] ?? 'Sans titre'),
                     "debut" => $debut,
                     "fin" => $fin,
@@ -56,8 +56,20 @@ function convertirIcalEnJson($icalPath, $jsonPath) {
         }
     }
 
+    // Ajouter un objet vide pour chaque jour sans événement
+    foreach ($joursSemaine as $jour => $events) {
+        if (empty($events)) {
+            $joursSemaine[$jour] = [
+                "titre" => "",
+                "debut" => "",
+                "fin" => "",
+                "lieu" => ""
+            ];
+        }
+    }
+
     // Sauvegarder les événements au format JSON
-    file_put_contents($jsonPath, json_encode($events, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+    file_put_contents($jsonPath, json_encode($joursSemaine, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
     echo "Fichier JSON généré : $jsonPath\n";
 }
 
