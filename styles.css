@@ -33,6 +33,7 @@ header {
     text-align: center;
     display: block;
     text-align: left;
+    height: 70px;
 }
 
 header img {
@@ -84,7 +85,7 @@ transition: all 0.2s ease;
 transform: scale(1.05);
 }
 
-.side-nav .toggle-menu {
+.toggle-menu {
 display: none;
 background: none;
 border: none;
