@@ -10,9 +10,11 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+
   <button class="toggle-menu" aria-label="Ouvrir le menu">
     <i class="fas fa-bars"></i>
   </button>
+
   <nav class="side-nav" role="navigation" aria-labelledby="menu-label">
     <h2 id="menu-label" class="sr-only">Menu de navigation</h2>
     <div class="logo">
