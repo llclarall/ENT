@@ -42,9 +42,9 @@
         </div>
       </div>
       <div class="course-card">
-      <img src="img/audiovisuel.jpg" alt="">
+      <img src="img/culture.png" alt="">
       <div class="course-details">
-          <strong>Audiovisuel & Motion Design</strong>
+          <strong>Culture Numérique</strong>
           <span>Eiffel Année universitaire 2024/2025</span>
         </div>
       </div>
@@ -55,7 +55,7 @@
       <div class="course-card">
         <img src="img/hebergement.jpg" alt="">
         <div class="course-details">
-          <strong>Hébergement et gestion de contenu MMI1 2023</strong>
+          <strong>Hébergement et gestion de contenu</strong>
           <span>Eiffel Année universitaire 2023/2024</span>
         </div>
       </div>
