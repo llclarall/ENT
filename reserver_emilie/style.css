@@ -110,7 +110,7 @@ margin-top: 10px;
 .resas {
     margin-top: 2px;
     padding: 10px 40px;
-    margin-left: 220px;
+    margin-left: 150px;
     background-color: #2F4156;
     color: white;
     border: none;
@@ -270,3 +270,63 @@ margin-top: 10px;
     color: #3E5D71;
 }
 
+.main-container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.main-rectangle {
+    width: 80%;
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.main-title {
+    margin-top: 20px;
+    padding: 10px 0;
+    font-size: 1.5rem;
+    text-align: left;
+    color: black;
+}
+
+.row-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+}
+
+.sub-block {
+    width: 30%;
+    height: 100px; 
+    background-color: #577C8E;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.matos {
+    width: 100%;
+    margin: 0;   
+    padding: 0;   
+    box-sizing: border-box; 
+  }
+.matosh{
+   
+   text-align: center;
+    
+}
