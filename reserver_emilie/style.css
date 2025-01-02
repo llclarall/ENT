@@ -20,7 +20,8 @@ h2 {
     margin-top: 20px;
     padding: 10px 0;
     font-size: 2rem;
-    text-align: center;
+    text-align: left;
+    color: black;
 }
 
 .container {
@@ -28,7 +29,7 @@ h2 {
     width: 100%;
     height: 100%;
     justify-content: center;
-    gap: 20px; /* Ajout de l'espace entre les blocs */
+    gap: 20px; 
 }
 
 .item {
@@ -268,5 +269,37 @@ margin-top: 10px;
 .forgot-password:hover {
     text-decoration: underline;
     color: #3E5D71;
+}
+
+.rectangle {
+    width: 80%;
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.item {
+    width: 30%;
+    height: 100px; 
+    background-color: #577C8E;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgb(0, 0, 0);
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.row {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
 }
 
