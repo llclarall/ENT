@@ -21,7 +21,7 @@
       <div class="course-card">
         <img src="img/creation.png" alt="">
         <div class="course-details">
-          <strong>R3.09 Création et Design interactif MMI2 - S3</strong>
+          <strong>R3.09 Création et Design interactif MMI2 </strong>
           <span>Eiffel Année universitaire 2024/2025</span>
         </div>
       </div>

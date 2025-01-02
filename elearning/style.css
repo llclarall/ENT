@@ -1,3 +1,9 @@
+*,
+*::after,
+*::before {
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
     font-family: Arial, sans-serif;
@@ -184,4 +190,115 @@ body {
   }
 }
 
+/* VIE ETUDIANTE */
 
+.page-container {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.sections-container {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.section-wrapper {
+  margin-bottom: 10px;
+}
+
+.section-wrapper h2 {
+  text-align: center;
+  align-items: center;
+}
+
+.info-card {
+  background-color: #577C8E;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  margin-bottom: 15px;
+  max-width: 340px;
+  max-height: 290px;
+  margin-left: auto;
+  margin-right: auto;
+  justify-content: space-between;
+
+}
+
+.info-card img {
+  width: 100%;
+  height: auto;
+  max-height: 130px;
+}
+
+.info-card-content {
+  padding: 10px;
+}
+
+.info-card-title {
+  font-size: 1rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #fff;
+}
+
+.info-card-description {
+  font-size: 0.875rem;
+  color: #fff;
+  margin-bottom: 15px;
+}
+
+.info-card-button {
+  display: inline-block;
+  padding: 10px 15px;
+  background-color: #2F4156;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 6px;
+  font-size: 0.875rem;
+}
+
+.info-card-button:hover {
+background-color: #fff;
+color: #2F4156;
+}
+
+/* Styles pour écran large */
+@media (min-width: 768px) {
+  .page-container {
+    max-width: 1024px;
+  }
+
+  .sections-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .section-wrapper h2 {
+    font-size: 1.25rem;
+    margin-bottom: 20px;
+  }
+
+  .info-card {
+    max-width: 360px; 
+    min-height: 270px;
+  }
+
+  .large-card .info-card {
+    max-width: 700px;
+    min-height: 320px; 
+  }
+
+  .large-card .info-card img {
+    min-height: 160px; 
+  }
+
+  .info-card img {
+    height: 180px;
+    object-fit: cover;
+  }
+
+}
