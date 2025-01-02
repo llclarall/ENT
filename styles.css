@@ -255,18 +255,20 @@ to {
 .accueil {
     margin: 0 auto;
     padding: 0;
+    margin-left: calc(250px + 5%); 
+    margin-right: 5%; 
+    width: calc(100% - 250px - 10%);
 }
 
 .accueil h1 {
-    text-align: center;
     font-size: 2rem;
-    margin: 1rem 0;
-    margin-left: calc(130px + 5%); 
-    margin-right: 5%; 
+    margin: 1rem auto;
+    text-align: center;
 }
 
 .accueil .container {
     display: grid;
+    margin: 0 auto;
     grid-template-areas:
         "applications applications messages"
         "notifs notifs rendus"
@@ -277,19 +279,13 @@ to {
     gap: 15px;
     padding: 20px;
     max-width: 1000px;
-    margin-left: calc(250px + 5%); 
+/*     margin-left: calc(250px + 5%); 
     margin-right: 5%; 
-    width: calc(100% - 250px - 10%);
-
+    width: calc(100% - 250px - 10%); */
 }
 
 @media (max-width: 1320px) {
-    .accueil .container {
-        margin-left: calc(250px + 2%);
-        margin-right: 3%;
-        width: calc(100% - 250px - 4%);
-    }
-    .accueil h1 {
+    .accueil, .page-edt {
         margin-left: calc(250px + 2%);
         margin-right: 3%;
         width: calc(100% - 250px - 4%);
@@ -297,13 +293,10 @@ to {
 }
 
 @media (max-width: 1130px) {
-    .accueil .container {
+    .accueil, .page-edt {
         margin: 0 auto;
         padding: 0 3rem; 
         width: 100%;
-    }
-    .accueil h1 {
-        margin: 1rem auto;
     }
 }
 
@@ -760,14 +753,28 @@ margin-top: 10px;
 
 /* EDT CLARA */
 
-#edt-container {
+.page-edt {
+    margin-left: calc(250px + 5%); 
+    margin-right: 5%; 
+    width: calc(100% - 250px - 10%);
+}
+
+.page-edt h1 {
+    text-align: center;
+    font-size: 2rem;
+    margin: 1rem 0;
+}
+
+.edt-container {
     width: 100%;
     border-collapse: collapse;
+    margin: 0 auto;
+    max-width: 1000px;
 }
 
 .edt-cell {
-    width: 100px;
-    height: 50px;
+    width: 50px;
+    height: 40px;
     border: 1px solid #ddd;
     padding: 5px;
     vertical-align: bottom;
@@ -775,16 +782,13 @@ margin-top: 10px;
 }
 
 .edt-day {
-    width: 100px;
+    width: 50px;
     text-align: center;
     padding: 10px 0;
     background-color: #f0f0f0;
 }
 
-.edt-cell:hover {
-    background-color: #e0e0e0;
+.edt-cell.event {
+    background-color: var(--bleu);  
 }
 
-.edt-cell.event {
-    background-color: #dfe;  /* Ajoute une couleur de fond pour les événements */
-}

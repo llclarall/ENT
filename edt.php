@@ -1,3 +1,9 @@
+<?php 
+include 'nav.php';
+include 'config.php';
+include 'header.php';
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -7,35 +13,42 @@
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+
+
+<section class="page-edt">
+    
 <h1>Emploi du Temps</h1>
 
-<table id="edt-container">
-<thead>
-<tr id="edt-header">
-<th class="edt-day"></th>
-<th class="edt-day">Lundi</th>
-<th class="edt-day">Mardi</th>
-<th class="edt-day">Mercredi</th>
-<th class="edt-day">Jeudi</th>
-<th class="edt-day">Vendredi</th>
+<h2>Semaine du 14 au 18 janvier 2025</h2>
 
-</tr>
-</thead>
-<tbody>
-<?php
-$hours = ["07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00"];
-foreach ($hours as $hour) {
-echo "<tr>";
-echo "<td class='edt-cell'>$hour</td>"; // Heure affichée
-// Ajout des cellules avec data-time et data-day
-for ($i = 0; $i < 5; $i++) {  // 5 jours (Lundi à Vendredi)
-echo "<td class='edt-cell' data-time='$hour' data-day='$i'></td>";
-}
-echo "</tr>";
-}
-?>
-</tbody>
-</table>
+    <table id="edt-container" class="edt-container">
+    <thead>
+    <tr id="edt-header" class="edt-header">
+    <th class="edt-day"></th>
+    <th class="edt-day">Lundi</th>
+    <th class="edt-day">Mardi</th>
+    <th class="edt-day">Mercredi</th>
+    <th class="edt-day">Jeudi</th>
+    <th class="edt-day">Vendredi</th>
+    
+    </tr>
+    </thead>
+    <tbody>
+    <?php
+    $hours = ["07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00"];
+    foreach ($hours as $hour) {
+    echo "<tr>";
+    echo "<td class='edt-cell'>$hour</td>"; // Heure affichée
+    // Ajout des cellules avec data-time et data-day
+    for ($i = 0; $i < 5; $i++) {  // 5 jours (Lundi à Vendredi)
+    echo "<td class='edt-cell' data-time='$hour' data-day='$i'></td>";
+    }
+    echo "</tr>";
+    }
+    ?>
+    </tbody>
+    </table>
+</section>
 
 <script>
 // Fonction pour convertir le format "14 January 2025 à 09h30" en objet Date
@@ -61,88 +74,115 @@ return new Date(year, month, day, hours, minutes);
 
 document.addEventListener('DOMContentLoaded', () => {
     fetch('edt_semaine.json')  // Charger le fichier JSON
-    .then(response => response.json())
-    .then(events => {
-        console.log(events); // Debug : afficher les événements pour vérifier leur structure
+        .then(response => response.json())
+        .then(events => {
+            // Correspondance entre jours en français et index des jours de la semaine
+            const daysMapping = {
+                "monday": 1,
+                "tuesday": 2,
+                "wednesday": 3,
+                "thursday": 4,
+                "friday": 5
+            };
 
-        // Trier les événements par jour de la semaine (lundi = 1, dimanche = 0)
-        const daysOfWeek = [1, 2, 3, 4, 5]; // Lundi = 1, Vendredi = 5
-        const sortedEvents = daysOfWeek.map(day => {
-            return events.filter(event => {
-                const eventDay = parseDate(event.debut).getDay();
-                return eventDay === day;
-            }).sort((a, b) => {
-                const timeA = parseDate(a.debut);
-                const timeB = parseDate(b.debut);
-                return timeA - timeB; // Trie par heure de début
-            });
-        });
+            // Création d'un objet pour stocker la couleur unique de chaque cours
+            const courseColors = {};
 
-        console.log(sortedEvents); // Debug : afficher les événements triés pour chaque jour
-
-        // Insérer les événements triés dans le tableau
-        sortedEvents.forEach((dayEvents, dayIndex) => {
-            dayEvents.forEach(event => {
-                const startTime = parseDate(event.debut);
-                const endTime = parseDate(event.fin);
-                const startHour = startTime ? startTime.getHours() : null;  // Vérifier si startTime est défini
-                const startMinute = startTime ? startTime.getMinutes() : null;
-                const endHour = endTime ? endTime.getHours() : null;
-                const endMinute = endTime ? endTime.getMinutes() : null;
-                const duration = startTime && endTime ? (endTime - startTime) / (1000 * 60) : 0; // Durée en minutes
-                const cells = document.querySelectorAll('.edt-cell');
-
-                if (!startTime || !endTime) {
-                    console.error('Erreur: L\'heure de début ou de fin n\'est pas valide pour l\'événement:', event);
-                    return;  // Si startTime ou endTime n'est pas valide, on passe à l'événement suivant
+            // Fonction pour générer une couleur unique stable en utilisant un hash du titre
+            function generateColor(courseTitle) {
+                let hash = 0;
+                for (let i = 0; i < courseTitle.length; i++) {
+                    hash = (hash << 5) - hash + courseTitle.charCodeAt(i);
+                    hash |= 0; // Convertir en 32 bits entier
                 }
+                // Créer une couleur à partir du hash
+                return `#${((hash >> 8) & 0x00FFFFFF).toString(16).padStart(6, '0')}`;
+            }
 
-                cells.forEach(cell => {
-                    const cellTime = cell.getAttribute('data-time');  // Heure de la cellule
-                    const cellDay = parseInt(cell.getAttribute('data-day'));   // Jour de la cellule (entier)
+            // Parcourir les jours de la semaine
+            Object.keys(daysMapping).forEach(dayKey => {
+                const dayIndex = daysMapping[dayKey];
+                const dayEvents = Array.isArray(events[dayKey]) ? events[dayKey] : [events[dayKey]];
 
-                    if (!cellTime) {
-                        console.error(`Erreur: L'attribut 'data-time' est absent ou invalide pour la cellule`, cell);
-                        return; // Si l'attribut 'data-time' est absent, ignorer cette cellule
+                dayEvents.forEach(event => {
+                    if (!event.titre || !event.debut || !event.fin) {
+                        return;  // Ignorer les événements incomplets
                     }
 
-                    const [cellHour, cellMinute] = cellTime.split(':').map(part => parseInt(part));  // Récupérer l'heure et les minutes de la cellule
-                    const cellTimeInMinutes = cellHour * 60 + cellMinute;  // Convertir l'heure de la cellule en minutes
+                    const startTime = parseDate(event.debut);
+                    const endTime = parseDate(event.fin);
 
-                    const eventStartInMinutes = startHour * 60 + startMinute;  // Heure de début de l'événement en minutes
-                    const eventEndInMinutes = endHour * 60 + endMinute;  // Heure de fin de l'événement en minutes
+                    if (!startTime || !endTime) {
+                        console.error('Erreur: L\'heure de début ou de fin n\'est pas valide pour l\'événement:', event);
+                        return;
+                    }
 
-                    // Vérifier si l'événement se trouve dans le bon jour
-                    if (cellDay === daysOfWeek[dayIndex]) {
-                        // Vérifier si l'événement doit commencer dans cette cellule
-                        if (cellTimeInMinutes === eventStartInMinutes) {
-                            cell.innerHTML = event.titre + "<br>" + event.lieu;
-                            cell.style.backgroundColor = '#dfe';  // Changer la couleur de fond de la cellule
+                    // Attribuer une couleur unique au cours s'il n'en a pas encore
+                    if (!courseColors[event.titre]) {
+                        courseColors[event.titre] = generateColor(event.titre);
+                    }
+
+                    const cells = document.querySelectorAll('.edt-cell');
+                    let eventDisplayed = false; // Flag pour vérifier si le texte est déjà affiché
+
+                    cells.forEach(cell => {
+                        const cellTime = cell.getAttribute('data-time');  // Heure de la cellule
+                        const cellDay = parseInt(cell.getAttribute('data-day'));   // Jour de la cellule (entier)
+
+                        if (!cellTime) {
+                            console.error(`Erreur: L'attribut 'data-time' est absent ou invalide pour la cellule`, cell);
+                            return;
                         }
 
-                        // Vérifier si l'événement dure plus d'une heure et l'afficher en plusieurs cellules
-                        if (eventEndInMinutes > cellTimeInMinutes && eventStartInMinutes <= cellTimeInMinutes) {
-                            cell.style.backgroundColor = '#dfe';  // Afficher l'événement dans la cellule
-                            const minutesLeft = eventEndInMinutes - cellTimeInMinutes;
+                        const [cellHour, cellMinute] = cellTime.split(':').map(part => parseInt(part));  // Récupérer l'heure et les minutes de la cellule
+                        const cellTimeInMinutes = cellHour * 60 + cellMinute;  // Convertir l'heure de la cellule en minutes
 
-                            if (minutesLeft >= 60) {
-                                // Étendre l'événement sur plusieurs cellules si la durée dépasse une heure
-                                const nextCell = cell.nextElementSibling;
-                                if (nextCell) {
-                                    nextCell.style.backgroundColor = '#dfe';  // Afficher sur la cellule suivante
-                                    cell.style.height = 'calc(100% * (minutesLeft / 60))';
+                        const eventStartInMinutes = startTime.getHours() * 60 + startTime.getMinutes();  // Heure de début en minutes
+                        const eventEndInMinutes = endTime.getHours() * 60 + endTime.getMinutes();  // Heure de fin en minutes
+
+                        // Vérifier si l'événement se trouve dans le bon jour
+                        if (cellDay === dayIndex) {
+                            // Vérifier si l'événement doit apparaître dans cette cellule
+                            if (cellTimeInMinutes >= eventStartInMinutes && cellTimeInMinutes < eventEndInMinutes) {
+                                // Si l'événement est dans la première cellule, afficher le texte
+                                if (!eventDisplayed) {
+                                    cell.innerHTML = event.titre + "<br>" + (event.lieu || "Lieu non précisé");
+                                    eventDisplayed = true; // Marquer l'événement comme affiché
                                 }
+
+                                // Colorier la cellule
+                                cell.style.backgroundColor = courseColors[event.titre];  // Appliquer la couleur unique
+                                cell.style.color = '#000'; // Contraste pour le texte
                             }
                         }
-                    }
+                    });
                 });
             });
+        })
+        .catch(error => {
+            console.error('Erreur lors du chargement des événements:', error);
         });
-    })
-    .catch(error => {
-        console.error('Erreur lors du chargement des événements:', error);
-    }); // Gérer les erreurs de chargement des événements
 });
+
+// Fonction pour convertir une date au format utilisé dans le JSON
+function parseDate(dateString) {
+    const parts = dateString.match(/(\d+)\s(\w+)\s(\d+)\sà\s(\d+)h(\d+)/);
+    if (!parts) {
+        console.error('Format de date invalide:', dateString);
+        return null;
+    }
+
+    const [_, day, month, year, hours, minutes] = parts;
+    const monthMapping = {
+        "January": 0, "February": 1, "March": 2, "April": 3,
+        "May": 4, "June": 5, "July": 6, "August": 7,
+        "September": 8, "October": 9, "November": 10, "December": 11
+    };
+
+    return new Date(year, monthMapping[month], day, hours, minutes);
+}
+
+
 
 
 </script>

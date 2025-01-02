@@ -32,7 +32,8 @@
 
 <body>
     
-    <div class="accueil">
+    <section class="accueil">
+        
         <h1>Bienvenue <?php echo $user['prenom']; ?>!</h1>
         
         
@@ -47,7 +48,7 @@
                     <a href="archives.php" class="widget sub-block archives">
                             <img src="images/archives.png" alt="">Archives
                     </a>
-                    <a href="edt.php" class="widget sub-block edt">
+                    <a href="edt.php" class="widget sub-block">
                             <img src="images/edt.png" alt="">Emploi du temps
                     </a>
                 </div>
@@ -115,7 +116,7 @@
                 <button>En savoir plus</button>
             </div>
         </div>
-    </div>
+</section>
 </body>
 
 </html>

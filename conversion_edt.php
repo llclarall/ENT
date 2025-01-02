@@ -1,6 +1,6 @@
 <?php
 // URL de l'EDT à télécharger
-$icalUrl = "https://edt.univ-eiffel.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?resources=1313&projectId=26&calType=ical&nbWeeks=1";
+$icalUrl = "https://edt.univ-eiffel.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?resources=1313&projectId=26&calType=ical&nbWeeks=4";
 
 // Chemins des fichiers sur le serveur
 $icalFile = 'edt_semaine.ics'; // Chemin du fichier .ical
@@ -28,6 +28,14 @@ function convertirIcalEnJson($icalPath, $jsonPath) {
     $semaineProchaine = getSemaineProchaine();
     $debutSemaine = $semaineProchaine['debut'];
     $finSemaine = $semaineProchaine['fin'];
+    $joursSemaine = [
+        'monday' => [],
+        'tuesday' => [],
+        'wednesday' => [],
+        'thursday' => [],
+        'friday' => []
+    ];
+    
 
     // Extraire les événements
     foreach (explode("BEGIN:VEVENT", $icalData) as $event) {
@@ -42,17 +50,18 @@ function convertirIcalEnJson($icalPath, $jsonPath) {
             $fin = convertirDateLisible($end[1] ?? null);
 
             // Vérifier si l'événement est dans la semaine à venir
-            $eventStartDate = DateTime::createFromFormat('Ymd\THis\Z', $start[1]);
-            if ($eventStartDate >= $debutSemaine && $eventStartDate <= $finSemaine) {
-                // Ajouter l'événement au bon jour de la semaine
-                $jourSemaine = strtolower($eventStartDate->format('l')); // 'l' donne le nom du jour en anglais
-                $joursSemaine[$jourSemaine][] = [
-                    "titre" => trim($summary[1] ?? 'Sans titre'),
-                    "debut" => $debut,
-                    "fin" => $fin,
-                    "lieu" => trim($location[1] ?? 'Non spécifié')
-                ];
-            }
+            $eventStartDate = DateTime::createFromFormat('Ymd\THis\Z', $start[1] ?? '');
+
+if ($eventStartDate !== false && $eventStartDate >= $debutSemaine && $eventStartDate <= $finSemaine) {
+    $jourSemaine = strtolower($eventStartDate->format('l')); // Jour en anglais (ex : 'monday')
+    $joursSemaine[$jourSemaine][] = [
+        "titre" => trim($summary[1] ?? 'Sans titre'),
+        "debut" => $debut,
+        "fin" => $fin,
+        "lieu" => trim($location[1] ?? 'Non spécifié')
+    ];
+}
+
         }
     }
 
@@ -98,19 +107,24 @@ function convertirDateLisible($icalDate) {
 // Fonction pour obtenir le début et la fin de la semaine à venir
 function getSemaineProchaine() {
     $aujourdHui = new DateTime();
-    $aujourdHui->modify('next monday'); // Aller au lundi suivant
 
-    // Début de la semaine (lundi)
+    // Aller au lundi suivant ou rester sur aujourd'hui si c'est un lundi
+    if ($aujourdHui->format('N') != 1) { // 'N' retourne 1 pour lundi
+        $aujourdHui->modify('next monday');
+    }
+
+    // Début de la semaine (lundi à minuit)
     $debutSemaine = clone $aujourdHui;
-    $debutSemaine->setTime(0, 0, 0); // Réinitialiser l'heure à minuit
+    $debutSemaine->setTime(0, 0, 0);
 
-    // Fin de la semaine (dimanche)
+    // Fin de la semaine (dimanche à 23h59)
     $finSemaine = clone $debutSemaine;
-    $finSemaine->modify('sunday');
-    $finSemaine->setTime(23, 59, 59); // Réinitialiser l'heure à 23h59
+    $finSemaine->modify('+6 days')->setTime(23, 59, 59);
 
     return ['debut' => $debutSemaine, 'fin' => $finSemaine];
 }
+
+
 
 // Étapes du script
 try {
