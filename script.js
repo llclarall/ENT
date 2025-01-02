@@ -139,7 +139,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         const cellDay = parseInt(cell.getAttribute('data-day'));   // Jour de la cellule (entier)
 
                         if (!cellTime) {
-                            console.error(`Erreur: L'attribut 'data-time' est absent ou invalide pour la cellule`, cell);
+                            /* console.error(`Erreur: L'attribut 'data-time' est absent ou invalide pour la cellule`, cell); */
                             return;
                         }
 
