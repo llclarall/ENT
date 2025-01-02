@@ -1,4 +1,4 @@
 
 <header>
-    <!-- <a href="accueil.php"><img src="images/logo.png" alt=""></a> -->
+    <a href="profil.php"><img src="images/filler.png" alt=""></a>
 </header>

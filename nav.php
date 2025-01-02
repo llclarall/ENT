@@ -90,7 +90,7 @@
     
     <!-- Deconnexion -->     
     <div class="logout">
-      <a href="connexion.php" class="logout-button" aria-label="Se déconnecter">
+      <a href="deconnect.php" class="logout-button" aria-label="Se déconnecter">
         <i class="fas fa-sign-out-alt" aria-hidden="true"></i>
         <span>Se déconnecter</span>
       </a>

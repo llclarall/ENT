@@ -29,17 +29,17 @@ html::-webkit-scrollbar {
 header {
     background-color: var(--bleu);
     color: white;
-    padding: 1rem;
-    text-align: center;
-    display: block;
-    text-align: left;
+    padding: .5rem;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
     height: 70px;
 }
 
 header img {
-    width: 50px;
-    height: 50px;
-    margin-left: 1rem;
+    width: 55px;
+    height: 55px;
+    margin-right: 1.5rem;
     transition: all 0.2s ease;
 }
 
@@ -284,22 +284,6 @@ to {
 /*     margin-left: calc(250px + 5%); 
     margin-right: 5%; 
     width: calc(100% - 250px - 10%); */
-}
-
-@media (max-width: 1320px) {
-    .accueil, .page-edt, .page-elearning, .page-archives, .page-vie-etudiante {
-        margin-left: calc(250px + 2%);
-        margin-right: 3%;
-        width: calc(100% - 250px - 4%);
-    }
-}
-
-@media (max-width: 1130px) {
-    .accueil, .page-edt, .page-elearning, .page-archives, .page-vie-etudiante {
-        margin: 0 auto;
-        padding: 0 3rem; 
-        width: 100%;
-    }
 }
 
 /* Widget général */
@@ -638,128 +622,10 @@ to {
     }
 }
 
-/* RESERVATION EMILIE */
-
-.item {
-    display: flex;
-    flex-direction: column; 
-    align-items: center;
-}
-
-.block {
-    width: 310px;
-    height: 350px;
-    background-color: #577C8E;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    font-size: 18px;
-    font-weight: bold;
-    justify-content: space-between;
-    color: white;
-    overflow: hidden;
-    position: relative;
-    padding: 0;
-    max-height: 320px; 
-}
-
-
-.block .food {
-    width: 100px;
-    height: 85px;
-    margin-bottom: 20px;
-    object-fit: contain;
-}
-
-
-.block p {
-    margin-top: 10px;
-    margin-bottom: 0;
-    text-align: left;
-}
-
-.block .resa {
-    display: flex;
- padding: 10px 60px;
-background-color: #2F4156;
-color: white;
-border: none;
-border-radius: 16px;
-cursor: pointer;
-margin-top: 10px;      
-}
-
-
-.block p {
-    margin-top: 2px;
-    margin-bottom: 0;
-    text-align: left; 
-    flex-grow: 1; 
-}
-
-.block .description {
-    font-size: 0.9rem;
-    text-align: left;
-    margin: 2px 10px;
-    font-weight: 400;
-    margin-top: 2px;
-    margin-bottom: 10px;
-    line-height: 1.6;
-    display: flex;
-    flex-direction: column;
-    align-items: center; 
-    justify-content: center; 
-    flex-grow: 1; 
-}
-
-.resas {
-    margin-top: 2px;
-    padding: 10px 40px;
-    margin-left: 220px;
-    background-color: #2F4156;
-    color: white;
-    border: none;
-    border-radius: 16px;
-    cursor: pointer;
-    align-self: flex-start; 
-    font-family: "Inter", "regular";
-    font-weight: 400;
-    font-size: 0.9rem;
-}
-
-.food{
-    width: 100px;
-    height: 85px;
-}
-
-.block .reservez {
-    text-align: left;
-    width: 90%;
-    margin: 10px 0;
-    margin-bottom: 2px;
-    font-size: 1.2rem; 
-}
-
-.block .image {
-    width: 100%;
-    height: 40%;
-    object-fit: cover; 
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-}
-
 
 
 
 /* EDT CLARA */
-
-.page-edt {
-    margin-left: calc(250px + 5%); 
-    margin-right: 5%; 
-    width: calc(100% - 250px - 10%);
-}
 
 .page-edt h1 {
     text-align: center;
@@ -774,37 +640,90 @@ margin-top: 10px;
 
 .edt-container {
     width: 100%;
-    border-collapse: collapse;
-    margin: 0 auto;
-    max-width: 1000px;
+    margin: 1rem auto;
+    border-collapse: separate;
+    border-spacing: 0;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    border-radius: 8px;
+    transition: all 0.3s ease;
 }
 
 .edt-cell {
-    width: 50px;
-    height: 40px;
+    width: fit-content;
+    height: 45px;
     border: 1px solid #ddd;
     padding: 5px;
-    vertical-align: bottom;
     text-align: center;
+    min-width: 50px;
+
 }
 
 .edt-day {
-    width: 50px;
-    text-align: center;
-    padding: 10px 0;
-    background-color: #f0f0f0;
+    padding: 5px;
+    background-color: #f4f4f4;
+    font-weight: bold;
+    color: var(--bleu);
+    font-size: 1rem;
 }
 
 .edt-cell.event {
-    background-color: var(--bleu);  
+    background-color: var(--bleu);
+    color: #ffffff;
+    font-weight: bold;
+    border-radius: 4px;
+    box-shadow: inset 0 -3px 5px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
 }
 
+.edt-cell.event:hover {
+    background-color: #0056a4; 
+    transform: scale(1.05);
+}
+
+
+@media (max-width: 900px) {
+    .edt-cell {
+        height: 35px;
+    }
+}
+
+@media (max-width: 700px) {
+    .edt-cell {
+        font-size: 0.8rem;
+        height: 30px;
+    }
+    .edt-day {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 500px) {
+    .edt-cell {
+        font-size: 0.7rem;
+        height: 25px;
+    }
+    .edt-day {
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 400px) {
+    .edt-cell {
+        font-size: 0.6rem;
+        height: 20px;
+    }
+    .edt-day {
+        font-size: 0.7rem;
+    }
+}
 
 
 
 /* ELEARNING ET ARCHIVES MEL */
 
-section {
+section:not(.connexion) {
     margin-left: calc(250px + 5%); 
     margin-right: 5%; 
     width: calc(100% - 250px - 10%);
@@ -909,7 +828,9 @@ section {
     font-weight: bold;
     position: absolute;
     right: 20px;
-    top: 20px;
+    top: 13px;
+    transition: all 0.2s ease;
+    border: white 1px solid;
   }
 
   .archives-btn:hover {
@@ -1103,3 +1024,229 @@ color: #2F4156;
 }
 
 }
+
+
+
+
+
+
+/* PAGE PROFIL */
+
+.profil-container {
+display: grid;
+grid-template-columns: repeat(5, 1fr);
+grid-template-areas: 
+    "p_header p_header p_header p_qrcode p_qrcode"
+    "p_shortcuts p_shortcuts p_absences p_absences p_absences"
+    "p_reservations p_reservations p_absences p_absences p_absences"
+    "p_reservations p_reservations p_documents p_documents p_documents";
+gap: 20px;
+padding: 20px;
+max-width: 1000px;
+margin: 0 auto;
+grid-template-rows: auto;
+}
+
+.page-profil h1 {
+font-size: 2rem;
+text-align: center;
+margin: 1rem 0;
+}
+
+.page-profil .block {
+    border-radius: 10px;
+    padding: 20px;
+    border: var(--bleu) 1px solid;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.page-profil .block:hover {
+    transform: scale(1.01);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.profil-header {
+display: flex;
+align-items: center;
+grid-area: p_header;
+gap: 20px;
+color: var(--bg-color);
+background-color: var(--bleu);
+}
+
+.profil-picture img {
+width: 100%;
+border-radius: 50%;
+width: 120px;
+}
+
+.profil-info h2 {
+font-size: 1.5rem;
+margin: 0;
+}
+
+.profil-info p {
+margin: 0;
+font-size: 1rem;
+}
+
+.profil-qr {
+grid-area: p_qrcode;
+margin-top: auto;
+margin-bottom: auto;
+}
+
+.profil-qr img {
+width: 100%;
+}
+
+.page-profil .shortcuts {
+grid-area: p_shortcuts;
+display: flex;
+justify-content: space-between;
+gap: 10px;
+width: 100%;
+}
+
+.page-profil .shortcuts a {
+padding: 20px 20px;
+background-color: #f0f0f0;
+border: 1px solid #ccc;
+border-radius: 5px;
+cursor: pointer;
+width: 100%;
+text-decoration: none;
+text-align: center;
+transition: all 0.2s ease;
+}
+
+.page-profil .shortcuts a:hover {
+background-color: #ddd;
+}
+
+.page-profil .reservations {
+grid-area: p_reservations;
+background-color: #f9f9f9;
+padding: 15px;
+border-radius: 5px;
+}
+
+.page-profil .reservation-item {
+margin: 10px 0;
+}
+
+.page-profil .absences {
+grid-area: p_absences;
+background-color: #f9f9f9;
+padding: 15px;
+border-radius: 5px;
+}
+
+.page-profil .absence-item {
+margin: 10px 0;
+}
+
+.page-profil .documents {
+grid-area: p_documents;
+background-color: #f9f9f9;
+padding: 15px;
+border-radius: 5px;
+}
+
+.page-profil .table {
+width: 100%;
+border-collapse: collapse;
+}
+
+.page-profil .table td {
+padding: 10px;
+border: 1px solid #ccc;
+}
+
+
+@media (width<=700px) {
+    .profil-container {
+        grid-template-areas:
+            "p_header p_header"
+            "p_shortcuts p_qrcode"
+            "p_absences p_absences"
+            "p_reservations p_reservations"
+            "p_documents p_documents";
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto;
+    }
+}
+
+@media (width<=450px) {
+    .profil-container {
+        grid-template-areas:
+            "p_header"
+            "p_shortcuts"
+            "p_qrcode"
+            "p_absences"
+            "p_reservations"
+            "p_documents";
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+    }
+    .profil-header img {
+        width: 100px;
+    }
+    
+}
+
+
+/* MEDIA QUERIES SECTIONS */
+
+@media (max-width: 1320px) {
+    section:not(.connexion) {
+        margin-left: calc(250px + 2%);
+        margin-right: 3%;
+        width: calc(100% - 250px - 4%);
+    }
+}
+
+@media (max-width: 1130px) {
+    section:not(.connexion) {
+        margin: 0 auto;
+        padding: 0 3rem; 
+        width: 100%;
+    }
+}
+
+@media (max-width: 600px) {
+    section:not(.connexion) {
+        padding: 0 1rem; 
+    }
+    .accueil .flex-container {
+        flex-wrap: wrap;
+        width: 100%;
+    }
+}
+
+@media (max-width: 460px) {
+    section:not(.connexion) {
+        padding: 0 0.5rem; 
+    }
+    .accueil .sub-block {
+        font-size: 0.8rem; 
+    }
+    .accueil .sub-block img {
+        width: 35px;
+    }
+    .accueil .big {
+        font-size: 2.2rem;
+    }
+    .accueil .flex-container {
+        font-size: 0.8rem;
+        gap: .5rem;
+    }
+    .accueil .notifs h3 {
+        font-size: 0.8rem;
+        text-align: center;
+    }
+
+}
+
+
