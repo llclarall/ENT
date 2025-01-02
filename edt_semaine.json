@@ -1,0 +1,56 @@
+{
+    "monday": {
+        "titre": "",
+        "debut": "",
+        "fin": "",
+        "lieu": ""
+    },
+    "tuesday": [
+        {
+            "titre": "R3.06 Référencement - A",
+            "debut": "7 January 2025 à 14h45",
+            "fin": "7 January 2025 à 16h45",
+            "lieu": "IUC 120"
+        },
+        {
+            "titre": "R3.04 Cult. Num. - AB",
+            "debut": "7 January 2025 à 12h30",
+            "fin": "7 January 2025 à 14h30",
+            "lieu": "IUC 169\\,IUC 124\/25"
+        },
+        {
+            "titre": "R3.02 Anglais renforcé - A",
+            "debut": "7 January 2025 à 09h30",
+            "fin": "7 January 2025 à 11h30",
+            "lieu": "IUC 126"
+        }
+    ],
+    "wednesday": [
+        {
+            "titre": "Visite d'un musée",
+            "debut": "8 January 2025 à 07h00",
+            "fin": "8 January 2025 à 19h00",
+            "lieu": ""
+        }
+    ],
+    "thursday": [
+        {
+            "titre": "R3.04 Cult. Num. - AB",
+            "debut": "9 January 2025 à 12h30",
+            "fin": "9 January 2025 à 14h30",
+            "lieu": "IUC 223\\,IUC 124\/25"
+        },
+        {
+            "titre": "R3.05 Strat. de Com. - CM",
+            "debut": "9 January 2025 à 10h00",
+            "fin": "9 January 2025 à 11h30",
+            "lieu": "IUC 169"
+        }
+    ],
+    "friday": {
+        "titre": "",
+        "debut": "",
+        "fin": "",
+        "lieu": ""
+    }
+}
