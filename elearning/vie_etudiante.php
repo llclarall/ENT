@@ -7,7 +7,7 @@
     <title>Vie étudiante</title>
 </head>
 <body>
-<div class="page-container">
+<div class="page-vie-etudiante">
 <h1>Vie étudiante</h1>
 
 <div class="sections-container">

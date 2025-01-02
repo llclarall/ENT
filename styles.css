@@ -63,6 +63,7 @@ header img:hover {
     overflow: hidden;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s ease;
+    z-index: 1000;
 }
 
 
@@ -96,7 +97,7 @@ cursor: pointer;
 position: absolute;
 top: 10px;
 left: 10px;
-z-index: 10;
+z-index: 1110;
 }
 
 .side-nav .menu {
@@ -252,13 +253,14 @@ to {
 
 /* ACCUEIL CLARA */
 
-.accueil {
+
+/* .accueil {
     margin: 0 auto;
     padding: 0;
     margin-left: calc(250px + 5%); 
     margin-right: 5%; 
     width: calc(100% - 250px - 10%);
-}
+} */
 
 .accueil h1 {
     font-size: 2rem;
@@ -285,7 +287,7 @@ to {
 }
 
 @media (max-width: 1320px) {
-    .accueil, .page-edt {
+    .accueil, .page-edt, .page-elearning, .page-archives, .page-vie-etudiante {
         margin-left: calc(250px + 2%);
         margin-right: 3%;
         width: calc(100% - 250px - 4%);
@@ -293,7 +295,7 @@ to {
 }
 
 @media (max-width: 1130px) {
-    .accueil, .page-edt {
+    .accueil, .page-edt, .page-elearning, .page-archives, .page-vie-etudiante {
         margin: 0 auto;
         padding: 0 3rem; 
         width: 100%;
@@ -797,3 +799,307 @@ margin-top: 10px;
     background-color: var(--bleu);  
 }
 
+
+
+
+/* ELEARNING ET ARCHIVES MEL */
+
+section {
+    margin-left: calc(250px + 5%); 
+    margin-right: 5%; 
+    width: calc(100% - 250px - 10%);
+}
+
+  .page-elearning h1, .page-archives h1 {
+    font-size: 2.2rem;
+    text-align: center;
+  }
+
+  /* Course section */
+  .section-title {
+    background-color: #2F4156;
+    color: white;
+    padding: 10px 30px;
+    border-radius: 10px;
+    font-weight: bold;
+    margin: 30px 0 10px 0;
+    text-align: center;
+    font-size: 1.4rem;    
+  }
+
+  .course-container {
+      display: flex;
+      justify-content: start;
+      flex-wrap: wrap;
+      gap: 50px;
+      width: 100%;  
+      margin-top: 30px;
+      margin-bottom: 70px;
+  }
+
+  .elearning-container {
+    display: flex;
+    flex-direction: column;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .course-card {
+    width: 300px;
+    height: 190px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .course-card:hover {
+    transform: scale(1.02); /* Zoom léger */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    cursor: pointer; 
+  }
+  
+  .course-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+    
+  }
+
+  .course-details {
+    background-color: #2F4156;
+    color: white;
+    padding: 10px;
+    text-align: left;
+    z-index: 1;
+    height: 70px;
+    position: relative;
+    flex: 0 0 auto;
+
+  }
+
+  .course-details strong {
+    font-size: 0.9rem;
+    display: block;
+  }  
+  
+  .course-details span {
+    margin-top: 8px; 
+    display: block; 
+    font-size: 0.9rem;
+  }
+  
+
+  /* Archives Button */
+  .archives-btn {
+    background-color: #2F4156;
+    padding: 10px 20px;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    display: inline-block;
+    font-weight: bold;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+  }
+
+  .archives-btn:hover {
+    background-color: #567C8D;
+  }
+
+
+  /* Style du conteneur du menu déroulant */
+.semestre-dropdown {
+  margin: 20px auto;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Style de la liste déroulante */
+.semestre-dropdown select {
+  padding: 8px 12px;
+  font-size: 16px;
+  border: 1px solid #bdbdbd;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  cursor: pointer;
+}
+
+/* Style au hover et focus */
+.semestre-dropdown select:hover, 
+.semestre-dropdown select:focus {
+  outline: none;
+  border-color: #888;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .course-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 30px; 
+  }
+
+  .course-card {
+    width: 95%; 
+    max-width: 340px; 
+    height: 200px; 
+  }
+
+  .course-details {
+    text-align: center; 
+  }
+
+  .course-details strong{
+   margin-top: 5px;
+  }
+
+  .section-title {
+    font-size: 1.2rem; 
+    margin-top: -10px;
+  }
+
+  .semestre-dropdown {
+    flex-direction: column; 
+    text-align: center;
+    gap: 15px;
+  }
+
+  .semestre-dropdown select {
+    width: 90%; 
+  }
+
+  .archives-btn {
+    position: static; 
+    margin: 10px auto;
+  }
+}
+
+
+
+
+
+/* VIE ETUDIANTE */
+
+.page-vie-etudiante {
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.page-vie-etudiante .sections-container {
+display: flex;
+flex-direction: column;
+gap: 5px;
+}
+
+.page-vie-etudiante .section-wrapper {
+margin-bottom: 10px;
+}
+
+.page-vie-etudiante .section-wrapper h2 {
+text-align: center;
+align-items: center;
+}
+
+.page-vie-etudiante .info-card {
+background-color: #577C8E;
+border-radius: 10px;
+box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+overflow: hidden;
+margin-bottom: 15px;
+max-width: 340px;
+max-height: 290px;
+margin-left: auto;
+margin-right: auto;
+justify-content: space-between;
+
+}
+
+.page-vie-etudiante .info-card img {
+width: 100%;
+height: auto;
+max-height: 130px;
+}
+
+.page-vie-etudiante .info-card-content {
+padding: 10px;
+}
+
+.page-vie-etudiante .info-card-title {
+font-size: 1rem;
+font-weight: bold;
+margin-bottom: 10px;
+color: #fff;
+}
+
+.page-vie-etudiante .info-card-description {
+font-size: 0.875rem;
+color: #fff;
+margin-bottom: 15px;
+}
+
+.page-vie-etudiante .info-card-button {
+display: inline-block;
+padding: 10px 15px;
+background-color: #2F4156;
+color: #fff;
+text-decoration: none;
+border-radius: 6px;
+font-size: 0.875rem;
+}
+
+.page-vie-etudiante .info-card-button:hover {
+background-color: #fff;
+color: #2F4156;
+}
+
+/* Styles pour écran large */
+@media (min-width: 768px) {
+.page-vie-etudiante {
+    max-width: 1024px;
+}
+
+.page-vie-etudiante .sections-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.page-vie-etudiante .section-wrapper h2 {
+    font-size: 1.25rem;
+    margin-bottom: 20px;
+}
+
+.page-vie-etudiante .info-card {
+    max-width: 360px; 
+    min-height: 270px;
+}
+
+.page-vie-etudiante .large-card .info-card {
+    max-width: 700px;
+    min-height: 320px; 
+}
+
+.page-vie-etudiante .large-card .info-card img {
+    min-height: 160px; 
+}
+
+.page-vie-etudiante .info-card img {
+    height: 180px;
+    object-fit: cover;
+}
+
+}

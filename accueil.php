@@ -42,10 +42,10 @@
             <div class="applications">
                 <h2>Applications</h2>
                 <div class="flex-container">
-                    <a href="elearning.php" class="widget sub-block elearning">
+                    <a href="elearning/elearning.php" class="widget sub-block elearning">
                             <img src="images/elearning2.png" alt="">Elearning
                     </a>
-                    <a href="archives.php" class="widget sub-block archives">
+                    <a href="elearning/archives.php" class="widget sub-block archives">
                             <img src="images/archives.png" alt="">Archives
                     </a>
                     <a href="edt.php" class="widget sub-block">

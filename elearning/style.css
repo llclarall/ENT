@@ -10,13 +10,12 @@ body {
     background-color: #FAFDF9;
   }
 
-  main {
+  .page-elearning main, .page-archives main {
     display: flex;
     flex-direction: column;
- 
   }
 
-  h1 {
+  .page-elearning h1, .page-archives h1 {
     font-size: 2.2rem;
     text-align: center;
   }
@@ -192,7 +191,7 @@ body {
 
 /* VIE ETUDIANTE */
 
-.page-container {
+.page-vie-etudiante {
   max-width: 480px;
   margin: 0 auto;
   padding: 20px;
@@ -267,7 +266,7 @@ color: #2F4156;
 
 /* Styles pour écran large */
 @media (min-width: 768px) {
-  .page-container {
+  .page-vie-etudiante {
     max-width: 1024px;
   }
 
