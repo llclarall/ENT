@@ -1193,8 +1193,108 @@ border: 1px solid #ccc;
     .profil-header img {
         width: 100px;
     }
-    
 }
+
+
+
+
+
+/* RENDUS CLARA */
+
+.page-rendus h1 {
+    font-size: 2rem;
+    text-align: center;
+    margin: 1rem 0;
+}
+
+.page-rendus .rendus-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    margin: 0 auto;
+    max-width: 1000px;
+}
+
+.page-rendus .rendu-card {
+    border-radius: 10px;
+    padding: 20px;
+    border: var(--bleu) 1px solid;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: center;
+}
+
+.page-rendus .etats {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+    margin: 2rem 1rem;
+}
+
+.page-rendus .etat {
+    padding: 10px;
+    border-radius: 20px;
+    transition: all 0.2s ease;
+    border: var(--bleu) 1px solid;
+    cursor: pointer;
+}
+
+.page-rendus .etat:hover {
+    transform: scale(1.02);
+}
+
+.page-rendus .a-faire {
+    background-color: #FFBFBF;
+    color: #2F4156;
+}
+
+.page-rendus .fait {
+    background-color: #C9F4E1;
+    color: #2F4156;
+}
+
+.page-rendus .en-cours {
+    background-color: #FFCC99;
+    color: #2F4156;
+}
+
+.page-rendus a {
+    text-decoration: none;
+    color: var(--bleu);
+    font-weight: bold;
+    display: block;
+}
+
+.page-rendus a:hover {
+    text-decoration: underline;
+}
+
+.page-rendus .ajouter-rendu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: var(--bleu) 1px solid;
+    border-radius: 10px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    height: 100%;
+}
+
+.page-rendus .ajouter-rendu:hover {
+    background-color: #f9f9f9;
+}
+
+.page-rendus .ajouter-rendu span {
+    font-weight: bold;
+    font-size: 10rem;
+    transition: all 0.2s ease;
+}
+
+.ajouter-rendu:hover span {
+    transform: scale(1.05);
+}
+
 
 
 /* MEDIA QUERIES SECTIONS */
