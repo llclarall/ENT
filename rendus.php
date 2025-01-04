@@ -20,7 +20,7 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
 
 // Récupérer les rendus de l'utilisateur
-$requete = "SELECT * FROM rendus WHERE fk_user = :fk_user OR fk_user = '0'";
+$requete = "SELECT * FROM rendus WHERE fk_user = :fk_user OR fk_user is NULL";
 $stmt = $db->prepare($requete);
 
 // Lier l'id de l'utilisateur à la requête
@@ -109,25 +109,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <!-- Rendu Card --> 
     <?php foreach ($rendus as $rendu): ?>
-        <div class="rendu-card">
-            <h2><?= $rendu['titre'] ?></h2>
-            <p class="description"><?= $rendu['description'] ?></p>
-            <p>
-                <?php 
-                $dateTime = new DateTime($rendu['date']); 
-                echo "Pour le " . $dateTime->format('d/m/y') . " à " . $dateTime->format('H\hi');
-                ?>
-            </p>
+    <div class="rendu-card <?php echo $rendu['pinned'] == 1 ? 'pinned' : ''; ?>" id="rendu-<?= $rendu['id'] ?>">
+        <img src="images/pin.png" alt="" class="pin" onclick="pinRendu(<?= $rendu['id'] ?>)">
+        <h2><?= $rendu['titre'] ?></h2>
+        <p class="description"><?= $rendu['description'] ?></p>
+        <p>
+            <?php 
+            $dateTime = new DateTime($rendu['date']); 
+            echo "Pour le " . $dateTime->format('d/m/y') . " à " . $dateTime->format('H\hi');
+            ?>
+        </p>
 
-            <div class="etats">
-                <button class="etat a-faire">Pas commencé</button>
-                <button class="etat en-cours">En cours</button>
-                <button class="etat fait">Terminé</button>
-            </div>
-
-            <a href="rendu.php">Consulter et déposer</a> 
+        <div class="etats">
+            <button class="etat a-faire">Pas commencé</button>
+            <button class="etat en-cours">En cours</button>
+            <button class="etat fait">Terminé</button>
         </div>
+
+        <a href="rendu.php">Consulter et déposer</a> 
+    </div>
     <?php endforeach; ?>
+
 
 </div>
 

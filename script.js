@@ -185,6 +185,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 /* RENDUS CLARA */
 
+/* modale */
 document.addEventListener('DOMContentLoaded', () => {
     const modal = document.getElementById('modal');
     const openModalBtn = document.getElementById('openModalBtn');
@@ -207,3 +208,65 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
+
+// Fonction pour pin un rendu
+function pinRendu(renduId) {
+    var renduElement = document.getElementById("rendu-" + renduId);
+    var container = document.querySelector('.rendus-container');
+    var ajouterRenduDiv = document.getElementById('openModalBtn'); // La div ajouter-rendu
+
+    if (renduElement.classList.contains("pinned")) {
+        // Si l'élément est déjà épinglé, le dé-pincer
+        renduElement.classList.remove("pinned");
+        
+        // Réorganiser l'élément pour le remettre à sa place dans la grille
+        container.appendChild(renduElement);
+
+        // Envoyer la requête pour désépingler
+        fetch('pin_rendu.php', {
+            method: 'POST',
+            body: JSON.stringify({ id: renduId, pinned: 0 }),
+            headers: { 'Content-Type': 'application/json' }
+        });
+
+    } else {
+        // Si l'élément n'est pas épinglé, l'épingler
+        renduElement.classList.add("pinned");
+        
+        // Déplacer l'élément épinglé juste après la div ajouter-rendu
+        container.insertBefore(renduElement, ajouterRenduDiv.nextSibling);
+
+        // Envoyer la requête pour épingler
+        fetch('pin_rendu.php', {
+            method: 'POST',
+            body: JSON.stringify({ id: renduId, pinned: 1 }),
+            headers: { 'Content-Type': 'application/json' }
+        });
+    }
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    // Récupérer tous les rendus avec la classe 'pinned'
+    var pinnedRendus = document.querySelectorAll('.rendu-card.pinned');
+    
+    pinnedRendus.forEach(function(rendu) {
+        // Déplacer les rendus épinglés juste après la div 'ajouter-rendu'
+        var container = document.querySelector('.rendus-container');
+        var ajouterRenduDiv = document.getElementById('openModalBtn'); // Div ajouter-rendu
+        container.insertBefore(rendu, ajouterRenduDiv.nextSibling);  // Déplacer après la div
+    });
+});
+
+
+
+
+
+
+    // Afficher une notification
+/*     var notification = document.createElement("div");
+    notification.className = "notification";
+    notification.textContent = "Rendu épinglé !";
+    document.body.appendChild(notification);
+     */
+
