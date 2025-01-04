@@ -10,23 +10,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
-    <title>Archives des cours</title>
+    <title>ENT | Archives</title>
 </head>
 <body>
     <!-- Main Section -->
     <main>
     <section class="page-archives">
-      <h1>Archives des cours</h1>
+      <h1>Archives</h1>
       <!-- Archives des cours -->
-      <a href="elearning.php" class="archives-btn">Accéder au Elearning</a>
-      <div class="semestre-dropdown">
+      <div class="flex-container-btn"><a href="elearning.php" class="archives-btn">Accéder au Elearning</a>
+    </div>
+
+
+      <!-- <div class="semestre-dropdown">
         <label for="semestre">Semestre</label>
         <select id="semestre" name="semestre">
       <option value="semestre">Semestre</option>
       <option value="semestre1">Semestre 1</option>
       <option value="semestre2">Semestre 2</option>
         </select>
-      </div>
+      </div> -->
+
+
       <!-- Création numérique Section -->
        <div class="elearning-container">
       <div class="section-title">Création numérique</div>

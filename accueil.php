@@ -105,12 +105,12 @@
             <p><strong>Desserts :</strong> Tiramisu, Tarte aux pommes</p>
         </div>
         <!-- To-Do List -->
-        <div class="widget rendus">
-            <h2>Prochains rendus</h2> <hr>
-            <p><strong>Mini blog :</strong> le 30 nov</p>
-            <p><strong>CV vidéo :</strong> le 24 déc</p>
-            <p><strong>Portfolio :</strong> fait</p>
-        </div>
+        <a href="rendus.php" class="widget rendus">
+                <h2>Prochains rendus</h2> <hr>
+                <p><strong>Mini blog :</strong> le 30 nov</p>
+                <p><strong>CV vidéo :</strong> le 24 déc</p>
+                <p><strong>Portfolio :</strong> fait</p>
+        </a>
         <!-- Actualités -->
         <div class="widget actualites">
             <h2>Actualités</h2> <hr>

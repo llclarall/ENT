@@ -21,38 +21,44 @@ function togglePassword(inputId, toggleElement) {
 /* NAV ALY*/
 
 document.addEventListener('DOMContentLoaded', () => {
-  const sideNav = document.querySelector('.side-nav');
-  const toggleMenu = document.querySelector('.toggle-menu');
-  const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
-
-  // Basculer la visibilité du menu sur mobile
-  toggleMenu.addEventListener('click', () => {
-    sideNav.classList.toggle('hidden'); // Basculer la classe 'hidden' pour afficher/masquer la barre latérale
-  });
-
-  // Fonctionnalité de bascule des menus déroulants
-  dropdownToggles.forEach(toggle => {
-    toggle.addEventListener('click', (e) => {
-      e.preventDefault();
-
-
-      const dropdown = toggle.nextElementSibling;
-
-      // Basculer l'affichage du menu déroulant actuel
-      dropdown.classList.toggle('open');
-      toggle.classList.toggle('rotate');
-
-
-      // Fermer les autres menus déroulants
-      document.querySelectorAll('.dropdown').forEach(otherDropdown => {
-        if (otherDropdown !== dropdown) {
-          otherDropdown.classList.remove('open');
-          otherDropdown.previousElementSibling.classList.remove('rotate');
-        }
+    const sideNav = document.querySelector('.side-nav');
+    const toggleMenu = document.querySelector('.toggle-menu');
+    const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
+  
+    // Basculer la visibilité du menu sur mobile
+    toggleMenu.addEventListener('click', () => {
+      sideNav.classList.toggle('hidden'); // Basculer la classe 'hidden' pour afficher/masquer la barre latérale
+    });
+  
+    // Fonctionnalité de bascule des menus déroulants
+    dropdownToggles.forEach(toggle => {
+      toggle.addEventListener('click', (e) => {
+        e.preventDefault();
+  
+        const dropdown = toggle.nextElementSibling;
+  
+        // Basculer l'affichage du menu déroulant actuel
+        dropdown.classList.toggle('open');
+        toggle.classList.toggle('rotate');
+  
+        // Fermer les autres menus déroulants
+        document.querySelectorAll('.dropdown').forEach(otherDropdown => {
+          if (otherDropdown !== dropdown) {
+            otherDropdown.classList.remove('open');
+            otherDropdown.previousElementSibling.classList.remove('rotate');
+          }
+        });
       });
     });
+  
+    // Assurez-vous que la barre latérale est visible lorsque la fenêtre dépasse 1130px
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 1130) {
+        sideNav.classList.remove('hidden');
+      }
+    });
   });
-});
+  
 
 
 
@@ -173,3 +179,31 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 });
 
+
+
+
+
+/* RENDUS CLARA */
+
+document.addEventListener('DOMContentLoaded', () => {
+    const modal = document.getElementById('modal');
+    const openModalBtn = document.getElementById('openModalBtn');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+    
+    // Ouvrir la modale lorsque l'on clique sur le bouton "Ajouter un rendu"
+    openModalBtn.addEventListener('click', () => {
+        modal.style.display = 'flex'; // Afficher la modale
+    });
+
+    // Fermer la modale lorsque l'on clique sur le bouton de fermeture
+    closeModalBtn.addEventListener('click', () => {
+        modal.style.display = 'none'; // Cacher la modale
+    });
+
+    // Fermer la modale si l'on clique en dehors de la fenêtre modale
+    window.addEventListener('click', (event) => {
+        if (event.target === modal) {
+            modal.style.display = 'none';
+        }
+    });
+});

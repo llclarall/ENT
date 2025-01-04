@@ -10,7 +10,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
-    <title>Elearning</title>
+    <title>ENT | Elearning</title>
 </head>
 <body>
     <!-- Main Section -->
@@ -18,7 +18,8 @@
     <section class="page-elearning">
       <h1>E-learning</h1>
       <!-- Archives des cours -->
-      <a href="archives.php" class="archives-btn">Accéder au archives des cours</a>
+      <div class="flex-container-btn"><a href="archives.php" class="archives-btn">Accéder aux Archives</a>
+    </div>
       <!-- Création numérique Section -->
     <div class="elearning-container">
       <div class="section-title">Création numérique</div>

@@ -828,7 +828,7 @@ section:not(.connexion) {
     font-weight: bold;
     position: absolute;
     right: 20px;
-    top: 13px;
+    top: 100px;
     transition: all 0.2s ease;
     border: white 1px solid;
   }
@@ -904,7 +904,11 @@ section:not(.connexion) {
 
   .archives-btn {
     position: static; 
-    margin: 10px auto;
+    margin-bottom: 30px;
+  }
+  .flex-container-btn {
+    display: flex;
+    justify-content: flex-end;
   }
 }
 
@@ -1272,6 +1276,7 @@ border: 1px solid #ccc;
 
 .page-rendus .ajouter-rendu {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     border: var(--bleu) 1px solid;
@@ -1279,21 +1284,97 @@ border: 1px solid #ccc;
     transition: all 0.2s ease;
     cursor: pointer;
     height: 100%;
+    gap: 30px;
+    position: relative;
 }
 
 .page-rendus .ajouter-rendu:hover {
     background-color: #f9f9f9;
 }
 
-.page-rendus .ajouter-rendu span {
+.page-rendus .ajouter-rendu img {
     font-weight: bold;
-    font-size: 10rem;
+    width: 6rem;
     transition: all 0.2s ease;
+    position: absolute;
 }
 
-.ajouter-rendu:hover span {
+.ajouter-rendu:hover img {
     transform: scale(1.05);
 }
+
+.ajouter-rendu p {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: var(--bleu);
+    position: absolute;
+    bottom: 0;
+}
+
+
+
+/* modale */
+
+.page-rendus .modal {
+    display: none; 
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.page-rendus .modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 600px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.page-rendus .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.page-rendus form {
+    display: flex;
+    flex-direction: column;
+}
+
+.page-rendus label {
+    margin-top: 10px;
+    font-size: 16px;
+}
+
+.page-rendus input, textarea {
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.page-rendus .modal button[type="submit"] {
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.page-rendus .modal button[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+
 
 
 

@@ -18,7 +18,7 @@
   <nav class="side-nav" role="navigation" aria-labelledby="menu-label">
     <h2 id="menu-label" class="sr-only">Menu de navigation</h2>
     <div class="logo">
-      <img src="images/logo.png" alt="Accueil ENT" />
+      <a href="accueil.php"><img src="images/logo.png" alt="Accueil ENT" /></a>
     </div>
     <ul class="menu">
       <!-- Accueil -->
