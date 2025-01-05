@@ -1098,9 +1098,281 @@ color: #2F4156;
 }
 
 
+/* MESSAGERIE MEL */
 
+.container-messagerie {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .sidebar {
+    padding: 10px;
+    flex-shrink: 0;
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  .sidebar button {
+    padding: 10px 15px;
+    margin: 5px 0;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    background-color: #567C8D;
+    color: white;
+  }
+  
+  .sidebar button:hover {
+    background-color: #2F4156;
+  }
+  
+  .sidebar button.active {
+    background-color: var(--bleu);
+    color: white;
+  }
+  
+  .messages {
+    padding: 10px;
+    background-color: white;
+  }
+  
+  .message-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-decoration: none; 
+    background-color: var(--bleu);
+    padding: 8px 12px;
+    margin-bottom: 8px;
+    border-radius: 8px;
+    color: white;
+  }
+  
+  .message-item:hover {
+    background-color: #567C8D;
+    color: white;
+    cursor: pointer;
+  }
+  
+  .message-info p {
+    margin: 5px 0 0;
+    font-size: 0.875rem;
+    color: white;
+  }
+  
+  .message-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+  
+  .date {
+    font-size: 0.875rem;
+  }
+  
 
+  @media (min-width: 768px) {
+    .container-messagerie {
+      flex-direction: row;
+    }
+  
+    .sidebar {
+      width: 270px; 
+      flex-direction: column;
+      padding: 20px 15px; 
+      border-right: 1px solid #000000; 
+    }
+  
+    .sidebar button {
+      padding: 10px 10px; 
+      margin: 3px 0;
+      font-size: 1rem;
+    }
+  
+    .messages {
+      padding: 30px 15px;
+      margin-left: 15px; 
+    }
+  
+    .message-item {
+      width: 100%;
+      padding: 10px 15px; 
+    }
+  }
+  
 
+  @media (min-width: 1024px) {
+    .container-messagerie {
+      margin-left: 250px;
+      display: flex; 
+    }
+  
+    .sidebar {
+      width: 250px;
+      flex-direction: column;
+      padding: 20px 15px;
+      border-right: 1px solid #000000; 
+    }
+  
+    .messages {
+      padding: 30px 40px;
+      margin-left: 10px; 
+    }
+  
+    .message-item {
+      width: 700px;
+      padding: 12px 20px;
+    }
+  
+    .sidebar button {
+      font-size: 1.1rem;
+    }
+  }
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .container-messagerie {
+      display: flex;
+      margin-left: 250px; 
+    }
+  
+    .sidebar {
+      width: 250px; 
+      padding: 20px 15px;
+      border-right: 1px solid #000;
+    }
+  
+    .message-content {
+      max-width: 600px; 
+      padding: 40px; 
+      margin-left: 20px; 
+    }
+  
+    .message-content .back-button {
+      padding: 10px 20px; 
+    }
+  
+    .message-content .action-button {
+      padding: 16px 32px; 
+      font-size: 1.2rem;
+    }
+  
+    .sender-name {
+      font-size: 1.6rem; 
+    }
+  
+    .message-text {
+      font-size: 1.2rem; 
+    }
+  }
+
+/* MESSAGE 1 MEL */
+ /* Contenu principal */
+.message-content {
+    margin: 20px auto;
+    padding: 20px;
+    background: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    text-align: center; 
+    align-items: center;
+  }
+  
+  /* Bouton "Retour" */
+  .back-link {
+    display: inline-block; 
+    margin-bottom: 20px;
+    text-decoration: none;
+  }
+  
+  .back-button {
+    background-color: var(--bleu);
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    font-size: 0.8rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .back-button:hover {
+    background-color: #567C8D;
+  }
+  
+  /* Informations du message */
+  .sender-name {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .email, .date-time {
+    color: #555;
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+  }
+  
+  .message-text {
+    font-size: 0.8rem;
+    line-height: 1.5;
+    margin-bottom: 20px;
+  }
+  
+  /* Boutons "Répondre" et "Transférer" */
+  .actions {
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  .action-button {
+    background-color: var(--bleu);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .action-button:hover {
+    background-color: #567C8D;
+  }
+  
+  /* Design responsive */
+  @media (min-width: 768px) {
+    .message-content {
+      max-width: 500px;
+    }
+
+    .back-button {
+        padding: 6px 12px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .message-content {
+      max-width: 800px; 
+      font-size: 1rem;
+    }
+  
+    .back-button {
+      padding: 6px 12px; 
+      font-size: 0.9rem;
+    }
+  
+    .action-button {
+      padding: 12px 24px; 
+      font-size: 1rem; 
+    }
+  
+    .sender-name {
+      font-size: 1.5rem; 
+    }
+  
+    .message-text {
+      font-size: 1.1rem; 
+    }
+  }
 
 /* PAGE PROFIL */
 
