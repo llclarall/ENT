@@ -1162,8 +1162,6 @@ color: #2F4156;
   }
   
 
-
-
 /* MESSAGE 1 MEL */
  /* Contenu principal */
 .message-content {
@@ -1173,7 +1171,7 @@ color: #2F4156;
     background: #fff;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
-    text-align: center; /* Centrer le contenu */
+    text-align: center; 
     align-items: center;
   }
   
@@ -1185,17 +1183,18 @@ color: #2F4156;
   }
   
   .back-button {
-    background-color: #ccc;
+    background-color: var(--bleu);
+    color: white;
     border: none;
-    padding: 10px 20px;
-    font-size: 16px;
+    padding: 6px 12px;
+    font-size: 0.8rem;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
   }
   
   .back-button:hover {
-    background-color: #bbb;
+    background-color: #567C8D;
   }
   
   /* Informations du message */
@@ -1207,12 +1206,12 @@ color: #2F4156;
   
   .email, .date-time {
     color: #555;
-    font-size: 14px;
+    font-size: 0.9rem;
     margin-bottom: 10px;
   }
   
   .message-text {
-    font-size: 16px;
+    font-size: 0.8rem;
     line-height: 1.5;
     margin-bottom: 20px;
   }
@@ -1224,17 +1223,17 @@ color: #2F4156;
   }
   
   .action-button {
-    background-color: #ccc;
+    background-color: var(--bleu);
+    color: white;
     border: none;
     padding: 10px 20px;
-    font-size: 16px;
+    font-size: 1rem;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
   }
   
   .action-button:hover {
-    background-color: #bbb;
+    background-color: #567C8D;
   }
   
   /* Design responsive */
@@ -1242,31 +1241,35 @@ color: #2F4156;
     .message-content {
       max-width: 500px;
     }
+
+    .back-button {
+        padding: 6px 12px;
+    }
   }
 
   @media (min-width: 1024px) {
     .message-content {
       max-width: 700px; 
       padding: 40px; 
-      font-size: 18px;
+      font-size: 1rem;
     }
   
     .back-button {
-      padding: 12px 24px; 
-      font-size: 18px;
+      padding: 6px 12px; 
+      font-size: 0.9rem;
     }
   
     .action-button {
       padding: 12px 24px; 
-      font-size: 18px; 
+      font-size: 1rem; 
     }
   
     .sender-name {
-      font-size: 24px; 
+      font-size: 1.5rem; 
     }
   
     .message-text {
-      font-size: 18px; 
+      font-size: 1.1rem; 
     }
   }
 
