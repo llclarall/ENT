@@ -1,9 +1,3 @@
-<?php 
-    include('header.php');
-
-    include('nav.php');
-    ?>
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
