@@ -1030,9 +1030,245 @@ color: #2F4156;
 }
 
 
+/* MESSAGERIE MEL */
+
+.container-messagerie {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .sidebar {
+    padding: 10px;
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  .sidebar button {
+    padding: 10px 15px;
+    margin: 5px 0;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    background-color: #567C8D;
+    color: white;
+  }
+  
+  .sidebar button:hover {
+    background-color: #2F4156;
+  }
+  
+  .sidebar button.active {
+    background-color: var(--bleu);
+    color: white;
+  }
+  
+  .messages {
+    padding: 10px;
+    background-color: white;
+  }
+  
+  .message-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-decoration: none; 
+    background-color: var(--bleu);
+    padding: 8px 12px;
+    margin-bottom: 8px;
+    border-radius: 8px;
+    color: white;
+  }
+  
+  .message-item:hover {
+    background-color: #567C8D;
+    color: white;
+    cursor: pointer;
+  }
+  
+  .message-info p {
+    margin: 5px 0 0;
+    font-size: 0.875rem;
+    color: white;
+  }
+  
+  .message-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+  
+  .date {
+    font-size: 0.875rem;
+  }
+  
+
+  @media (min-width: 768px) {
+    .container-messagerie {
+      flex-direction: row;
+    }
+  
+    .sidebar {
+      width: 270px; 
+      flex-direction: column;
+      padding: 20px 15px; 
+      border-right: 1px solid #000000; 
+    }
+  
+    .sidebar button {
+      padding: 10px 10px; 
+      margin: 3px 0;
+      font-size: 1rem;
+    }
+  
+    .messages {
+      padding: 30px 15px;
+      margin-left: 15px; 
+    }
+  
+    .message-item {
+      width: 100%;
+      padding: 10px 15px; 
+    }
+  }
+  
+
+  @media (min-width: 1024px) {
+    .container-messagerie {
+      margin-left: 250px;
+      display: flex; 
+    }
+  
+    .sidebar {
+      width: 250px;
+      flex-direction: column;
+      padding: 20px 15px;
+      border-right: 1px solid #000000; 
+    }
+  
+    .messages {
+      padding: 30px 40px;
+      margin-left: 10px; 
+    }
+  
+    .message-item {
+      width: 700px;
+      padding: 12px 20px;
+    }
+  
+    .sidebar button {
+      font-size: 1.1rem;
+    }
+  }
+  
 
 
 
+/* MESSAGE 1 MEL */
+ /* Contenu principal */
+.message-content {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    text-align: center; /* Centrer le contenu */
+    align-items: center;
+  }
+  
+  /* Bouton "Retour" */
+  .back-link {
+    display: inline-block; 
+    margin-bottom: 20px;
+    text-decoration: none;
+  }
+  
+  .back-button {
+    background-color: #ccc;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .back-button:hover {
+    background-color: #bbb;
+  }
+  
+  /* Informations du message */
+  .sender-name {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .email, .date-time {
+    color: #555;
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+  
+  .message-text {
+    font-size: 16px;
+    line-height: 1.5;
+    margin-bottom: 20px;
+  }
+  
+  /* Boutons "Répondre" et "Transférer" */
+  .actions {
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  .action-button {
+    background-color: #ccc;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .action-button:hover {
+    background-color: #bbb;
+  }
+  
+  /* Design responsive */
+  @media (min-width: 768px) {
+    .message-content {
+      max-width: 500px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .message-content {
+      max-width: 700px; 
+      padding: 40px; 
+      font-size: 18px;
+    }
+  
+    .back-button {
+      padding: 12px 24px; 
+      font-size: 18px;
+    }
+  
+    .action-button {
+      padding: 12px 24px; 
+      font-size: 18px; 
+    }
+  
+    .sender-name {
+      font-size: 24px; 
+    }
+  
+    .message-text {
+      font-size: 18px; 
+    }
+  }
 
 /* PAGE PROFIL */
 
