@@ -260,13 +260,236 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
+/* états rendus */
+
+function updateEtat(id, etat) {
+    const selectElement = document.getElementById(`etat-${id}`);
+
+    // Change la classe CSS du select en fonction de l'état choisi
+    selectElement.classList.remove('a-faire', 'en-cours', 'fait');
+    selectElement.classList.add(`${etat}`);
+
+    // Envoyer la mise à jour de l'état au serveur
+    const formData = new FormData();
+    formData.append('id', id);
+    formData.append('etat', etat);
+
+    fetch('update-etat.php', {
+        method: 'POST',
+        body: formData,
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erreur lors de la mise à jour');
+            }
+            return response.text();
+        })
+        .then(data => {
+            console.log('État mis à jour :', data); // Debug
+        })
+        .catch(error => {
+            console.error('Erreur :', error);
+            alert('Une erreur est survenue.');
+        });
+}
 
 
 
-    // Afficher une notification
-/*     var notification = document.createElement("div");
-    notification.className = "notification";
-    notification.textContent = "Rendu épinglé !";
-    document.body.appendChild(notification);
-     */
+/* Modale ajout tâches */
 
+// Ouvrir la modale
+function openModal(event) {
+    event.preventDefault(); 
+    document.getElementById('modal-tasks').style.display = 'flex';
+}
+
+// Fermer la modale
+function closeModal(event) {
+    if (event && event.target === document.getElementById('modal-tasks')) {
+        document.getElementById('modal-tasks').style.display = 'none';
+    }
+}
+
+// Ajouter une tâche
+function addTask() {
+    const taskInput = document.getElementById('taskInput');
+    const taskValue = taskInput.value.trim();
+    
+    if (taskValue) {
+        const taskList = document.getElementById('taskList');
+        const li = document.createElement('li');
+        
+        // Crée une case à cocher avec la tâche
+        li.innerHTML = `<input type="checkbox" class="task-checkbox" onclick="toggleTask(this)"> <span class="task-text">${taskValue}</span>`;
+
+        // Ajoute un gestionnaire de clic uniquement sur le texte de la tâche (pas sur la case à cocher)
+        li.querySelector('.task-text').addEventListener('click', toggleTaskByText);
+        
+        taskList.appendChild(li);
+        taskInput.value = ''; 
+        saveTasks(); // Sauvegarde les tâches
+    }
+}
+
+// Gérer la tâche quand la case est cochée ou décochée
+function toggleTask(checkbox) {
+    const li = checkbox.parentElement;
+    if (checkbox.checked) {
+        li.classList.add('completed');
+    } else {
+        li.classList.remove('completed');
+    }
+    saveTasks(); // Sauvegarde après modification
+}
+
+// Gérer le clic sur le texte de la tâche pour cocher/décocher la case
+function toggleTaskByText(event) {
+    const li = event.target.parentElement; 
+    const checkbox = li.querySelector('.task-checkbox');
+    checkbox.checked = !checkbox.checked;
+    toggleTask(checkbox); 
+}
+
+// Vérifier si l'utilisateur appuie sur 'Enter'
+function checkEnter(event) {
+    if (event.key === 'Enter') {
+        addTask();
+    }
+}
+
+// Sauvegarder les tâches dans le localStorage
+function saveTasks() {
+    const tasks = [];
+    const taskListItems = document.querySelectorAll('#taskList li');
+    
+    taskListItems.forEach((li) => {
+        const checkbox = li.querySelector('.task-checkbox');
+        tasks.push({
+            task: li.querySelector('.task-text').textContent.trim(),
+            completed: checkbox.checked
+        });
+    });
+
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+}
+
+// Charger les tâches sauvegardées depuis le localStorage
+window.onload = function () {
+    const savedTasks = JSON.parse(localStorage.getItem('tasks')) || [];
+    const taskList = document.getElementById('taskList');
+    
+    savedTasks.forEach(task => {
+        const li = document.createElement('li');
+        li.innerHTML = `<input type="checkbox" class="task-checkbox" ${task.completed ? 'checked' : ''} onclick="toggleTask(this)"> <span class="task-text">${task.task}</span>`;
+        if (task.completed) {
+            li.classList.add('completed');
+        }
+        taskList.appendChild(li);
+    });
+
+    // Ajouter l'écouteur d'événement pour 'Enter' au champ de saisie
+    document.getElementById('taskInput').addEventListener('keydown', checkEnter);
+};
+
+
+
+
+/* drag-and-drop fichiers rendu */
+// Empêcher le comportement par défaut lors du glisser-déposer
+function allowDrop(event) {
+    event.preventDefault();
+}
+
+// Gérer le dépôt du fichier dans la zone de dépôt
+function handleDrop(event) {
+    event.preventDefault();
+    const file = event.dataTransfer.files[0];
+    if (file) {
+        handleFile(file);
+    }
+}
+
+// Gérer la sélection d'un fichier via le bouton d'importation
+function handleFileSelect(event) {
+    const file = event.target.files[0];
+    if (file) {
+        handleFile(file);
+    }
+}
+
+// Gérer le clic sur la zone de dépôt pour déclencher la sélection de fichier
+function triggerFileInput() {
+    document.getElementById('fileInput').click();
+}
+
+// Fonction pour traiter le fichier (affichage du nom de fichier)
+function handleFile(file) {
+    const dropZone = document.getElementById('drop-zone');
+    const fileName = document.createElement('p');
+    fileName.textContent = `Fichier sélectionné: ${file.name}`;
+    dropZone.appendChild(fileName);
+
+    // Affiche le bouton "Rendre le fichier"
+    document.getElementById('renderFileButton').style.display = 'inline-block';
+}
+
+// Fonction pour rendre le fichier (envoyer le fichier au serveur)
+async function renderFile() {
+    const fileInput = document.getElementById('fileInput');
+    const file = fileInput.files[0]; // Récupère le fichier sélectionné
+    
+    if (!file) {
+        alert("Aucun fichier sélectionné.");
+        return;
+    }
+
+    // Récupérer les ID de l'utilisateur et du rendu
+    const fk_user = document.getElementById('userId').value; // ID de l'utilisateur
+    const fk_rendu = document.getElementById('renduId').value; // ID du rendu
+
+    if (!fk_user || !fk_rendu) {
+        alert("ID utilisateur ou rendu manquant.");
+        return;
+    }
+
+    // Prépare les données du formulaire (fichier et autres informations, si nécessaire)
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('fk_user', fk_user); // Ajouter l'ID utilisateur
+    formData.append('fk_rendu', fk_rendu); // Ajouter l'ID du rendu
+    formData.append('taskTitle', document.querySelector('#taskInput').value); // Ajouter des informations supplémentaires si nécessaire
+
+try {
+// Envoi du fichier au serveur via POST
+const response = await fetch('/upload', {
+    method: 'POST',
+    body: formData
+});
+
+// Vérification de la réponse du serveur
+if (response.ok) {
+    const data = await response.json(); // Réponse du serveur
+    console.log(data); // Ajoutez ceci pour afficher la réponse complète
+    if (data.success) {
+        alert(`Fichier ${file.name} rendu avec succès!`);
+        resetFileInput();
+    } else {
+        alert("Erreur lors de l'envoi du fichier.");
+    }
+} else {
+    alert("Erreur lors de l'envoi du fichier.");
+    console.log(await response.text()); // Afficher le message d'erreur du serveur
+}
+
+    } catch (error) {
+        console.error('Erreur lors de l\'envoi du fichier:', error);
+        alert("Erreur lors de l'envoi du fichier.");
+    }
+}
+
+// Réinitialiser le champ de fichier et le bouton après l'envoi
+function resetFileInput() {
+    document.getElementById('file-info').textContent = '';
+    document.getElementById('renderFileButton').style.display = 'none';
+    document.getElementById('fileInput').value = ''; // Réinitialise le champ de fichier
+}

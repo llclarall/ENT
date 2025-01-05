@@ -1,23 +1,32 @@
 <?php 
-    include('header.php');
-    include('config.php');
-    include('nav.php');
+include('header.php');
+include('config.php');
+include('nav.php');
 
-    // Vérifier si l'utilisateur est connecté
-    if (!isset($_SESSION['id'])) {
-        header("Location: index.php");
-        exit();
-    }
+// Vérifier si l'utilisateur est connecté
+if (!isset($_SESSION['id'])) {
+    header("Location: index.php");
+    exit();
+}
 
-    // Récupérer les informations de l'utilisateur
-    $id = $_SESSION['id'];
-    $requete = "SELECT * FROM utilisateurs WHERE id = :id";
-    $stmt = $db->prepare($requete);
-    $stmt->bindParam(':id', $id);
-    $stmt->execute();
-    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+// Récupérer les informations de l'utilisateur
+$id = $_SESSION['id'];
+$requete = "SELECT * FROM utilisateurs WHERE id = :id";
+$stmt = $db->prepare($requete);
+$stmt->bindParam(':id', $id);
+$stmt->execute();
+$user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+// Récupérer les rendus associés à l'utilisateur ou non assignés à personne, triés par priorité (epinglés) et date
+$query = "SELECT * FROM rendus WHERE fk_user = :fk_user OR fk_user IS NULL ORDER BY pinned DESC, date ASC";
+$stmt = $db->prepare($query);
+$stmt->bindParam(':fk_user', $id);
+$stmt->execute();
+$rendus = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -39,6 +48,7 @@
     
     <div class="container">
 
+
         <!-- Applications avec 3 sous-blocs -->
         <div class="applications">
             <h2>Applications</h2>
@@ -54,6 +64,7 @@
                 </a>
             </div>
         </div>
+
 
         <!-- Réservations avec 3 sous-blocs -->
         <div class="notifs">
@@ -89,6 +100,7 @@
             </div>
         </div>
     
+
         <!-- Derniers messages -->
         <a href="messagerie.php">
             <div class="widget messages">
@@ -97,6 +109,8 @@
                 <p>Gaëlle Charpentier | 12/11</p>
             </div>
         </a>
+
+
         <!-- Menu -->
         <div class="widget menu">
             <h2>Menu du jour</h2> <hr>
@@ -104,13 +118,45 @@
             <p><strong>Plats :</strong> Poulet braisé, Poisson pané</p>
             <p><strong>Desserts :</strong> Tiramisu, Tarte aux pommes</p>
         </div>
-        <!-- To-Do List -->
-        <a href="rendus.php" class="widget rendus">
-                <h2>Prochains rendus</h2> <hr>
-                <p><strong>Mini blog :</strong> le 30 nov</p>
-                <p><strong>CV vidéo :</strong> le 24 déc</p>
-                <p><strong>Portfolio :</strong> fait</p>
-        </a>
+
+
+        <!-- Rendus -->
+        <div class="rendus widget">
+        <h2>Prochains rendus</h2>
+    <hr>
+
+    <?php 
+    $count = 0; // Compteur pour limiter l'affichage à 2 rendus
+    $maxRendus = 3;
+    
+    foreach ($rendus as $rendu) {
+        if ($count >= $maxRendus) break; // Limiter à 2 rendus
+    
+        // Vérifier si le rendu est épinglé et l'afficher en premier
+        if ($rendu['pinned'] == 1) {
+            echo "<a href='rendus.php' class='rendu-pinned'>
+                    <p class='pinned rendu'>
+                        <strong>" . htmlspecialchars($rendu['titre']) . "</strong> le " . date('d/m', strtotime($rendu['date'])) . "
+                    </p>
+                    <img src='images/pin.png' alt='Rendu épinglé' class='pin-icon'>
+                </a>";
+        } else {
+            echo "<a href='rendus.php'><p class='rendu'><strong>" . htmlspecialchars($rendu['titre']) . "</strong> le " . date('d/m', strtotime($rendu['date'])) . "</p></a>";
+        }
+    
+        $count++;
+    }
+    
+    // Si aucun rendu n'est épinglé et qu'il en reste, afficher les 2 rendus les plus proches
+    if ($count == 0 && count($rendus) > 0) {
+        echo "<a href='rendus.php'><p class='rendu'><strong>" . htmlspecialchars($rendus[0]['titre']) . "</strong> le " . date('d/m', strtotime($rendus[0]['date'])) . "</p></a>";
+        echo "<a href='rendus.php'><p class='rendu'><strong>" . htmlspecialchars($rendus[1]['titre']) . "</strong> le " . date('d/m', strtotime($rendus[1]['date'])) . "</p></a>";
+    }
+    
+    ?>
+        </div>
+
+
         <!-- Actualités -->
         <div class="widget actualites">
             <h2>Actualités</h2> <hr>

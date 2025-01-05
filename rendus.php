@@ -84,7 +84,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 
 
-    <!-- Modale -->
+    <!-- Modale ajout rendu -->
     <div id="modal" class="modal">
         <div class="modal-content">
             <span class="close-btn" id="closeModalBtn">&times;</span>
@@ -92,14 +92,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             
             <!-- Formulaire pour ajouter un rendu -->
             <form id="addRenduForm" method="POST" action="rendus.php">
-                <label for="titre" required>Titre</label>
+                <label for="titre" required>Titre*</label>
                 <input type="text" id="titre" name="titre" required>
 
                 <label for="description">Description</label>
                 <textarea id="description" name="description"></textarea>
 
-                <label for="date">Date</label>
-                <input type="datetime-local" id="date" name="date" required>
+                <label for="date">Date*</label>
+                <input type="datetime-local" id="date" name="date" required><br><br>
 
                 <button type="submit">Ajouter</button>
             </form>
@@ -120,13 +120,52 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ?>
         </p>
 
-        <div class="etats">
-            <button class="etat a-faire">Pas commencé</button>
-            <button class="etat en-cours">En cours</button>
-            <button class="etat fait">Terminé</button>
+        <!-- Dropdown pour les états -->
+        <div class="etats-dropdown">
+            <label for="etat-<?= $rendu['id'] ?>" class="sr-only">État :</label>
+            <select id="etat-<?= $rendu['id'] ?>" class="etat <?= $rendu['etat'] ?>" onchange="updateEtat(<?= $rendu['id'] ?>, this.value)">
+                <option value="a-faire" <?= $rendu['etat'] === 'a-faire' ? 'selected' : '' ?>>Pas commencé</option>
+                <option value="en-cours" <?= $rendu['etat'] === 'en-cours' ? 'selected' : '' ?>>En cours</option>
+                <option value="fait" <?= $rendu['etat'] === 'fait' ? 'selected' : '' ?>>Terminé</option>
+            </select>
         </div>
 
-        <a href="rendu.php">Consulter et déposer</a> 
+        <a href="rendu.php" onclick="openModal(event)">Consulter et déposer</a>
+
+        <!-- Modale ajout tâches -->
+        <div id="modal-tasks" class="modal-tasks" style="display: none;" onclick="closeModal(event)">
+            <div class="modal-content" onclick="event.stopPropagation()">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <h2><?= $rendu['titre'] ?></h2>
+                
+                <ul id="taskList" class="taskList">
+                    <!-- Les tâches seront ajoutées ici -->
+                </ul>
+
+                <!-- Formulaire pour ajouter une tâche -->
+                <div class="task-form">
+                    <input type="text" id="taskInput" placeholder="Ajouter une tâche" class="taskInput" onkeydown="checkEnter(event)"/>
+                    <button onclick="addTask()">Ajouter</button>
+                </div>
+
+                <form id="drop-zone" class="drop-zone" onclick="triggerFileInput()">
+                    <p>Déposez votre fichier ici ou cliquez pour sélectionner</p>
+                    <input type="file" id="fileInput" onchange="handleFileSelect(event)" style="display: none;" />
+                    
+                    <!-- Champs cachés pour stocker les identifiants -->
+                    <input type="hidden" id="userId" value="<?=$user['id']?>">
+                    <input type="hidden" id="renduId" value="<?=$rendu['id']?>">
+                    
+                    <div id="file-info" class="file-info"></div>
+                </form>
+
+                <button id="renderFileButton" onclick="renderFile()" style="display: none;" class="render-btn">Rendre le fichier</button>
+
+
+            </div>
+        </div>
+ 
+
     </div>
     <?php endforeach; ?>
 
