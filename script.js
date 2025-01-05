@@ -210,6 +210,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
+
 // Fonction pour pin un rendu
 function pinRendu(renduId) {
     var renduElement = document.getElementById("rendu-" + renduId);
@@ -219,7 +220,7 @@ function pinRendu(renduId) {
     if (renduElement.classList.contains("pinned")) {
         // Si l'élément est déjà épinglé, le dé-pincer
         renduElement.classList.remove("pinned");
-        
+
         // Réorganiser l'élément pour le remettre à sa place dans la grille
         container.appendChild(renduElement);
 
@@ -233,7 +234,7 @@ function pinRendu(renduId) {
     } else {
         // Si l'élément n'est pas épinglé, l'épingler
         renduElement.classList.add("pinned");
-        
+
         // Déplacer l'élément épinglé juste après la div ajouter-rendu
         container.insertBefore(renduElement, ajouterRenduDiv.nextSibling);
 
@@ -247,14 +248,12 @@ function pinRendu(renduId) {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-    // Récupérer tous les rendus avec la classe 'pinned'
     var pinnedRendus = document.querySelectorAll('.rendu-card.pinned');
-    
-    pinnedRendus.forEach(function(rendu) {
-        // Déplacer les rendus épinglés juste après la div 'ajouter-rendu'
+
+    pinnedRendus.forEach(function (rendu) {
         var container = document.querySelector('.rendus-container');
-        var ajouterRenduDiv = document.getElementById('openModalBtn'); // Div ajouter-rendu
-        container.insertBefore(rendu, ajouterRenduDiv.nextSibling);  // Déplacer après la div
+        var ajouterRenduDiv = document.getElementById('openModalBtn');
+        container.insertBefore(rendu, ajouterRenduDiv.nextSibling);
     });
 });
 
@@ -262,12 +261,42 @@ document.addEventListener("DOMContentLoaded", function () {
 
 /* états rendus */
 
+document.addEventListener('DOMContentLoaded', function() {
+    const elements = document.querySelectorAll('.rendu-card');
+
+    elements.forEach(function(element) {
+        const id = element.id.replace('rendu-', ''); // On récupère l'ID à partir de l'élément
+
+        fetch(`get-etat.php?id=${id}`)
+            .then(response => response.json())
+            .then(data => {
+                const etat = data.etat;
+
+                if (etat === 'fait') {
+                    element.classList.add('grise', 'termine');  // Ajout des classes après récupération de l'état
+                } else {
+                    element.classList.remove('grise', 'termine');
+                }
+            })
+            .catch(error => {
+                console.error('Erreur lors de la récupération de l\'état:', error);
+            });
+    });
+});
+
 function updateEtat(id, etat) {
     const selectElement = document.getElementById(`etat-${id}`);
+    const renduCard = document.getElementById(`rendu-${id}`);
 
-    // Change la classe CSS du select en fonction de l'état choisi
     selectElement.classList.remove('a-faire', 'en-cours', 'fait');
-    selectElement.classList.add(`${etat}`);
+    selectElement.classList.add(etat);
+
+    // En fonction de l'état, on ajoute ou enlève les classes correspondantes
+    if (etat === 'fait') {
+        renduCard.classList.add('grise', 'termine');  // Ajouter les classes 'grise' et 'termine' lorsque l'état est 'fait'
+    } else {
+        renduCard.classList.remove('grise', 'termine');  // Enlever ces classes sinon
+    }
 
     // Envoyer la mise à jour de l'état au serveur
     const formData = new FormData();
@@ -278,20 +307,29 @@ function updateEtat(id, etat) {
         method: 'POST',
         body: formData,
     })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Erreur lors de la mise à jour');
-            }
-            return response.text();
-        })
-        .then(data => {
-            console.log('État mis à jour :', data); // Debug
-        })
-        .catch(error => {
-            console.error('Erreur :', error);
-            alert('Une erreur est survenue.');
-        });
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Erreur lors de la mise à jour');
+        }
+        return response.text();
+    })
+    .then(data => {
+        console.log('État mis à jour :', data);  // Confirmer la mise à jour côté serveur
+
+        // Mettre à jour les classes après la confirmation de la mise à jour
+        if (etat === 'fait') {
+            renduCard.classList.add('grise', 'termine');  // Re-appliquer les classes 'grise' et 'termine'
+        } else {
+            renduCard.classList.remove('grise', 'termine');
+        }
+    })
+    .catch(error => {
+        console.error('Erreur :', error);
+        alert('Une erreur est survenue.');
+    });
 }
+
+
 
 
 
@@ -493,3 +531,7 @@ function resetFileInput() {
     document.getElementById('renderFileButton').style.display = 'none';
     document.getElementById('fileInput').value = ''; // Réinitialise le champ de fichier
 }
+
+
+
+

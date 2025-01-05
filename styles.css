@@ -1283,25 +1283,30 @@ border: 1px solid #ccc;
     margin: 1rem 0;
 }
 
-.page-rendus h2 {
-    margin-top: 0;
-}
-
 .page-rendus .pin {
-    width: 25px;
+    width: 24px;
     margin-left: auto;
     transition: all 0.2s ease;
-    position: relative;
-    left: 7px;
-    bottom: 7px;
+    position: absolute;
+    right: 10px;
+    top: 10px;
 }
 
-.page-rendus .rendu-card.pinned img {
+.page-rendus .rendu-card.pinned .pin {
     border: var(--bleu) 2px solid;
     border-radius: 50px;
     padding: 5px;
     width: 35px;
 }
+
+.page-rendus .rendu-card.grise {
+    opacity: 0.5; 
+}
+
+.page-rendus .rendu-card.termine {
+    order: 9999; 
+}
+
 
 .page-rendus .pin:hover {
     transform: scale(1.1);
@@ -1326,6 +1331,7 @@ border: 1px solid #ccc;
     text-align: center;
     display: flex;
     flex-direction: column;
+    position: relative;
 }
 
 /* .page-rendus .etats {
@@ -1657,6 +1663,26 @@ border: 1px solid #ccc;
     background-color: #45a049;
 }
 
+
+.supprimer-rendu {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.supprimer-rendu:hover {
+    transform: scale(1.1);
+}
+
+.supprimer-rendu-btn {
+    background-color: transparent;
+    border: none;
+    padding: 5px;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
 
 
 

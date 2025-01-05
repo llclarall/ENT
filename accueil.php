@@ -9,6 +9,7 @@ if (!isset($_SESSION['id'])) {
     exit();
 }
 
+
 // Récupérer les informations de l'utilisateur
 $id = $_SESSION['id'];
 $requete = "SELECT * FROM utilisateurs WHERE id = :id";
@@ -17,12 +18,21 @@ $stmt->bindParam(':id', $id);
 $stmt->execute();
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-// Récupérer les rendus associés à l'utilisateur ou non assignés à personne, triés par priorité (epinglés) et date
-$query = "SELECT * FROM rendus WHERE fk_user = :fk_user OR fk_user IS NULL ORDER BY pinned DESC, date ASC";
+
+// Récupérer les rendus associés à l'utilisateur ou non assignés à personne, triés par priorité (épinglés) et date
+$query = "SELECT r.*, 
+           CASE WHEN p.fk_user IS NOT NULL THEN 1 ELSE 0 END AS pinned
+    FROM rendus r
+    LEFT JOIN pins p ON r.id = p.fk_rendu AND p.fk_user = :user_id
+    WHERE r.fk_user = :fk_user OR r.fk_user IS NULL
+    ORDER BY pinned DESC, r.date ASC";
+
 $stmt = $db->prepare($query);
-$stmt->bindParam(':fk_user', $id);
+$stmt->bindParam(':fk_user', $id); // ID de l'utilisateur associé au rendu
+$stmt->bindParam(':user_id', $id); // ID de l'utilisateur connecté pour les épinglages
 $stmt->execute();
 $rendus = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
 
 ?>
 
@@ -126,34 +136,44 @@ $rendus = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <hr>
 
     <?php 
-    $count = 0; // Compteur pour limiter l'affichage à 2 rendus
-    $maxRendus = 3;
-    
-    foreach ($rendus as $rendu) {
-        if ($count >= $maxRendus) break; // Limiter à 2 rendus
-    
-        // Vérifier si le rendu est épinglé et l'afficher en premier
-        if ($rendu['pinned'] == 1) {
-            echo "<a href='rendus.php' class='rendu-pinned'>
-                    <p class='pinned rendu'>
-                        <strong>" . htmlspecialchars($rendu['titre']) . "</strong> le " . date('d/m', strtotime($rendu['date'])) . "
-                    </p>
-                    <img src='images/pin.png' alt='Rendu épinglé' class='pin-icon'>
-                </a>";
-        } else {
-            echo "<a href='rendus.php'><p class='rendu'><strong>" . htmlspecialchars($rendu['titre']) . "</strong> le " . date('d/m', strtotime($rendu['date'])) . "</p></a>";
-        }
-    
-        $count++;
+$count = 0; // Compteur pour limiter l'affichage
+$maxRendus = 3;
+
+foreach ($rendus as $rendu) {
+    if ($count >= $maxRendus) break; // Limiter à 3 rendus maximum
+
+    // Vérifier si le rendu est épinglé pour l'utilisateur connecté
+    if ($rendu['pinned'] == 1) {
+        echo "<a href='rendus.php' class='rendu-pinned'>
+                <p class='pinned rendu'>
+                    <strong>" . htmlspecialchars($rendu['titre']) . "</strong> le " . date('d/m', strtotime($rendu['date'])) . "
+                </p>
+                <img src='images/pin.png' alt='Rendu épinglé' class='pin-icon'>
+              </a>";
+    } else {
+        echo "<a href='rendus.php'>
+                <p class='rendu'>
+                    <strong>" . htmlspecialchars($rendu['titre']) . "</strong> le " . date('d/m', strtotime($rendu['date'])) . "
+                </p>
+              </a>";
     }
-    
-    // Si aucun rendu n'est épinglé et qu'il en reste, afficher les 2 rendus les plus proches
-    if ($count == 0 && count($rendus) > 0) {
-        echo "<a href='rendus.php'><p class='rendu'><strong>" . htmlspecialchars($rendus[0]['titre']) . "</strong> le " . date('d/m', strtotime($rendus[0]['date'])) . "</p></a>";
-        echo "<a href='rendus.php'><p class='rendu'><strong>" . htmlspecialchars($rendus[1]['titre']) . "</strong> le " . date('d/m', strtotime($rendus[1]['date'])) . "</p></a>";
+
+    $count++;
+}
+
+// Si aucun rendu n'est épinglé et qu'il en reste, afficher les rendus les plus proches
+if ($count == 0 && count($rendus) > 0) {
+    $remaining = array_slice($rendus, 0, $maxRendus);
+    foreach ($remaining as $rendu) {
+        echo "<a href='rendus.php'>
+                <p class='rendu'>
+                    <strong>" . htmlspecialchars($rendu['titre']) . "</strong> le " . date('d/m', strtotime($rendu['date'])) . "
+                </p>
+              </a>";
     }
-    
-    ?>
+}
+?>
+
         </div>
 
 
