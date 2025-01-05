@@ -13,12 +13,13 @@
 </head>
 <body>
 <div class="container-messagerie">    
-    <div class="sidebar">
+<div class="sidebar">
   <button class="active">Boîte de réception</button>
   <button>Nouveau message</button>
   <button>Envoyés</button>
   <button>Archivés</button>
 </div>
+
  <main class="message-content">
  <a href="messagerie.php" class="back-link">
       <button id="back-button" class="back-button">Retour</button>
