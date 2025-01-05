@@ -14,6 +14,7 @@ h1 {
     padding: 20px 0;
     font-size: 2rem;
     text-align: left;
+    font-family: "Inter", "regular";
 }
 
 h2 {
@@ -350,4 +351,51 @@ margin-top: 10px;
    
    text-align: center;
    
+}
+
+h3 {
+    text-align: left; /* Aligne le texte à gauche */
+    margin-left: 20px; /* Ajoute un petit espacement à gauche */
+    font-size: 1.5rem; /* Taille du texte ajustée si nécessaire */
+}
+.layout {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+}
+
+
+.small-boxes {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    width: 20%; 
+    padding: 20px;
+    cursor: pointer;
+}
+
+
+.small-box {
+    width: 90%;
+    height: 40px;
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    border: black 1px solid;
+    font-size: 1rem;
+}
+
+.large-box {
+    width: 70%;
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    border-radius: 8px;
+    border: black 1px solid;
+    margin-left: 30px;
 }
