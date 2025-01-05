@@ -313,22 +313,30 @@ margin-top: 10px;
 
 
 .sub-block {
-    width: 28%; 
-    max-width: 160px; 
-    height: 60px; 
+    width: 28%;
+    max-width: 160px;
+    height: 70px;
     background-color: white;
     border-radius: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
     color: black;
-    font-size: 0.9rem; 
+    font-size: 0.9rem;
     font-weight: 400;
     cursor: pointer;
     text-align: center;
-    padding: 5px; 
+    padding: 5px;
     box-sizing: border-box;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; 
 }
+
+/* Effet au survol */
+.sub-block:hover {
+    transform: scale(1.1); 
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2); 
+}
+
 
 
 
