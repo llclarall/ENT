@@ -1161,7 +1161,41 @@ color: #2F4156;
       font-size: 1.1rem;
     }
   }
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .container-messagerie {
+      display: flex;
+      margin-left: 250px; 
+    }
   
+    .sidebar {
+      width: 250px; 
+      padding: 20px 15px;
+      border-right: 1px solid #000;
+    }
+  
+    .message-content {
+      max-width: 600px; 
+      padding: 40px; 
+      margin-left: 20px; 
+    }
+  
+    .message-content .back-button {
+      padding: 10px 20px; 
+    }
+  
+    .message-content .action-button {
+      padding: 16px 32px; 
+      font-size: 1.2rem;
+    }
+  
+    .sender-name {
+      font-size: 1.6rem; 
+    }
+  
+    .message-text {
+      font-size: 1.2rem; 
+    }
+  }
 
 /* MESSAGE 1 MEL */
  /* Contenu principal */

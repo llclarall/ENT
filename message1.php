@@ -1,4 +1,8 @@
-
+<?php 
+    include('header.php');
+    include('config.php');
+    include('nav.php');
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
