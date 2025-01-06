@@ -1348,108 +1348,91 @@ background-color: var(--bleu-hover);
 
 /* ANNUAIRE MEL */
 
-.directory {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-  }
-  
-  .search-container {
-    background-color: var(--bleu);
-    border-radius: 15px;
-    padding: 20px;
-    width: 90%;
-    max-width: 400px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-  }
-  
-  .search-label {
-    font-size: 1.2rem;
-    color: #fff;
-    margin-bottom: 10px;
-    display: block;
-    text-align: left;
-  }
-  
-  .search-bar {
-    display: flex;
-    align-items: center;
-    border: 2px solid #fff; 
-    border-radius: 25px; 
-    overflow: hidden;
-    background-color: var(--bleu); 
-  }
-  
-  .search-bar input {
-    flex-grow: 1;
-    border: none;
-    outline: none;
-    padding: 10px 15px;
-    font-size: 1rem;
-    background-color: transparent; 
-    color: #fff; 
-  }
-  
-  .search-bar input::placeholder {
-    font-size: 0.9rem;
-    color: #aaa;
-  }
-  
-  .search-button {
-    background: none;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-    color: #fff;
-    font-size: 1.2rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-left: 1px solid #fff; 
-  }
-  
-  .results {
-    margin-top: 20px;
-    text-align: left;
-    width: 90%;
-    max-width: 400px;
-  }
-  
-  .results p {
-    font-size: 1rem;
-  }
-  
-  @media (min-width: 768px) {
-    .search-container {
-      width: 60%;
-      padding: 30px;
-    }
-  
-    h1 {
-      font-size: 2rem;
-    }
-  
-    .search-label {
-      font-size: 1.5rem;
-    }
-  
-    .results p {
-      font-size: 1.2rem;
-    }
-  }
-  
-  @media (min-width: 1024px) {
-    .search-container {
-      width: 80%;
-      max-width: 700px;
-    }
+.search-container {
+background-color: var(--bleu);
+border-radius: 15px;
+padding: 20px;
+width: 90%;
+max-width: 1000px;
+box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+margin: 2rem auto;
+}
 
-  
-    h1 {
-      font-size: 2.2rem;
-    }
-  }
+.search-label {
+font-size: 1.2rem;
+color: #fff;
+margin-bottom: 10px;
+display: block;
+text-align: left;
+}
+
+.search-bar {
+display: flex;
+align-items: center;
+border: 2px solid #fff; 
+border-radius: 25px; 
+overflow: hidden;
+background-color: var(--bleu); 
+}
+
+.search-bar input {
+flex-grow: 1;
+border: none;
+outline: none;
+padding: 10px 15px;
+font-size: 1rem;
+background-color: transparent; 
+color: #fff; 
+}
+
+.search-bar input::placeholder {
+font-size: 0.9rem;
+color: #aaa;
+}
+
+.search-button {
+background: none;
+border: none;
+padding: 10px;
+cursor: pointer;
+color: #fff;
+font-size: 1.2rem;
+display: flex;
+align-items: center;
+justify-content: center;
+border-left: 1px solid #fff; 
+}
+
+.results {
+margin-top: 4rem;
+text-align: center;
+}
+
+.results p {
+font-size: 1.1rem;
+}
+
+@media (min-width: 768px) {
+.search-container {
+    width: 70%;
+    padding: 30px;
+}
+
+h1 {
+    font-size: 2.2rem;
+}
+
+.search-label {
+    font-size: 1.5rem;
+}
+
+.results p {
+    font-size: 1.2rem;
+}
+}
+
+
+
 
 
 /* PAGE PROFIL CLARA */

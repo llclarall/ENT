@@ -1,3 +1,9 @@
+<?php
+include 'header.php';
+include 'nav.php';
+include 'config.php';
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -8,6 +14,10 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+
+
+<section class="page-annuaire">
+  
   <main class="directory">
     <h1>Annuaire</h1>
     <div class="search-container">
@@ -19,9 +29,14 @@
         </button>
       </div>
     </div>
-    <section class="results">
-      <p>Résultats :</p>
-    </section>
+
+    <div class="results">
+      <p>Résultats</p>
+    </div>
   </main>
+
+</section>
+
+
 </body>
 </html>

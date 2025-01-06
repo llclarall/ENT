@@ -187,13 +187,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
 
 
 
-        <a href="rendu.php" onclick="openModal(event)">Consulter et déposer</a>
+        <a href="#" data-id="<?= $rendu['id'] ?>" data-titre="<?= $rendu['titre'] ?>" data-user-id="<?= $user['id'] ?>" onclick="openModal(event)">Consulter et déposer</a>
+
 
         <!-- Modale ajout tâches -->
         <div id="modal-tasks" class="modal-tasks" style="display: none;" onclick="closeModal(event)">
             <div class="modal-content" onclick="event.stopPropagation()">
                 <span class="close" onclick="closeModal()">&times;</span>
-                <h2><?= $rendu['titre'] ?></h2>
+                <h2 id="modal-title"><?= $rendu['titre'] ?></h2>
                 
                 <ul id="taskList" class="taskList">
                     <!-- Les tâches seront ajoutées ici -->
@@ -205,7 +206,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
                     <button onclick="addTask()">Ajouter</button>
                 </div>
 
-                <form id="drop-zone" class="drop-zone" onclick="triggerFileInput()">
+                <form id="drop-zone" class="drop-zone" ondragover="allowDrop(event)" 
+                ondrop="handleDrop(event)" onclick="triggerFileInput()">
+
                     <p>Déposez votre fichier ici ou cliquez pour sélectionner</p>
                     <input type="file" id="fileInput" onchange="handleFileSelect(event)" style="display: none;" />
                     

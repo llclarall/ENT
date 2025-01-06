@@ -331,14 +331,26 @@ function updateEtat(id, etat) {
 
 
 
-
-
 /* Modale ajout tâches */
 
 // Ouvrir la modale
 function openModal(event) {
-    event.preventDefault(); 
+    event.preventDefault();
+    
+    const modalLink = event.target; // L'élément cliqué
+    const title = modalLink.getAttribute('data-titre');
+    const renduId = modalLink.getAttribute('data-id');
+    const userId = modalLink.getAttribute('data-user-id');
+
+    // Mettre à jour les éléments de la modale avec ces informations
+    document.getElementById('modal-title').textContent = title;
+    document.getElementById('renduId').value = renduId;
+    document.getElementById('userId').value = userId;
+
     document.getElementById('modal-tasks').style.display = 'flex';
+
+    // Charger les tâches spécifiques à ce rendu et utilisateur
+    loadTasks(renduId, userId);
 }
 
 // Fermer la modale
@@ -352,6 +364,8 @@ function closeModal(event) {
 function addTask() {
     const taskInput = document.getElementById('taskInput');
     const taskValue = taskInput.value.trim();
+    const renduId = document.getElementById('renduId').value; // Récupérer l'id du rendu actuel
+    const userId = document.getElementById('userId').value; // Récupérer l'id de l'utilisateur actuel
     
     if (taskValue) {
         const taskList = document.getElementById('taskList');
@@ -365,7 +379,8 @@ function addTask() {
         
         taskList.appendChild(li);
         taskInput.value = ''; 
-        saveTasks(); // Sauvegarde les tâches
+
+        saveTasks(renduId, userId); // Sauvegarder les tâches spécifiques au rendu et à l'utilisateur
     }
 }
 
@@ -377,7 +392,7 @@ function toggleTask(checkbox) {
     } else {
         li.classList.remove('completed');
     }
-    saveTasks(); // Sauvegarde après modification
+    saveTasks(document.getElementById('renduId').value, document.getElementById('userId').value); // Sauvegarder les tâches pour ce rendu et utilisateur
 }
 
 // Gérer le clic sur le texte de la tâche pour cocher/décocher la case
@@ -395,8 +410,8 @@ function checkEnter(event) {
     }
 }
 
-// Sauvegarder les tâches dans le localStorage
-function saveTasks() {
+// Sauvegarder les tâches dans le localStorage pour un rendu spécifique et un utilisateur
+function saveTasks(renduId, userId) {
     const tasks = [];
     const taskListItems = document.querySelectorAll('#taskList li');
     
@@ -408,13 +423,15 @@ function saveTasks() {
         });
     });
 
-    localStorage.setItem('tasks', JSON.stringify(tasks));
+    // Stockage spécifique au rendu et utilisateur
+    localStorage.setItem(`tasks_rendu_${renduId}_user_${userId}`, JSON.stringify(tasks));
 }
 
-// Charger les tâches sauvegardées depuis le localStorage
-window.onload = function () {
-    const savedTasks = JSON.parse(localStorage.getItem('tasks')) || [];
+// Charger les tâches sauvegardées depuis le localStorage pour un rendu spécifique et un utilisateur
+function loadTasks(renduId, userId) {
+    const savedTasks = JSON.parse(localStorage.getItem(`tasks_rendu_${renduId}_user_${userId}`)) || [];
     const taskList = document.getElementById('taskList');
+    taskList.innerHTML = ''; // Vider la liste des tâches avant de la remplir
     
     savedTasks.forEach(task => {
         const li = document.createElement('li');
@@ -427,12 +444,19 @@ window.onload = function () {
 
     // Ajouter l'écouteur d'événement pour 'Enter' au champ de saisie
     document.getElementById('taskInput').addEventListener('keydown', checkEnter);
+}
+
+// Charger les tâches spécifiques au rendu et utilisateur quand la page est chargée
+window.onload = function () {
+    // Rien à charger ici, la fonction loadTasks sera appelée au moment de l'ouverture de la modale
 };
 
 
 
 
-/* drag-and-drop fichiers rendu */
+
+/* Drag-and-drop fichiers rendu */
+
 // Empêcher le comportement par défaut lors du glisser-déposer
 function allowDrop(event) {
     event.preventDefault();
@@ -441,11 +465,13 @@ function allowDrop(event) {
 // Gérer le dépôt du fichier dans la zone de dépôt
 function handleDrop(event) {
     event.preventDefault();
-    const file = event.dataTransfer.files[0];
-    if (file) {
-        handleFile(file);
+    const files = event.dataTransfer.files; 
+    if (files.length > 0) {
+        handleFile(files[0]); 
+        document.getElementById('fileInput').files = files; 
     }
 }
+
 
 // Gérer la sélection d'un fichier via le bouton d'importation
 function handleFileSelect(event) {
@@ -455,7 +481,6 @@ function handleFileSelect(event) {
     }
 }
 
-// Gérer le clic sur la zone de dépôt pour déclencher la sélection de fichier
 function triggerFileInput() {
     document.getElementById('fileInput').click();
 }
@@ -467,14 +492,13 @@ function handleFile(file) {
     fileName.textContent = `Fichier sélectionné: ${file.name}`;
     dropZone.appendChild(fileName);
 
-    // Affiche le bouton "Rendre le fichier"
     document.getElementById('renderFileButton').style.display = 'inline-block';
 }
 
-// Fonction pour rendre le fichier (envoyer le fichier au serveur)
+// Fonction pour rendre le fichier
 async function renderFile() {
     const fileInput = document.getElementById('fileInput');
-    const file = fileInput.files[0]; // Récupère le fichier sélectionné
+    const file = fileInput.files[0];
     
     if (!file) {
         alert("Aucun fichier sélectionné.");
@@ -482,24 +506,28 @@ async function renderFile() {
     }
 
     // Récupérer les ID de l'utilisateur et du rendu
-    const fk_user = document.getElementById('userId').value; // ID de l'utilisateur
-    const fk_rendu = document.getElementById('renduId').value; // ID du rendu
+    const fk_user = document.getElementById('userId').value;
+    const fk_rendu = document.getElementById('renduId').value;
 
     if (!fk_user || !fk_rendu) {
         alert("ID utilisateur ou rendu manquant.");
         return;
     }
 
-    // Prépare les données du formulaire (fichier et autres informations, si nécessaire)
+    console.log("Fichier à envoyer: ", file);
+    console.log("fk_user: ", fk_user, "fk_rendu: ", fk_rendu);
+
+    // Prépare les données du formulaire
     const formData = new FormData();
     formData.append('file', file);
-    formData.append('fk_user', fk_user); // Ajouter l'ID utilisateur
-    formData.append('fk_rendu', fk_rendu); // Ajouter l'ID du rendu
-    formData.append('taskTitle', document.querySelector('#taskInput').value); // Ajouter des informations supplémentaires si nécessaire
+    formData.append('fk_user', fk_user);
+    formData.append('fk_rendu', fk_rendu); 
+    formData.append('taskTitle', document.querySelector('#taskInput').value); 
+
+    console.log("Données envoyées: ", Array.from(formData.entries()));
 
 try {
-// Envoi du fichier au serveur via POST
-const response = await fetch('/upload', {
+const response = await fetch('move_uploaded_file.php', {
     method: 'POST',
     body: formData
 });
