@@ -1,7 +1,7 @@
 <?php
 include('header.php');
-include('config.php');
 include('nav.php');
+
 
 // Vérifier si l'utilisateur est connecté
 if (!isset($_SESSION['id'])) {
@@ -190,7 +190,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
         <a href="#" data-id="<?= $rendu['id'] ?>" data-titre="<?= $rendu['titre'] ?>" data-user-id="<?= $user['id'] ?>" onclick="openModal(event)">Consulter et déposer</a>
 
 
-        <!-- Modale ajout tâches -->
+        <!-- Modale ajout tâches et zone de dépôt -->
         <div id="modal-tasks" class="modal-tasks" style="display: none;" onclick="closeModal(event)">
             <div class="modal-content" onclick="event.stopPropagation()">
                 <span class="close" onclick="closeModal()">&times;</span>
@@ -203,9 +203,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
                 <!-- Formulaire pour ajouter une tâche -->
                 <div class="task-form">
                     <input type="text" id="taskInput" placeholder="Ajouter une tâche" class="taskInput" onkeydown="checkEnter(event)"/>
-                    <button onclick="addTask()">Ajouter</button>
+                    <button onclick="addTask()" class="addTask-btn">Ajouter</button>
                 </div>
 
+<br>
+                <h3>Zone de dépôt</h3>
                 <form id="drop-zone" class="drop-zone" ondragover="allowDrop(event)" 
                 ondrop="handleDrop(event)" onclick="triggerFileInput()">
 
@@ -222,12 +224,57 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
                 <button id="renderFileButton" onclick="renderFile()" style="display: none;" class="render-btn">Rendre le fichier</button>
 
 
-            </div>
-        </div>
- 
+             <!-- Récupérer les fichiers associés à l'utilisateur et au rendu -->
+                <h3>Fichiers rendus</h3>
 
+<?php
+// Récupérer les fichiers associés à l'utilisateur et au rendu
+$renduId = $rendu['id'];
+$fk_user = $user['id'];
+
+if (!$renduId || !$fk_user) {
+    echo "<p>Paramètres manquants. Impossible d'afficher les fichiers.</p>";
+    exit;
+}
+
+try {
+    // Requête pour récupérer les fichiers associés à l'utilisateur et au rendu
+    $stmt = $db->prepare("SELECT id, nom, chemin, fk_rendu FROM fichiers WHERE fk_user = :fk_user AND fk_rendu = :renduId");
+    $stmt->bindParam(':renduId', $renduId, PDO::PARAM_INT);
+    $stmt->bindParam(':fk_user', $fk_user, PDO::PARAM_INT);
+    $stmt->execute();
+
+    $fichiers = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+} catch (PDOException $e) {
+    echo "<p>Erreur lors de la récupération des fichiers : " . htmlspecialchars($e->getMessage()) . "</p>";
+}
+
+if (empty($fichiers)) {
+    echo "<p>Aucun fichier rendu pour ce projet.</p>";
+} else {
+    echo "<ul class='file-item-list'>";
+    foreach ($fichiers as $fichier) {
+        // Vérifier que le fichier correspond bien au rendu
+        if ($fichier['fk_rendu'] == $renduId) {
+            echo "<li class='file-item'>";
+            echo "<a href='" . htmlspecialchars($fichier['chemin']) . "' target='_blank'>" . htmlspecialchars($fichier['nom']) . "</a>";
+            echo "<a href='delete_file.php?id=" . $fichier['id'] . "' onclick='return confirm(\"Êtes-vous sûr de vouloir supprimer ce fichier ?\");'>
+                    <img src='images/supprimer.png' class='delete-file-img'>
+                  </a>";
+            echo "</li>";
+        }
+    }
+    echo "</ul>";
+}
+?>
+
+            
+        </div>
     </div>
-    <?php endforeach; ?>
+
+</div>
+<?php endforeach; ?>
 
 
 </div>

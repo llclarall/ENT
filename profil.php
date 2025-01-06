@@ -1,6 +1,5 @@
 <?php
 include('header.php');
-include('config.php');
 include('nav.php');
 
 // Vérifier si l'utilisateur est connecté

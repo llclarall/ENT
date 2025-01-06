@@ -1,22 +1,7 @@
 <?php 
 include('header.php');
-include('config.php');
 include('nav.php');
 
-// Vérifier si l'utilisateur est connecté
-if (!isset($_SESSION['id'])) {
-    header("Location: index.php");
-    exit();
-}
-
-
-// Récupérer les informations de l'utilisateur
-$id = $_SESSION['id'];
-$requete = "SELECT * FROM utilisateurs WHERE id = :id";
-$stmt = $db->prepare($requete);
-$stmt->bindParam(':id', $id);
-$stmt->execute();
-$user = $stmt->fetch(PDO::FETCH_ASSOC);
 
 
 // Récupérer les rendus associés à l'utilisateur ou non assignés à personne, triés par priorité (épinglés) et date
@@ -148,7 +133,7 @@ foreach ($rendus as $rendu) {
                 <p class='pinned rendu'>
                     <strong>" . htmlspecialchars($rendu['titre']) . "</strong> le " . date('d/m', strtotime($rendu['date'])) . "
                 </p>
-                <img src='images/pin.png' alt='Rendu épinglé' class='pin-icon'>
+                <img src='images/pin.png' alt='Rendu épinglé' class='pin-icon' title='Rendu épinglé'>
               </a>";
     } else {
         echo "<a href='rendus.php'>

@@ -364,17 +364,20 @@ function closeModal(event) {
 function addTask() {
     const taskInput = document.getElementById('taskInput');
     const taskValue = taskInput.value.trim();
-    const renduId = document.getElementById('renduId').value; // Récupérer l'id du rendu actuel
-    const userId = document.getElementById('userId').value; // Récupérer l'id de l'utilisateur actuel
+    const renduId = document.getElementById('renduId').value;
+    const userId = document.getElementById('userId').value;
     
     if (taskValue) {
         const taskList = document.getElementById('taskList');
         const li = document.createElement('li');
         
         // Crée une case à cocher avec la tâche
-        li.innerHTML = `<input type="checkbox" class="task-checkbox" onclick="toggleTask(this)"> <span class="task-text">${taskValue}</span>`;
+        li.innerHTML = `
+            <input type="checkbox" class="task-checkbox" onclick="toggleTask(this)">
+            <span class="task-text">${taskValue}</span>
+            <button class="delete-btn" onclick="deleteTask(this)">❌</button>
+        `;
 
-        // Ajoute un gestionnaire de clic uniquement sur le texte de la tâche (pas sur la case à cocher)
         li.querySelector('.task-text').addEventListener('click', toggleTaskByText);
         
         taskList.appendChild(li);
@@ -383,6 +386,15 @@ function addTask() {
         saveTasks(renduId, userId); // Sauvegarder les tâches spécifiques au rendu et à l'utilisateur
     }
 }
+
+function deleteTask(button) {
+    const li = button.parentElement; 
+    li.remove();
+    const renduId = document.getElementById('renduId').value;
+    const userId = document.getElementById('userId').value;
+    saveTasks(renduId, userId);
+}
+
 
 // Gérer la tâche quand la case est cochée ou décochée
 function toggleTask(checkbox) {
@@ -431,24 +443,29 @@ function saveTasks(renduId, userId) {
 function loadTasks(renduId, userId) {
     const savedTasks = JSON.parse(localStorage.getItem(`tasks_rendu_${renduId}_user_${userId}`)) || [];
     const taskList = document.getElementById('taskList');
-    taskList.innerHTML = ''; // Vider la liste des tâches avant de la remplir
-    
+    taskList.innerHTML = ''; 
+
     savedTasks.forEach(task => {
         const li = document.createElement('li');
-        li.innerHTML = `<input type="checkbox" class="task-checkbox" ${task.completed ? 'checked' : ''} onclick="toggleTask(this)"> <span class="task-text">${task.task}</span>`;
+        li.innerHTML = `
+            <input type="checkbox" class="task-checkbox" ${task.completed ? 'checked' : ''} onclick="toggleTask(this)">
+            <span class="task-text">${task.task}</span>
+            <button class="delete-btn" onclick="deleteTask(this)">❌</button>
+        `;
         if (task.completed) {
             li.classList.add('completed');
         }
+
+        li.querySelector('.task-text').addEventListener('click', toggleTaskByText);
+
         taskList.appendChild(li);
     });
 
-    // Ajouter l'écouteur d'événement pour 'Enter' au champ de saisie
     document.getElementById('taskInput').addEventListener('keydown', checkEnter);
 }
 
 // Charger les tâches spécifiques au rendu et utilisateur quand la page est chargée
 window.onload = function () {
-    // Rien à charger ici, la fonction loadTasks sera appelée au moment de l'ouverture de la modale
 };
 
 
@@ -487,71 +504,71 @@ function triggerFileInput() {
 
 // Fonction pour traiter le fichier (affichage du nom de fichier)
 function handleFile(file) {
+    const fk_user = document.getElementById('userId').value;
+    const fk_rendu = document.getElementById('renduId').value;
+
+    if (!fk_user || !fk_rendu) {
+        alert("ID utilisateur ou projet manquant. Impossible de déposer le fichier.");
+        return;
+    }
+
     const dropZone = document.getElementById('drop-zone');
-    const fileName = document.createElement('p');
-    fileName.textContent = `Fichier sélectionné: ${file.name}`;
-    dropZone.appendChild(fileName);
+    const fileInfo = document.getElementById('file-info');
+
+    // Efface les anciens messages pour éviter les duplications
+    fileInfo.textContent = `Fichier sélectionné: ${file.name}`;
 
     document.getElementById('renderFileButton').style.display = 'inline-block';
 }
 
-// Fonction pour rendre le fichier
+
 async function renderFile() {
     const fileInput = document.getElementById('fileInput');
     const file = fileInput.files[0];
-    
+
     if (!file) {
         alert("Aucun fichier sélectionné.");
         return;
     }
 
-    // Récupérer les ID de l'utilisateur et du rendu
     const fk_user = document.getElementById('userId').value;
     const fk_rendu = document.getElementById('renduId').value;
 
     if (!fk_user || !fk_rendu) {
-        alert("ID utilisateur ou rendu manquant.");
+        alert("ID utilisateur ou projet manquant. Impossible d'envoyer le fichier.");
         return;
     }
 
-    console.log("Fichier à envoyer: ", file);
-    console.log("fk_user: ", fk_user, "fk_rendu: ", fk_rendu);
-
-    // Prépare les données du formulaire
+    // Préparer les données
     const formData = new FormData();
     formData.append('file', file);
     formData.append('fk_user', fk_user);
-    formData.append('fk_rendu', fk_rendu); 
-    formData.append('taskTitle', document.querySelector('#taskInput').value); 
+    formData.append('fk_rendu', fk_rendu);
 
-    console.log("Données envoyées: ", Array.from(formData.entries()));
+    try {
+        const response = await fetch('move_uploaded_file.php', {
+            method: 'POST',
+            body: formData,
+        });
 
-try {
-const response = await fetch('move_uploaded_file.php', {
-    method: 'POST',
-    body: formData
-});
-
-// Vérification de la réponse du serveur
-if (response.ok) {
-    const data = await response.json(); // Réponse du serveur
-    console.log(data); // Ajoutez ceci pour afficher la réponse complète
-    if (data.success) {
-        alert(`Fichier ${file.name} rendu avec succès!`);
-        resetFileInput();
-    } else {
-        alert("Erreur lors de l'envoi du fichier.");
-    }
-} else {
-    alert("Erreur lors de l'envoi du fichier.");
-    console.log(await response.text()); // Afficher le message d'erreur du serveur
-}
-
+        if (response.ok) {
+            const data = await response.json();
+            if (data.success) {
+                alert(`Fichier ${file.name} rendu avec succès!`);
+                resetFileInput();
+            } else {
+                alert(data.message || "Erreur lors de l'envoi du fichier.");
+            }
+        } else {
+            console.error(await response.text());
+            alert("Erreur lors de l'envoi du fichier.");
+        }
     } catch (error) {
-        console.error('Erreur lors de l\'envoi du fichier:', error);
-        alert("Erreur lors de l'envoi du fichier.");
+        console.error('Erreur:', error);
+        alert("Une erreur est survenue. Veuillez réessayer.");
     }
 }
+
 
 // Réinitialiser le champ de fichier et le bouton après l'envoi
 function resetFileInput() {

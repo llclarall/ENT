@@ -38,6 +38,16 @@ header {
     height: 70px;
 }
 
+header a {
+    color: white;
+    text-decoration: none;
+    margin-right: 1rem;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
 header img {
     width: 55px;
     height: 55px;
@@ -1905,6 +1915,7 @@ border: 1px solid #ccc;
     display: flex;
     align-items: center;
     margin-bottom: 10px;
+    cursor: pointer;
 }
 
 .taskList li.completed {
@@ -1937,6 +1948,60 @@ border: 1px solid #ccc;
     align-items: center;
     margin-top: 20px;
 }
+
+.delete-btn {
+    background: var(--bg-color);
+    border: none;
+    cursor: pointer;
+    margin-left: auto;
+    transition: all 0.2s ease;
+    font-size: .8rem;
+}
+
+.delete-btn:hover {
+    transform: scale(1.2);
+}
+
+.addTask-btn {
+    padding: 10px;
+    background-color: var(--bleu);
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border-radius: 5px;
+}
+
+.addTask-btn:hover {
+    background-color: var(--bleu-hover);
+}
+
+.delete-file-img {
+    width: 20px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.delete-file-img:hover {
+    transform: scale(1.1);
+}
+
+.file-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.file-item-list {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+
 
 /* Zone de dépôt de fichiers */
 .modal-tasks .drop-zone {
