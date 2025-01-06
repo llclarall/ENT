@@ -402,11 +402,13 @@ h3 {
     color: white;
     border-radius: 8px;
     font-size: 1rem;
-    width: 60%;
+    width: 700px; /* Ajustez la largeur ici */
+    max-width: 100%; /* Optionnel : pour que la largeur ne dépasse pas 100% */
     box-sizing: border-box;
     margin-top: 80px;
     align-self: flex-start;
 }
+
 
 .control-row {
     display: flex;
