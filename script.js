@@ -340,18 +340,56 @@ function openModal(event) {
     const modalLink = event.target; // L'élément cliqué
     const title = modalLink.getAttribute('data-titre');
     const renduId = modalLink.getAttribute('data-id');
+    const description = modalLink.getAttribute('data-description');
     const userId = modalLink.getAttribute('data-user-id');
 
     // Mettre à jour les éléments de la modale avec ces informations
     document.getElementById('modal-title').textContent = title;
     document.getElementById('renduId').value = renduId;
     document.getElementById('userId').value = userId;
+    document.getElementById('modal-description').textContent = description;
 
     document.getElementById('modal-tasks').style.display = 'flex';
 
     // Charger les tâches spécifiques à ce rendu et utilisateur
     loadTasks(renduId, userId);
+    loadFiles(renduId, userId);
+
+    // Dynamiser l'URL pour la récupération des fichiers
+    const fileListUrl = `fichiers.php?renduId=${renduId}&userId=${userId}`;
+    document.getElementById('fileList').innerHTML = `<a href="${fileListUrl}" target="_blank">Voir les fichiers rendus</a>`;
 }
+
+
+function loadFiles(renduId, userId) {
+    // Faire une requête AJAX pour récupérer les fichiers associés à ce rendu et utilisateur
+    fetch(`get_files.php?renduId=${renduId}&userId=${userId}`)
+        .then(response => response.json())
+        .then(data => {
+            const fileList = document.getElementById('file-info');
+            fileList.innerHTML = '';
+
+            if (data.files && data.files.length > 0) {
+                data.files.forEach(file => {
+                    const fileItem = document.createElement('li');
+                    fileItem.classList.add('file-item');
+                    fileItem.innerHTML = `
+                        <a href="${file.chemin}" target="_blank">${file.nom}</a>
+                        <a href="delete_file.php?id=${file.id}" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce fichier ?');">
+                            <img src="images/supprimer.png" class="delete-file-img">
+                        </a>
+                    `;
+                    fileList.appendChild(fileItem);
+                });
+            } else {
+                fileList.innerHTML = '<p>Aucun fichier trouvé.</p>';
+            }
+        })
+        .catch(error => {
+            console.error('Erreur lors de la récupération des fichiers:', error);
+        });
+}
+
 
 // Fermer la modale
 function closeModal(event) {

@@ -1824,14 +1824,19 @@ border: 1px solid #ccc;
     background-color: var(--bleu-hover);
 }
 
-
-@media (max-width: 850px) {
+@media (max-width: 1200px) and (min-width: 1100px) {
     .page-rendus .rendus-container {
         grid-template-columns: repeat(2, 1fr);
     }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 1000px) {
+    .page-rendus .rendus-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 700px) {
     .page-rendus .rendus-container {
         grid-template-columns: 1fr;
         gap: 20px;
@@ -1861,7 +1866,6 @@ border: 1px solid #ccc;
 }
 
 
-/* Classe qui déplace un rendu épinglé en haut */
 .rendu-card.pinned {
     background-color: var(--pinned); 
 }
@@ -1869,7 +1873,7 @@ border: 1px solid #ccc;
 
 /* modale ajout tâches */
 .modal-tasks {
-    display: none; /* Cachée par défaut */
+    display: none; 
     position: fixed;
     top: 0;
     left: 0;
@@ -1885,7 +1889,7 @@ border: 1px solid #ccc;
     background-color: white;
     padding: 20px;
     border-radius: 5px;
-    width: 400px;
+    max-width: 500px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 

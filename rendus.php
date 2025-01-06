@@ -187,14 +187,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
 
 
 
-        <a href="#" data-id="<?= $rendu['id'] ?>" data-titre="<?= $rendu['titre'] ?>" data-user-id="<?= $user['id'] ?>" onclick="openModal(event)">Consulter et déposer</a>
+        <a href="#" data-id="<?= $rendu['id'] ?>" data-titre="<?= $rendu['titre'] ?>" data-description="<?= $rendu['description'] ?>" data-user-id="<?= $user['id'] ?>" onclick="openModal(event)">Consulter et déposer</a>
 
+        <?php var_dump($rendu['id']);?>
 
         <!-- Modale ajout tâches et zone de dépôt -->
         <div id="modal-tasks" class="modal-tasks" style="display: none;" onclick="closeModal(event)">
             <div class="modal-content" onclick="event.stopPropagation()">
                 <span class="close" onclick="closeModal()">&times;</span>
                 <h2 id="modal-title"><?= $rendu['titre'] ?></h2>
+                <p id="modal-description"><?= $rendu['description'] ?></p>
                 
                 <ul id="taskList" class="taskList">
                     <!-- Les tâches seront ajoutées ici -->
@@ -216,9 +218,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
                     
                     <!-- Champs cachés pour stocker les identifiants -->
                     <input type="hidden" id="userId" value="<?=$user['id']?>">
-                    <input type="hidden" id="renduId" value="<?=$rendu['id']?>">
+                    <input type="hidden" id="renduId" name="renduId" value="">
+
                     
-                    <div id="file-info" class="file-info"></div>
+                    <?php var_dump($rendu['id']);?>
+                    
+                    
                 </form>
 
                 <button id="renderFileButton" onclick="renderFile()" style="display: none;" class="render-btn">Rendre le fichier</button>
@@ -227,49 +232,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
              <!-- Récupérer les fichiers associés à l'utilisateur et au rendu -->
                 <h3>Fichiers rendus</h3>
 
-<?php
-// Récupérer les fichiers associés à l'utilisateur et au rendu
-$renduId = $rendu['id'];
-$fk_user = $user['id'];
-
-if (!$renduId || !$fk_user) {
-    echo "<p>Paramètres manquants. Impossible d'afficher les fichiers.</p>";
-    exit;
-}
-
-try {
-    // Requête pour récupérer les fichiers associés à l'utilisateur et au rendu
-    $stmt = $db->prepare("SELECT id, nom, chemin, fk_rendu FROM fichiers WHERE fk_user = :fk_user AND fk_rendu = :renduId");
-    $stmt->bindParam(':renduId', $renduId, PDO::PARAM_INT);
-    $stmt->bindParam(':fk_user', $fk_user, PDO::PARAM_INT);
-    $stmt->execute();
-
-    $fichiers = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-} catch (PDOException $e) {
-    echo "<p>Erreur lors de la récupération des fichiers : " . htmlspecialchars($e->getMessage()) . "</p>";
-}
-
-if (empty($fichiers)) {
-    echo "<p>Aucun fichier rendu pour ce projet.</p>";
-} else {
-    echo "<ul class='file-item-list'>";
-    foreach ($fichiers as $fichier) {
-        // Vérifier que le fichier correspond bien au rendu
-        if ($fichier['fk_rendu'] == $renduId) {
-            echo "<li class='file-item'>";
-            echo "<a href='" . htmlspecialchars($fichier['chemin']) . "' target='_blank'>" . htmlspecialchars($fichier['nom']) . "</a>";
-            echo "<a href='delete_file.php?id=" . $fichier['id'] . "' onclick='return confirm(\"Êtes-vous sûr de vouloir supprimer ce fichier ?\");'>
-                    <img src='images/supprimer.png' class='delete-file-img'>
-                  </a>";
-            echo "</li>";
-        }
-    }
-    echo "</ul>";
-}
-?>
-
-            
+                <div id="file-info" class="file-info"></div>
+                
         </div>
     </div>
 
