@@ -32,36 +32,36 @@ include 'config.php';
         <div class="item">
             <h2>Repas</h2>
             <div class="block">
-                <img src="img/food (2).jpg" alt="" class="image">
-                <p class="reservez">Réservez votre repas</p>
-                <p class="description">Simplifiez vos pauses repas en réservant à l’avance. Des options savoureuses adaptées à tous les goûts vous attendent !
-    
-                    <a href="repas.html" class="resa">Réserver</a>
-                </p>
-    
+                <img src="img/audiovisuel.jpg" alt="" class="image">
+                <div class="block-text">
+                    <p class="reservez">Réservez votre repas</p>
+                    <p class="description">Simplifiez vos pauses repas en réservant à l’avance. Des options savoureuses adaptées à tous les goûts vous attendent !</p>
+                    <a href="#" class="resa">Réserver</a>
+                </div>
             </div>
         </div>
     
         <div class="item">
             <h2>Matériel</h2>
             <div class="block">
-                <img src="img/camera.jpg" alt="" class="image">
-                <p class="reservez">Réservez votre matériel</p>
-                <p class="description">Nous mettons à votre disposition des équipements professionnels : caméras, micros et plus encore.
-                    <a href="materiel.html" class="resa">Réserver</a>
-                </p>
+                <img src="img/ergonomie.jpg" alt="" class="image">
+                <div class="block-text">
+                    <p class="reservez">Réservez votre matériel</p>
+                    <p class="description">Nous mettons à votre disposition des équipements professionnels : caméras, micros et plus encore.</p>
+                    <a href="materiel.php" class="resa">Réserver</a>
+                </div>
             </div>
         </div>
     
         <div class="item">
             <h2>Salles</h2>
             <div class="block">
-                <img src="img/classe.jpg" alt="" class="image">
-               <p class="reservez"> Réservez votre salle</p>
-                <p class="description">Nous mettons à votre disposition des salles afin que vous puissiez réviser dans les meilleures conditions.
-                    <a href="salle.html" class="resa">Réserver</a>
-                </p>
-    
+                <img src="img/culture.png" alt="" class="image">
+                <div class="block-text">
+                    <p class="reservez"> Réservez votre salle</p>
+                    <p class="description">Nous mettons à votre disposition des salles afin que vous puissiez réviser dans les meilleures conditions. </p>
+                   <a href="#" class="resa">Réserver</a>
+                </div>    
             </div>
         </div>
     </div>

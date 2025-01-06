@@ -1995,87 +1995,60 @@ white-space: nowrap !important;
 
 .page-reserver .container {
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     gap: 20px; 
     margin: 1rem auto;
     max-width: 1000px;
     flex-wrap: wrap;    
 }
 
-.page-reserver .item {
-    display: flex;
-    flex-direction: column; 
-    align-items: center;
+.page-reserver .item h2 {
+    text-align: center;
 }
 
 .page-reserver .block {
-    width: 310px;
-    height: 350px;
     background-color: var(--bleu-hover);
     border-radius: 10px;
+    color: var(--bg-color);
+    position: relative;
+    height: 425px;
+    max-width: 320px;
+    display: flex; 
+    flex-direction: column; 
+    justify-content: space-between;
+}
+
+.page-reserver .block-text {
+    padding: 20px;
+    flex-grow: 1; 
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    font-size: 18px;
-    font-weight: bold;
-    justify-content: space-between;
-    color: white;
-    overflow: hidden;
-    position: relative;
-    padding: 0;
-    max-height: 320px; 
-}
-
-
-.page-reserver .block .food {
-    width: 100px;
-    height: 85px;
-    margin-bottom: 20px;
-    object-fit: contain;
-}
-
-
-.page-reserver .block p {
-    margin-top: 10px;
-    margin-bottom: 0;
-    text-align: left;
+    justify-content: space-between; 
 }
 
 .page-reserver .block .resa {
     display: flex;
- padding: 10px 60px;
-background-color: #2F4156;
-color: white;
-border: none;
-border-radius: 16px;
-cursor: pointer;
-margin-top: 10px;
-text-decoration: none;
-        
+    padding: 10px 30px;
+    background-color: var(--bleu);
+    color: white;
+    border: var(--bleu) 2px solid;
+    border-radius: 7px;
+    cursor: pointer;
+    margin-top: auto;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    width: fit-content;
+    align-self: center;
 }
 
-
-.page-reserver .block p {
-    margin-top: 2px;
-    margin-bottom: 0;
-    text-align: left; 
-    flex-grow: 1; 
+.page-reserver .block .resa:hover {
+    background-color: var(--bleu-hover);
 }
 
 .page-reserver .block .description {
-    font-size: 0.9rem;
-    text-align: left;
-    margin: 2px 10px;
-    font-weight: 400;
-    margin-top: 2px;
-    margin-bottom: 10px;
     line-height: 1.6;
-    display: flex;
-    flex-direction: column;
-    align-items: center; 
-    justify-content: center; 
-    flex-grow: 1; 
+    margin-bottom: 10px;  
+    margin-top: 1.5rem;  
 }
 
 .page-reserver .resas {
@@ -2092,18 +2065,10 @@ text-decoration: none;
     background-color: var(--bleu-hover);
 }
 
-.page-reserver .food{
-    width: 100px;
-    height: 85px;
-}
-
 .page-reserver .block .reservez {
-   
-        text-align: left;
-        width: 90%;
-        margin: 10px 0;
-        margin-bottom: 2px;
-        font-size: 1.2rem; 
+        font-weight: bold;
+        font-size: 1.2rem;
+        margin: 0;
 }
 
 .page-reserver .block .image {
@@ -2112,5 +2077,76 @@ text-decoration: none;
         object-fit: cover; 
         border-top-left-radius: 10px;
         border-top-right-radius: 10px;
+}
 
+
+/* PAGE MATERIEL EMI */
+
+.page-materiel .container {
+    margin: 3rem auto;
+    max-width: 1000px;
+    width: fit-content;
+    height: fit-content;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: black 1px solid;
+    gap: 20px;
+    padding: 2rem 4rem;
+}
+
+.page-materiel .main-title {
+    margin: 0;
+    font-size: 1.4rem;
+    text-align: center;
+    color: var(--bleu);
+    margin-bottom: 1.5rem;
+}
+
+.page-materiel .grid-container {
+    display: grid;
+    gap: 50px;
+    grid-template-columns: repeat(3, 1fr);
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+.page-materiel .sub-block {
+    background-color: var(--bleu);
+    border-radius: 10px;
+    color: var(--bg-color);
+    cursor: pointer;
+    text-align: center;
+    padding: 20px 30px;
+    transition: all 0.3s ease;
+    margin: 0 auto;
+    width: 100%;
+    font-size: 1rem;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.page-materiel .sub-block:hover {
+    transform: scale(1.04);
+    background-color: var(--bleu-hover);
+}
+
+@media (max-width: 700px) {
+    .page-materiel .grid-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .page-materiel .container {
+        padding: 2rem 2.5rem;
+    }
+}
+
+@media (max-width: 500px) {
+    .page-materiel .grid-container {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
 }

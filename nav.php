@@ -69,7 +69,7 @@
         </a>
         <ul class="dropdown" role="menu">
           <li><a href="reserver.php" role="menuitem"><span>Réserver</span></a></li> 
-          <li><a href="voir_reservations.php" role="menuitem"><span>Voir les réservations</span></a></li> 
+          <li><a href="voir_reservations.php" role="menuitem"><span>Mes réservations</span></a></li> 
         </ul>
       </li>
 
