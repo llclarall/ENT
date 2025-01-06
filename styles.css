@@ -986,20 +986,18 @@ section:not(.connexion) {
 
 /* VIE ETUDIANTE */
 
-.page-vie-etudiante {
-    max-width: 480px;
-    margin: 0 auto;
-    padding: 20px;
+.page-vie-etudiante h1 {
+    text-align: center;
+    font-size: 2rem;
+    margin: 1rem 0;
 }
 
 .page-vie-etudiante .sections-container {
 display: flex;
 flex-direction: column;
 gap: 5px;
-}
-
-.page-vie-etudiante .section-wrapper {
-margin-bottom: 10px;
+margin: 1rem auto;
+max-width: 1000px;
 }
 
 .page-vie-etudiante .section-wrapper h2 {
@@ -1008,15 +1006,11 @@ align-items: center;
 }
 
 .page-vie-etudiante .info-card {
-background-color: #577C8E;
+background-color: var(--bleu-hover);
 border-radius: 10px;
 box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 overflow: hidden;
-margin-bottom: 15px;
-max-width: 340px;
-max-height: 290px;
-margin-left: auto;
-margin-right: auto;
+margin: 0 auto;
 justify-content: space-between;
 
 }
@@ -1024,47 +1018,45 @@ justify-content: space-between;
 .page-vie-etudiante .info-card img {
 width: 100%;
 height: auto;
-max-height: 130px;
+object-fit: cover;
 }
 
 .page-vie-etudiante .info-card-content {
-padding: 10px;
+padding: 1.5rem;
 }
 
 .page-vie-etudiante .info-card-title {
 font-size: 1rem;
 font-weight: bold;
-margin-bottom: 10px;
 color: #fff;
+margin: 0;
 }
 
 .page-vie-etudiante .info-card-description {
 font-size: 0.875rem;
 color: #fff;
-margin-bottom: 15px;
+margin: 1rem 0;
 }
 
 .page-vie-etudiante .info-card-button {
 display: inline-block;
-padding: 10px 15px;
-background-color: #2F4156;
+padding: 10px;
+background-color: var(--bleu);
 color: #fff;
 text-decoration: none;
 border-radius: 6px;
 font-size: 0.875rem;
+margin-top: 1rem;
+border: var(--bleu) 2px solid;
+transition: background-color 0.3s ease;
 }
 
 .page-vie-etudiante .info-card-button:hover {
-background-color: #fff;
-color: #2F4156;
+background-color: var(--bleu-hover);
 }
 
 /* Styles pour écran large */
-@media (min-width: 768px) {
-.page-vie-etudiante {
-    max-width: 1024px;
-}
-
+@media (width>=768px) {
 .page-vie-etudiante .sections-container {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -1096,6 +1088,8 @@ color: #2F4156;
 }
 
 }
+
+
 
 
 /* MESSAGERIE MEL */

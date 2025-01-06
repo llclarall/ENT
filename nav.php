@@ -55,7 +55,7 @@
 
       <!-- Vie étudiante -->          
       <li>
-        <a href="vieetudiante.php" class="menu-item" aria-label="Page vie étudiante">
+        <a href="vie_etudiante.php" class="menu-item" aria-label="Page vie étudiante">
           <i class="fas fa-users" aria-hidden="true"></i>
           <span>Vie étudiante</span>
         </a>
