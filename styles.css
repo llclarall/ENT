@@ -264,12 +264,6 @@ to {
     width: calc(100% - 250px - 10%);
 } */
 
-.accueil h1 {
-    font-size: 2rem;
-    margin: 1rem auto;
-    text-align: center;
-}
-
 .accueil .container {
     display: grid;
     margin: 0 auto;
@@ -483,18 +477,6 @@ to {
 
 /* CONNEXION EMILIE */
 
-/* .connexion {
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    height: 100vh;
-    font-family: "Inter", "regular";
-    background-color: #f4f4f4;
-}
- */
-
 .connexion {
     display: flex;
     flex-direction: row; 
@@ -695,12 +677,6 @@ to {
 
 /* EDT CLARA */
 
-.page-edt h1 {
-    text-align: center;
-    font-size: 2rem;
-    margin: 1rem 0;
-}
-
 .page-edt h2 {
     text-align: center;
     font-size: 1.3rem;
@@ -797,187 +773,180 @@ section:not(.connexion) {
     width: calc(100% - 250px - 10%);
 }
 
-  .page-elearning h1, .page-archives h1 {
-    font-size: 2.2rem;
+h1:not(.connexion) {
+    font-size: 2rem;
+    margin: 1rem 0;
     text-align: center;
-  }
+}
 
-  /* Course section */
-  .section-title {
-    background-color: #2F4156;
-    color: white;
-    padding: 10px 30px;
-    border-radius: 10px;
-    font-weight: bold;
-    margin: 30px 0 10px 0;
-    text-align: center;
-    font-size: 1.4rem;    
-  }
+.section-title {
+background-color: #2F4156;
+color: white;
+padding: 10px 30px;
+border-radius: 10px;
+font-weight: bold;
+margin: 30px 0 10px 0;
+text-align: center;
+font-size: 1.4rem;    
+}
 
-  .course-container {
-      display: flex;
-      justify-content: start;
-      flex-wrap: wrap;
-      gap: 50px;
-      width: 100%;  
-      margin-top: 30px;
-      margin-bottom: 70px;
-  }
-
-  .elearning-container {
+.course-container {
     display: flex;
-    flex-direction: column;
-    max-width: 1000px;
-    margin: 0 auto;
-  }
+    justify-content: start;
+    flex-wrap: wrap;
+    gap: 50px;
+    width: 100%;  
+    margin-top: 30px;
+    margin-bottom: 70px;
+}
 
-  .course-card {
-    width: 300px;
-    height: 190px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    position: relative;
-    overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
+.elearning-container {
+display: flex;
+flex-direction: column;
+max-width: 1000px;
+margin: 0 auto;
+}
 
-  .course-card:hover {
-    transform: scale(1.02); /* Zoom léger */
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    cursor: pointer; 
-  }
-  
-  .course-img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: 0;
-    
-  }
+.course-card {
+width: 300px;
+height: 190px;
+border-radius: 10px;
+box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+display: flex;
+flex-direction: column;
+justify-content: flex-end;
+position: relative;
+overflow: hidden;
+transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
 
-  .course-details {
-    background-color: #2F4156;
-    color: white;
-    padding: 10px;
-    text-align: left;
-    z-index: 1;
-    height: 70px;
-    position: relative;
-    flex: 0 0 auto;
+.course-card:hover {
+transform: scale(1.02); /* Zoom léger */
+box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+cursor: pointer; 
+}
 
-  }
+.course-img {
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+object-fit: cover;
+z-index: 0;
+}
 
-  .course-details strong {
-    font-size: 0.9rem;
-    display: block;
-  }  
-  
-  .course-details span {
-    margin-top: 8px; 
-    display: block; 
-    font-size: 0.9rem;
-  }
-  
+.course-details {
+background-color: #2F4156;
+color: white;
+padding: 10px;
+text-align: left;
+z-index: 1;
+height: 70px;
+position: relative;
+flex: 0 0 auto;
+}
 
-  /* Archives Button */
-  .archives-btn {
-    background-color: #2F4156;
-    padding: 10px 20px;
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
-    display: inline-block;
-    font-weight: bold;
-    position: absolute;
-    right: 20px;
-    top: 100px;
-    transition: all 0.2s ease;
-    border: white 1px solid;
-  }
+.course-details strong {
+font-size: 0.9rem;
+display: block;
+}  
 
-  .archives-btn:hover {
-    background-color: var(--bleu-hover);
-  }
+.course-details span {
+margin-top: 8px; 
+display: block; 
+font-size: 0.9rem;
+}
+
+.archives-btn {
+background-color: #2F4156;
+padding: 10px 20px;
+color: white;
+text-decoration: none;
+border-radius: 5px;
+display: inline-block;
+font-weight: bold;
+position: absolute;
+right: 20px;
+top: 100px;
+transition: all 0.2s ease;
+border: white 1px solid;
+}
+
+.archives-btn:hover {
+background-color: var(--bleu-hover);
+}
 
 
-  /* Style du conteneur du menu déroulant */
 .semestre-dropdown {
-  margin: 20px auto;
-  text-align: left;
-  display: flex;
-  align-items: center;
-  gap: 10px;
+margin: 20px auto;
+text-align: left;
+display: flex;
+align-items: center;
+gap: 10px;
 }
 
-/* Style de la liste déroulante */
 .semestre-dropdown select {
-  padding: 8px 12px;
-  font-size: 16px;
-  border: 1px solid #bdbdbd;
-  border-radius: 5px;
-  background-color: #f9f9f9;
-  cursor: pointer;
+padding: 8px 12px;
+font-size: 16px;
+border: 1px solid #bdbdbd;
+border-radius: 5px;
+background-color: #f9f9f9;
+cursor: pointer;
 }
 
-/* Style au hover et focus */
 .semestre-dropdown select:hover, 
 .semestre-dropdown select:focus {
-  outline: none;
-  border-color: #888;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+outline: none;
+border-color: #888;
+box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-/* Responsive design */
 @media (max-width: 768px) {
-  .course-container {
-    flex-direction: column;
-    align-items: center;
-    gap: 30px; 
-  }
+.course-container {
+flex-direction: column;
+align-items: center;
+gap: 30px; 
+}
 
-  .course-card {
-    width: 95%; 
-    max-width: 340px; 
-    height: 200px; 
-  }
+.course-card {
+width: 95%; 
+max-width: 340px; 
+height: 200px; 
+}
 
-  .course-details {
-    text-align: center; 
-  }
+.course-details {
+text-align: center; 
+}
 
-  .course-details strong{
-   margin-top: 5px;
-  }
+.course-details strong{
+margin-top: 5px;
+}
 
-  .section-title {
-    font-size: 1.2rem; 
-    margin-top: -10px;
-  }
+.section-title {
+font-size: 1.2rem; 
+margin-top: -10px;
+}
 
-  .semestre-dropdown {
-    flex-direction: column; 
-    text-align: center;
-    gap: 15px;
-  }
+.semestre-dropdown {
+flex-direction: column; 
+text-align: center;
+gap: 15px;
+}
 
-  .semestre-dropdown select {
-    width: 90%; 
-  }
+.semestre-dropdown select {
+width: 90%; 
+}
 
-  .archives-btn {
-    position: static; 
-    margin-bottom: 30px;
-  }
-  .flex-container-btn {
-    display: flex;
-    justify-content: flex-end;
-  }
+.archives-btn {
+position: static; 
+margin-bottom: 30px;
+}
+
+.flex-container-btn {
+display: flex;
+justify-content: flex-end;
+}
 }
 
 
@@ -985,12 +954,6 @@ section:not(.connexion) {
 
 
 /* VIE ETUDIANTE */
-
-.page-vie-etudiante h1 {
-    text-align: center;
-    font-size: 2rem;
-    margin: 1rem 0;
-}
 
 .page-vie-etudiante .sections-container {
 display: flex;
@@ -1103,12 +1066,6 @@ background-color: var(--bleu-hover);
     margin: 0 auto;
 }
 
-.page-messagerie h1 {
-    font-size: 2rem;
-    text-align: center;
-    margin: 1rem 0;
-}
-  
 .page-messagerie .sidebar {
     padding: 10px;
     flex-shrink: 0;
@@ -1409,12 +1366,6 @@ margin: 0 auto;
 grid-template-rows: auto;
 }
 
-.page-profil h1 {
-font-size: 2rem;
-text-align: center;
-margin: 1rem 0;
-}
-
 .page-profil .block {
     border-radius: 10px;
     padding: 20px;
@@ -1565,12 +1516,6 @@ border: 1px solid #ccc;
 
 .page-rendus {
     margin-bottom: 50px;
-}
-
-.page-rendus h1 {
-    font-size: 2rem;
-    text-align: center;
-    margin: 1rem 0;
 }
 
 .page-rendus .pin {
@@ -2041,4 +1986,131 @@ padding: 0 !important;
 position: absolute !important;
 width: 1px !important;
 white-space: nowrap !important;
+}
+
+
+
+
+/* RESERVER EMILIE */
+
+.page-reserver .container {
+    display: flex;
+    justify-content: center;
+    gap: 20px; 
+    margin: 1rem auto;
+    max-width: 1000px;
+    flex-wrap: wrap;    
+}
+
+.page-reserver .item {
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+}
+
+.page-reserver .block {
+    width: 310px;
+    height: 350px;
+    background-color: var(--bleu-hover);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: 18px;
+    font-weight: bold;
+    justify-content: space-between;
+    color: white;
+    overflow: hidden;
+    position: relative;
+    padding: 0;
+    max-height: 320px; 
+}
+
+
+.page-reserver .block .food {
+    width: 100px;
+    height: 85px;
+    margin-bottom: 20px;
+    object-fit: contain;
+}
+
+
+.page-reserver .block p {
+    margin-top: 10px;
+    margin-bottom: 0;
+    text-align: left;
+}
+
+.page-reserver .block .resa {
+    display: flex;
+ padding: 10px 60px;
+background-color: #2F4156;
+color: white;
+border: none;
+border-radius: 16px;
+cursor: pointer;
+margin-top: 10px;
+text-decoration: none;
+        
+}
+
+
+.page-reserver .block p {
+    margin-top: 2px;
+    margin-bottom: 0;
+    text-align: left; 
+    flex-grow: 1; 
+}
+
+.page-reserver .block .description {
+    font-size: 0.9rem;
+    text-align: left;
+    margin: 2px 10px;
+    font-weight: 400;
+    margin-top: 2px;
+    margin-bottom: 10px;
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    justify-content: center; 
+    flex-grow: 1; 
+}
+
+.page-reserver .resas {
+    padding: 10px 40px;
+    background-color: var(--bleu);
+    color: var(--bg-color);
+    border-radius: 10px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.page-reserver .resas:hover {
+    background-color: var(--bleu-hover);
+}
+
+.page-reserver .food{
+    width: 100px;
+    height: 85px;
+}
+
+.page-reserver .block .reservez {
+   
+        text-align: left;
+        width: 90%;
+        margin: 10px 0;
+        margin-bottom: 2px;
+        font-size: 1.2rem; 
+}
+
+.page-reserver .block .image {
+        width: 100%;
+        height: 40%;
+        object-fit: cover; 
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+
 }
