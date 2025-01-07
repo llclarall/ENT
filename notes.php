@@ -14,7 +14,7 @@ include 'nav.php';
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Notes</title>
+<title>ENT | Notes</title>
 </head>
 <body>
 

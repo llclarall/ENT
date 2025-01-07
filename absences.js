@@ -1,3 +1,6 @@
+
+
+
 document.addEventListener("DOMContentLoaded", () => {
   const calculateTotalHours = () => {
     const durations = document.querySelectorAll(".duration");

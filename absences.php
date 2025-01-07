@@ -15,7 +15,7 @@ include 'nav.php';
 
 <section class="page-absences">
 
-<h1>Absences</h1>
+<h1>ENT | Absences</h1>
 
   <main class="container">
 

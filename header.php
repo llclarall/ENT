@@ -19,3 +19,4 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
 <header>
     <a href="profil.php"><?=$user['prenom']?><img src="images/filler.png" alt=""></a>
 </header>
+
