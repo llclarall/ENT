@@ -38,7 +38,7 @@ $rendus = $stmt->fetchAll(PDO::FETCH_ASSOC);
     
 <section class="accueil">
     
-    <h1>Bienvenue <?php echo $user['prenom']; ?>!</h1>
+    <h1>Bienvenue <?php echo $user['prenom']; ?> !</h1>
     
     
     <div class="container">

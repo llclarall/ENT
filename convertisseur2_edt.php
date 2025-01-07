@@ -42,8 +42,8 @@ telechargerEdtDepuisEnt(
     "https://ent.univ-eiffel.fr/login", // URL du formulaire de connexion
     "https://ent.univ-eiffel.fr/edt.ics", // URL de l'emploi du temps
     "edt_semaine.ics",
-    "monIdentifiant",
-    "monMotDePasse"
+    "clara.moubarak",
+    "EntmmICMo#09"
 );
 
 ?>

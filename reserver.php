@@ -31,7 +31,7 @@ include 'nav.php';
         <div class="item">
             <h2>Repas</h2>
             <div class="block">
-                <img src="img/audiovisuel.jpg" alt="" class="image">
+                <img src="img/food.jpg" alt="" class="image">
                 <div class="block-text">
                     <p class="reservez">Réservez votre repas</p>
                     <p class="description">Simplifiez vos pauses repas en réservant à l’avance. Des options savoureuses adaptées à tous les goûts vous attendent !</p>
@@ -43,7 +43,7 @@ include 'nav.php';
         <div class="item">
             <h2>Matériel</h2>
             <div class="block">
-                <img src="img/ergonomie.jpg" alt="" class="image">
+                <img src="img/camera.jpg" alt="" class="image">
                 <div class="block-text">
                     <p class="reservez">Réservez votre matériel</p>
                     <p class="description">Nous mettons à votre disposition des équipements professionnels : caméras, micros et plus encore.</p>
@@ -55,7 +55,7 @@ include 'nav.php';
         <div class="item">
             <h2>Salles</h2>
             <div class="block">
-                <img src="img/culture.png" alt="" class="image">
+                <img src="img/classe.jpg" alt="" class="image">
                 <div class="block-text">
                     <p class="reservez"> Réservez votre salle</p>
                     <p class="description">Nous mettons à votre disposition des salles afin que vous puissiez réviser dans les meilleures conditions. </p>

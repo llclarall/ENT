@@ -190,7 +190,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
 
         <a href="#" data-id="<?= $rendu['id'] ?>" data-titre="<?= $rendu['titre'] ?>" data-description="<?= $rendu['description'] ?>" data-user-id="<?= $user['id'] ?>" onclick="openModal(event)">Consulter et déposer</a>
 
-        <?php var_dump($rendu['id']);?>
 
         <!-- Modale ajout tâches et zone de dépôt -->
         <div id="modal-tasks" class="modal-tasks" style="display: none;" onclick="closeModal(event)">
@@ -221,9 +220,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
                     <input type="hidden" id="userId" value="<?=$user['id']?>">
                     <input type="hidden" id="renduId" name="renduId" value="">
 
-                    
-                    <?php var_dump($rendu['id']);?>
-                    
+                                
                     
                 </form>
 
