@@ -1630,14 +1630,14 @@ border: 1px solid #ccc;
     width: 35px;
 }
 
-.page-rendus .rendu-card.grise {
+/* .page-rendus .rendu-card.grise {
     opacity: 0.5; 
 }
 
 .page-rendus .rendu-card.termine {
     order: 9999; 
 }
-
+ */
 
 .page-rendus .pin:hover {
     transform: scale(1.1);

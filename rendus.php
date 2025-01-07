@@ -113,6 +113,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
 
 <h1>Rendus</h1>
 <br>
+
 <div class="rendus-container">
 
     <!-- Bouton d'ajout de rendu -->
@@ -246,5 +247,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
 
 </section>
     
+<script src="rendus.js"></script>
 </body>
 </html>
