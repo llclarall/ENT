@@ -18,6 +18,7 @@ include 'nav.php';
 <h1>Absences</h1>
 
   <main class="container">
+
     <div id="total-hours" class="total-hours">
       <h2>Total des heures manquées : <span id="total-missed" class="total-missed">4</span> heures</h2>
     </div>
@@ -27,8 +28,8 @@ include 'nav.php';
 
       <table id="absences-table" role="table" aria-labelledby="absences-table">
         <thead>
-          <tr>
-            <th scope="col">Date</th>
+          <tr class="table-header">
+            <th   scope="col">Date</th>
             <th scope="col">Durée (heures)</th>
             <th scope="col">Justification</th>
           </tr>

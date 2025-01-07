@@ -23,31 +23,33 @@ include 'nav.php';
 <h1>Notes</h1>
 
 
-<div class="semester-dropdown">
-    <select id="semester" name="semester">
-        <option value="" disabled selected>Choix du semestre</option>
-        <option value="semester1">Semestre 1</option>
-        <option value="semester2">Semestre 2</option>
-        <option value="semester3">Semestre 3</option>
-        <option value="semester4">Semestre 4</option>
-    </select>
-</div>
+
 
 <div class="container">
-    <div>
+
+    <div class="small-boxes">
         <h3>Matières</h3>
-        <div class="small-boxes">
-            <div class="small-box">Gestion de projet</div>
-            <div class="small-box">Intégration web</div>
-            <div class="small-box">Anglais</div>
-            <div class="small-box">PPP</div>
-            <div class="small-box">Droit du numérique</div>
-            <div class="small-box">Référencement</div>
-            <div class="small-box">Culture numérique</div>
-            <div class="small-box">Communication</div>
-        </div>
+        
+        <div class="small-box">Gestion de projet</div>
+        <div class="small-box">Intégration web</div>
+        <div class="small-box">Anglais</div>
+        <div class="small-box">PPP</div>
+        <div class="small-box">Droit du numérique</div>
+        <div class="small-box">Référencement</div>
+        <div class="small-box">Culture numérique</div>
+        <div class="small-box">Communication</div>
     </div>
-    <div class="large-box">
+
+    <div class="large-box">    
+        
+    <div class="semester-dropdown">
+        <select id="semester" name="semester">
+            <option value="" disabled selected>Choix du semestre</option>
+            <option value="semester1">Semestre 1</option>
+            <option value="semester2">Semestre 2</option>
+        </select>
+    </div>
+
         <div class="control-row">
             <div class="control-info">
                 <p class="gras">Contrôle n°1</p>
@@ -91,6 +93,7 @@ include 'nav.php';
             <div class="control-note">13.4/20</div>
         </div>
     </div>
+
 </div>
 
 </section>
