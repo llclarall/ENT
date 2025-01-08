@@ -57,6 +57,26 @@ $numeric_value = preg_replace('/[^0-9]/', '', $total_non_justifiees); // Supprim
 // si le nb d'absences à justifier est supérieur à 0, ajouter une classe pour afficher une bordure rouge
 $borderClass = ($numeric_value > 0) ? 'red-border' : '';
 
+
+
+
+
+// Récupérer le nombre de messages non lus pour l'utilisateur connecté
+$user_id = $_SESSION['id'];
+
+$query = "SELECT COUNT(*) AS unread_count
+          FROM messages
+          WHERE destinataire_id = :user_id AND is_read = 0 AND is_archived = 0";
+
+$stmt = $db->prepare($query);
+$stmt->execute(['user_id' => $user_id]);
+$result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+$unread_count = $result['unread_count'];
+
+// Logique pour afficher ou non l'icône d'avertissement
+$alertMsg = ($unread_count > 0) ? "display" : "none";
+
 ?>
 
 
@@ -137,11 +157,15 @@ $borderClass = ($numeric_value > 0) ? 'red-border' : '';
         <!-- Derniers messages -->
         <a href="messagerie.php">
             <div class="widget messages">
-                <h2>Derniers messages</h2><hr>
-                <p>Le prochain QCM se...</p>
-                <p>Gaëlle Charpentier | 12/11</p>
+                <h2><i class="fa-solid fa-circle-exclamation" style="display: <?= $alertMsg ?>;"></i> Derniers messages </h2><hr>
+                <?php if ($unread_count > 0): ?>
+                    <p>Vous avez <?= $unread_count ?> message(s) non lu(s)</p>
+                <?php else: ?>
+                    <p>Aucun nouveau message</p>
+                <?php endif; ?>
             </div>
         </a>
+
 
 
         <!-- Menu -->

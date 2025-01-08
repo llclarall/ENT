@@ -6,7 +6,7 @@
 // Récupérer les messages reçus par l'utilisateur connecté
 $user_id = $_SESSION['id']; 
 
-$query = "SELECT m.id, m.objet, m.date_envoi, u.nom AS expediteur_nom, u.prenom AS expediteur_prenom, m.is_read
+$query = "SELECT m.id, m.objet, m.date_envoi, u.nom AS expediteur_nom, u.prenom AS expediteur_prenom, m.is_read, m.is_archived
           FROM messages m
           JOIN utilisateurs u ON m.expediteur_id = u.id
           WHERE m.destinataire_id = :user_id AND m.is_archived = 0 
@@ -56,9 +56,18 @@ $messages = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                 <!-- Icônes pour actions -->
               <div class="message-actions">
-                <i class="fas fa-trash delete" onclick="deleteMessage(<?= $message['id'] ?>)"></i>
-                <i class="fas fa-archive archive" onclick="archiveMessage(<?= $message['id'] ?>)"></i>
+                  <i title="Supprimer" class="fas fa-trash delete" onclick="deleteMessage(<?= $message['id'] ?>, event)"></i>
+
+                  <!-- Icône pour archiver ou désarchiver -->
+                  <?php if ($message['is_archived'] == 0): ?>
+                      <!-- Icone d'archivage si non archivé -->
+                      <i title="Archiver" class="fas fa-archive archive" onclick="archiveMessage(<?= $message['id'] ?>, <?= $message['is_archived'] ?>, event)"></i>
+                  <?php else: ?>
+                      <!-- Icone de restauration si déjà archivé -->
+                      <i title="Restaurer" class="fas fa-undo-alt archive" onclick="archiveMessage(<?= $message['id'] ?>, <?= $message['is_archived'] ?>, event)"></i>
+                  <?php endif; ?>
               </div>
+
 
           </a>
       <?php endforeach; ?>

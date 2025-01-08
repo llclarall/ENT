@@ -231,15 +231,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 // Fonction pour supprimer un message
-function deleteMessage(messageId) {
+function deleteMessage(messageId, event) {
+    event.preventDefault();  // Empêche l'action par défaut
     if (confirm("Voulez-vous vraiment supprimer ce message ?")) {
         window.location.href = 'delete_msg.php?id=' + messageId;
     }
 }
 
-// Fonction pour archiver un message
-function archiveMessage(messageId) {
-    if (confirm("Voulez-vous vraiment archiver ce message ?")) {
-        window.location.href = 'archive_msg.php?id=' + messageId;
+// Fonction pour archiver ou désarchiver un message
+function archiveMessage(messageId, isArchived, event) {
+    event.preventDefault();
+
+    // Message à afficher en fonction de l'état actuel du message
+    const action = isArchived === 1 ? "désarchiver" : "archiver";
+    if (confirm(`Voulez-vous vraiment ${action} ce message ?`)) {
+        window.location.href = 'archive_msg.php?id=' + messageId + '&new_status=' + (isArchived === 1 ? 0 : 1);
     }
 }

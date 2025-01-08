@@ -384,10 +384,20 @@ to {
     grid-area: menu;
 }
 
-.messages {
+.accueil .messages {
     grid-area: messages;
     background-color: var(--bleu);
     color: var(--bg-color);
+}
+
+.accueil .messages p {
+    text-align: center;
+}
+
+.accueil .messages i {
+    margin-right: 7px;
+    color: #FFBFBF;
+    font-size: 1.7rem;
 }
 
 
