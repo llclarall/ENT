@@ -21,7 +21,7 @@
 <div class="container-messagerie">
 
   <div class="sidebar">
-    <button class="active">Boîte de réception</button>
+    <a class="active" href="messagerie.php">Boîte de réception</a>
     <button>Nouveau message</button>
     <button><i class="fas fa-paper-plane"></i> Envoyés</button>
     <button><i class="fas fa-archive"></i> Archivés</button>

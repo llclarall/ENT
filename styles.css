@@ -785,7 +785,7 @@ section:not(.connexion) {
 
 h1:not(.connexion) {
     font-size: 2rem;
-    margin: 1rem 0;
+    margin: 1rem 0 2rem 0;
     text-align: center;
 }
 
@@ -1086,23 +1086,24 @@ background-color: var(--bleu-hover);
     width: 100%;
 }
   
-.page-messagerie .sidebar button {
+.page-messagerie .sidebar button, .page-messagerie .sidebar a {
     padding: 10px 10px;
     margin: 5px 0;
     border: none;
     border-radius: 5px;
+    text-decoration: none;
     cursor: pointer;
-    font-size: 0.9rem;
     background-color: var(--bleu-hover);
-    color: white;
+    color: var(--bg-color);
+    text-align: center;
     transition: background-color 0.3s ease;
 }
   
-.page-messagerie .sidebar button:hover {
-background-color: var(--bleu);
+.page-messagerie .sidebar button:hover, .page-messagerie .sidebar a:hover {
+    background-color: var(--bleu);
 }
 
-.page-messagerie .sidebar button.active {
+.page-messagerie .sidebar button.active, .page-messagerie .sidebar a.active {
 background-color: var(--bleu);
 color: white;
 }
@@ -1297,14 +1298,15 @@ margin-bottom: 20px;
 .page-messagerie .actions {
 display: flex;
 justify-content: space-around;
+padding-top: 1rem;
 }
 
 .page-messagerie .action-button {
 background-color: var(--bleu);
 color: white;
 border: none;
-padding: 10px 20px;
-font-size: 1rem;
+padding: 10px 15px;
+font-size: .9rem;
 border-radius: 5px;
 cursor: pointer;
 transition: background-color 0.3s ease;
@@ -1314,19 +1316,16 @@ transition: background-color 0.3s ease;
 background-color: var(--bleu-hover);
 }
 
-/* Design responsive */
+
 @media (min-width: 768px) {
 .page-messagerie .message-content {
     margin: 0 2rem;
 }
-
 .page-messagerie .back-button {
     padding: 6px 12px;
 }
-
-.page-messagerie .action-button {
-    padding: 12px 24px;
-    font-size: 1rem;
+.page-messagerie .container-messagerie {
+    padding: 0;
 }
 }
 
@@ -1335,25 +1334,19 @@ background-color: var(--bleu-hover);
     max-width: 800px; 
     font-size: 1rem;
 }
-
 .page-messagerie .back-button {
     padding: 6px 12px; 
     font-size: 0.9rem;
 }
-
-.page-messagerie .action-button {
-    padding: 12px 24px; 
-    font-size: 1rem; 
-}
-
 .page-messagerie .sender-name {
     font-size: 1.5rem; 
 }
-
 .page-messagerie .message-text {
     font-size: 1.1rem; 
 }
 }
+
+
 
 
 /* ANNUAIRE MEL */
