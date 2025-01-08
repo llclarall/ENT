@@ -226,3 +226,20 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 });
+
+
+
+
+// Fonction pour supprimer un message
+function deleteMessage(messageId) {
+    if (confirm("Voulez-vous vraiment supprimer ce message ?")) {
+        window.location.href = 'delete_msg.php?id=' + messageId;
+    }
+}
+
+// Fonction pour archiver un message
+function archiveMessage(messageId) {
+    if (confirm("Voulez-vous vraiment archiver ce message ?")) {
+        window.location.href = 'archive_msg.php?id=' + messageId;
+    }
+}

@@ -47,12 +47,13 @@ $stmt->execute(['message_id' => $message_id]);
   </div>
   
   <div class="message-content">
-    <a href="messagerie.php" class="back-link">
-        <button id="back-button" class="back-button"><img src="images/back.png" alt="Retour en arrière" class="back-img"></button>
+    <a href="javascript:history.back()" class="back-link">
+      <button id="back-button" class="back-button"><img src="images/back.png" alt="Retour en arrière" class="back-img"></button>
     </a>
     <strong class="sender-name"><?= $message['expediteur_prenom'] . ' ' . $message['expediteur_nom'] ?></strong>
     <p class="email"><?= $message['expediteur_mail'] ?></p>
     <p class="date-time"><?= date('d/m/Y à H:i', strtotime($message['date_envoi'])) ?></p>
+    <hr>
     <p class="message-text"><?= nl2br($message['message']) ?></p>
     <div class="actions">
         <button class="action-button">Répondre</button>

@@ -1158,7 +1158,8 @@ padding: 8px 12px;
 margin-bottom: 8px;
 border-radius: 8px;
 transition: background-color 0.3s ease;
-}
+position: relative;
+}    
 
 .page-messagerie .message-item:hover {
 background-color: var(--bleu-hover);
@@ -1178,6 +1179,40 @@ align-items: flex-end;
 
 .page-messagerie .date {
 font-size: 0.875rem;
+}
+
+.page-messagerie .message-actions {
+display: none;
+position: absolute;
+top: 20px;
+right: 10px;
+}
+
+.page-messagerie .message-item:hover .message-actions {
+display: block;
+}
+
+.page-messagerie .message-item:hover .date {
+display: none;
+}
+
+.page-messagerie .message-actions i {
+margin-left: 10px;
+cursor: pointer;
+transition: transform 0.2s ease;
+font-size: 1.2rem;
+}
+
+.page-messagerie .message-actions i:hover {
+transform: scale(1.1);
+}
+
+.page-messagerie .delete {
+color: red;
+}
+
+.page-messagerie .archive {
+color: orange;
 }
   
 
@@ -1267,7 +1302,7 @@ font-size: 0.875rem;
 }
 
 
-/* MESSAGE 1 MEL */
+/* PAGE détails MESSAGE MEL */
 .page-messagerie .message-content {
     margin: 0 auto;
     padding: 20px 50px;
@@ -1279,6 +1314,7 @@ font-size: 0.875rem;
     width: 100%;
     border: var(--bleu) 2px solid;
     position: relative;
+    height: fit-content;
 }
 
 /* Bouton "Retour" */
@@ -1346,6 +1382,10 @@ transition: background-color 0.3s ease;
 .page-messagerie .action-button:hover {
 background-color: var(--bleu-hover);
 }
+
+
+
+
 
 
 @media (min-width: 768px) {
@@ -1474,44 +1514,16 @@ background-color: var(--bleu-hover);
 
 /* page messages envoyés */
 
-.envoyes .message-list {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-}
 
 .envoyes .message-item {
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
     background-color: var(--bg-color);
     border: var(--bleu) 2px solid;
-    transition: background-color 0.3s ease;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    color: var(--bleu);
 }
 
 .envoyes .message-item:hover {
     background-color: var(--bleu-hover);
     color: var(--bg-color);
-}
-
-.envoyes .message-header {
-    display: flex;
-    flex-direction: column;
-}
-
-.envoyes .message-header strong {
-    font-weight: bold;
-}
-
-.envoyes .message-body {
-    white-space: pre-wrap;
-}
-
-.envoyes .date {
-    font-size: 0.9em;
-    display: block;
 }
 
 .envoyes .no-messages {

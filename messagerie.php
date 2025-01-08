@@ -24,6 +24,7 @@ $messages = $stmt->fetchAll(PDO::FETCH_ASSOC);
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
   <title>ENT | Messagerie</title>
   <link rel="stylesheet" href="styles.css">
 </head>
@@ -52,6 +53,13 @@ $messages = $stmt->fetchAll(PDO::FETCH_ASSOC);
               <div class="message-meta">
                   <span class="date"><?= date('d/m/Y', strtotime($message['date_envoi'])) ?></span>
               </div>
+
+                <!-- Icônes pour actions -->
+              <div class="message-actions">
+                <i class="fas fa-trash delete" onclick="deleteMessage(<?= $message['id'] ?>)"></i>
+                <i class="fas fa-archive archive" onclick="archiveMessage(<?= $message['id'] ?>)"></i>
+              </div>
+
           </a>
       <?php endforeach; ?>
   </div>
