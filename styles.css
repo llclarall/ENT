@@ -2293,7 +2293,7 @@ border-bottom: none;
 }
 
 .page-absences .total-hours {
-margin-bottom: 2rem;
+padding-top: .5rem;
 font-size: 1.2rem;
 color: var(--bleu-hover);
 }
@@ -2395,6 +2395,18 @@ margin-top: 5px;
 .page-absences .modal-content {
 max-width: 450px;
 width: 90%;
+}
+
+.page-absences .total-non-justifiees {
+    color: rgb(163, 58, 58);
+}
+
+.page-absences .details {
+    margin-top: 3rem;
+}
+
+.page-absences .total-hours, .page-absences .total-non-justifiees {
+    margin: 1rem 0;
 }
 
 
@@ -2744,6 +2756,73 @@ width: 90%;
 }
 
 
+
+
+
+/* PAGE MDP OUBLIE CLARA */
+
+.page-mdp-oublie {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    gap: 20px;
+}
+
+.mdp-oublie {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+}
+
+.page-mdp-oublie h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: var(--bleu);
+}
+
+.mdp-oublie label {
+    font-size: 16px;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.mdp-oublie input[type="mail"], .mdp-oublie input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.mdp-oublie button {
+    width: 100%;
+    padding: 10px;
+    background-color: var(--bleu);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.mdp-oublie button:hover {
+    background-color: var(--bleu-hover);
+}
+
+.mdp-oublie p {
+    text-align: center;
+    font-size: 14px;
+    color: #555;
+    margin-top: 20px;
+}
 
 
 

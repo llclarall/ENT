@@ -86,11 +86,11 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // Réinitialiser les champs de la modale
-/*   const clearModalFields = () => {
+  const clearModalFields = () => {
     reasonSelect.value = "";
     documentInput.value = "";
     commentInput.value = "";
     currentRow = null;
     absenceId = null;
-  }; */
+  };
 });

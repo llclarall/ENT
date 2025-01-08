@@ -31,6 +31,32 @@ try {
         $total_heures = '0h'; // Par défaut s'il n'y a pas d'absence
     }
 
+    // Requête pour récupérer le total des heures non justifiées
+    $requete_non_justifiees = $db->prepare("
+        SELECT SEC_TO_TIME(SUM(TIME_TO_SEC(duree))) AS total_non_justifiees
+        FROM absences 
+        WHERE user_id = :user_id AND justification = 'À justifier'
+    ");
+    $requete_non_justifiees->execute(['user_id' => $user_id]);
+    $result_non_justifiees = $requete_non_justifiees->fetch(PDO::FETCH_ASSOC);
+
+    // Calcul du total des heures non justifiées
+    if ($result_non_justifiees && !empty($result_non_justifiees['total_non_justifiees'])) {
+        $seconds_non_justifiees = strtotime($result_non_justifiees['total_non_justifiees']) - strtotime('TODAY'); 
+        $hours_non_justifiees = floor($seconds_non_justifiees / 3600); 
+        $minutes_non_justifiees = floor(($seconds_non_justifiees % 3600) / 60); 
+
+        if ($hours_non_justifiees > 0 && $minutes_non_justifiees > 0) {
+            $total_non_justifiees = $hours_non_justifiees . 'h' . $minutes_non_justifiees; 
+        } elseif ($hours_non_justifiees > 0) {
+            $total_non_justifiees = $hours_non_justifiees . 'h'; // Exemple : 2h
+        } else {
+            $total_non_justifiees = $minutes_non_justifiees . 'min'; // Exemple : 30min
+        }
+    } else {
+        $total_non_justifiees = '0h'; // Par défaut s'il n'y a pas d'absence non justifiée
+    }
+
     // Récupérer les absences pour l'affichage
     $absences_requete = $db->prepare("
         SELECT * FROM absences 
@@ -43,6 +69,7 @@ try {
     // Gestion des erreurs
     echo "Erreur : " . $e->getMessage();
     $total_heures = 'Erreur';
+    $total_non_justifiees = 'Erreur';
     $absences = [];
 }
 ?>
@@ -67,11 +94,12 @@ try {
     <h2>Total des heures manquées : <span class="total-missed"><?= $total_heures ?></span></h2>
   </div>
 
-    
-    <div id="absences">
-      <h2>Détails des absences</h2>
+  <div id="total-non-justifiees" class="total-non-justifiees">
+    <h2>Total des heures non-justifiées : <span class="total-missed"><?= $total_non_justifiees ?></span></h2>
+  </div>
 
-      <h3>Heures non-justifiées : </h3>
+    <div id="absences">
+      <h2 class="details">Détails des absences</h2>
 
       <table id="absences-table">
         <thead>
