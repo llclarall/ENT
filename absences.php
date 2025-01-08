@@ -23,12 +23,12 @@ try {
         if ($hours > 0 && $minutes > 0) {
             $total_heures = $hours . 'h' . $minutes; 
         } elseif ($hours > 0) {
-            $total_heures = $hours . 'h'; // Exemple : 2h
+            $total_heures = $hours . 'h'; 
         } else {
-            $total_heures = $minutes . 'min'; // Exemple : 30min
+            $total_heures = $minutes . 'min'; 
         }
     } else {
-        $total_heures = '0h'; // Par défaut s'il n'y a pas d'absence
+        $total_heures = '0h'; 
     }
 
     // Requête pour récupérer le total des heures non justifiées
@@ -49,12 +49,12 @@ try {
         if ($hours_non_justifiees > 0 && $minutes_non_justifiees > 0) {
             $total_non_justifiees = $hours_non_justifiees . 'h' . $minutes_non_justifiees; 
         } elseif ($hours_non_justifiees > 0) {
-            $total_non_justifiees = $hours_non_justifiees . 'h'; // Exemple : 2h
+            $total_non_justifiees = $hours_non_justifiees . 'h'; 
         } else {
-            $total_non_justifiees = $minutes_non_justifiees . 'min'; // Exemple : 30min
+            $total_non_justifiees = $minutes_non_justifiees . 'min'; 
         }
     } else {
-        $total_non_justifiees = '0h'; // Par défaut s'il n'y a pas d'absence non justifiée
+        $total_non_justifiees = '0h'; 
     }
 
     // Récupérer les absences pour l'affichage

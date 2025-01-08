@@ -322,10 +322,21 @@ to {
     border-radius: 15px;
     text-align: center;
     border: black solid 1px;
+    transition: all 0.2s ease;
+}
+
+.accueil .sub-block:hover {
+    transform: scale(1.01);
+    cursor: pointer;
 }
 
 .accueil .absences, .accueil .notes, .accueil .reservations {
     flex: 1;
+}
+
+.accueil .red-border {
+    border: rgb(184, 51, 51) 2px solid;
+    background-color: #ffe8e8;
 }
 
 .accueil img {
@@ -609,7 +620,7 @@ to {
 }
 
 .login-form input[type="submit"]:focus {
-    outline: red auto 15px;
+    outline: black auto 15px;
 }
 
 .login-form input[type="submit"]:hover {
@@ -1110,33 +1121,53 @@ color: white;
 
 .page-messagerie .messages {
 padding: 10px;
-background-color: white;
 width: 100%;
+background-color: var(--bg-color);
 }
+
+/* Message non lu */
+.page-messagerie .message-item.unread {
+    background-color: var(--bleu);
+    color: var(--bg-color);
+}
+
+.page-messagerie .message-item.unread:hover {
+    background-color: var(--bleu-hover);
+    color: var(--bg-color);
+}
+
+/* Message lu */
+.page-messagerie .message-item.read {
+    background-color: var(--bg-color); 
+    border: var(--bleu) 2px solid;
+    color: var(--bleu);
+}
+
+.page-messagerie .message-item.read:hover {
+    background-color: var(--bleu-hover);
+    color: var(--bg-color);
+}
+
 
 .page-messagerie .message-item {
 display: flex;
 justify-content: space-between;
 align-items: center;
 text-decoration: none; 
-background-color: var(--bleu);
 padding: 8px 12px;
 margin-bottom: 8px;
 border-radius: 8px;
-color: white;
 transition: background-color 0.3s ease;
 }
 
 .page-messagerie .message-item:hover {
 background-color: var(--bleu-hover);
-color: white;
 cursor: pointer;
 }
 
 .page-messagerie .message-info p {
 margin: 5px 0 0;
 font-size: 0.875rem;
-color: white;
 }
 
 .page-messagerie .message-meta {
@@ -1239,7 +1270,7 @@ font-size: 0.875rem;
 /* MESSAGE 1 MEL */
 .page-messagerie .message-content {
     margin: 0 auto;
-    padding: 20px;
+    padding: 20px 50px;
     background-color: var(--bg-color);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
@@ -1289,7 +1320,7 @@ margin-bottom: 10px;
 }
 
 .page-messagerie .message-text {
-font-size: 0.8rem;
+font-size: 0.9rem;
 line-height: 1.5;
 margin-bottom: 20px;
 }
@@ -1303,7 +1334,7 @@ padding-top: 1rem;
 
 .page-messagerie .action-button {
 background-color: var(--bleu);
-color: white;
+color: var(--bg-color);
 border: none;
 padding: 10px 15px;
 font-size: .9rem;
@@ -1319,13 +1350,16 @@ background-color: var(--bleu-hover);
 
 @media (min-width: 768px) {
 .page-messagerie .message-content {
-    margin: 0 2rem;
+    margin: 0 1rem;
 }
 .page-messagerie .back-button {
     padding: 6px 12px;
 }
 .page-messagerie .container-messagerie {
     padding: 0;
+}
+.page-messagerie .actions {
+    gap: 20px;
 }
 }
 
@@ -1345,6 +1379,148 @@ background-color: var(--bleu-hover);
     font-size: 1.1rem; 
 }
 }
+
+
+
+
+/* PAGE NOUVEAU MESSAGE CLARA */
+
+/* Messages de succès et d'erreur */
+.page-messagerie .success-message {
+    color: #155724;
+    background-color: #d4edda;
+    border: 1px solid #c3e6cb;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+}
+
+.page-messagerie .error-message {
+    color: #721c24;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+}
+
+.page-messagerie .error-message ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.page-messagerie .btn-submit {
+    background-color: var(--bleu);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.page-messagerie .btn-submit:hover {
+    background-color: var(--bleu-hover);
+}
+
+.page-messagerie .suggestions-list {
+    border: none;
+    position: absolute;
+    background: #fff;
+    max-height: 200px;
+    overflow-y: auto;
+    width: 100%;
+    z-index: 100;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.page-messagerie .suggestions-list li {
+    padding: 8px;
+    cursor: pointer;
+    border: 1px solid var(--bleu-hover);
+    border-radius: 5px;
+}
+
+.page-messagerie .suggestions-list .suggestion-item {
+    padding: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.page-messagerie .suggestions-list .suggestion-item:hover {
+    background: #f0f0f0;
+}
+
+.form-nv-msg input[type="text"], .form-nv-msg textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+    background-color: #f9f9f9;
+}
+
+.form-nv-msg label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #2F4156;
+}
+
+/* page messages envoyés */
+
+.envoyes .message-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.envoyes .message-item {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    background-color: var(--bg-color);
+    border: var(--bleu) 2px solid;
+    transition: background-color 0.3s ease;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.envoyes .message-item:hover {
+    background-color: var(--bleu-hover);
+    color: var(--bg-color);
+}
+
+.envoyes .message-header {
+    display: flex;
+    flex-direction: column;
+}
+
+.envoyes .message-header strong {
+    font-weight: bold;
+}
+
+.envoyes .message-body {
+    white-space: pre-wrap;
+}
+
+.envoyes .date {
+    font-size: 0.9em;
+    display: block;
+}
+
+.envoyes .no-messages {
+    text-align: center;
+    font-size: 1.2em;
+    color: #555;
+    margin-top: 20px;
+}
+
 
 
 

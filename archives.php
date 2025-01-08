@@ -21,16 +21,6 @@
     </div>
 
 
-      <!-- <div class="semestre-dropdown">
-        <label for="semestre">Semestre</label>
-        <select id="semestre" name="semestre">
-      <option value="semestre">Semestre</option>
-      <option value="semestre1">Semestre 1</option>
-      <option value="semestre2">Semestre 2</option>
-        </select>
-      </div> -->
-
-
       <!-- Création numérique Section -->
        <div class="elearning-container">
       <div class="section-title">Création numérique</div>
@@ -87,6 +77,5 @@
   </main>  
 
 
-  <script src="script.js"></script>
 </body>
 </html>   

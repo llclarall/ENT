@@ -3,7 +3,6 @@ include('header.php');
 include('nav.php');
 
 
-
 // Récupérer les rendus associés à l'utilisateur ou non assignés à personne, triés par priorité (épinglés) et date
 $query = "SELECT r.*, 
            CASE WHEN p.fk_user IS NOT NULL THEN 1 ELSE 0 END AS pinned
@@ -18,6 +17,45 @@ $stmt->bindParam(':user_id', $id); // ID de l'utilisateur connecté pour les ép
 $stmt->execute();
 $rendus = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+
+
+$user_id = $_SESSION['id'];
+
+try {
+$requete_non_justifiees = $db->prepare("
+    SELECT SEC_TO_TIME(SUM(TIME_TO_SEC(duree))) AS total_non_justifiees
+    FROM absences 
+    WHERE user_id = :user_id AND justification = 'À justifier'
+");
+$requete_non_justifiees->execute(['user_id' => $user_id]);
+$result_non_justifiees = $requete_non_justifiees->fetch(PDO::FETCH_ASSOC);
+
+// Calcul du total des heures non justifiées
+if ($result_non_justifiees && !empty($result_non_justifiees['total_non_justifiees'])) {
+    $seconds_non_justifiees = strtotime($result_non_justifiees['total_non_justifiees']) - strtotime('TODAY'); 
+    $hours_non_justifiees = floor($seconds_non_justifiees / 3600); 
+    $minutes_non_justifiees = floor(($seconds_non_justifiees % 3600) / 60); 
+
+    if ($hours_non_justifiees > 0 && $minutes_non_justifiees > 0) {
+        $total_non_justifiees = $hours_non_justifiees . 'h' . $minutes_non_justifiees; 
+        
+    } elseif ($hours_non_justifiees > 0) {
+        $total_non_justifiees = $hours_non_justifiees . 'h';
+    } else {
+        $total_non_justifiees = $minutes_non_justifiees . 'min';
+    }
+} else {
+    $total_non_justifiees = '0h'; 
+}
+} catch (PDOException $e) {
+echo "Erreur : " . $e->getMessage();
+$total_non_justifiees = 'Erreur';
+}
+
+$numeric_value = preg_replace('/[^0-9]/', '', $total_non_justifiees); // Supprime les caractères non numériques
+
+// si le nb d'absences à justifier est supérieur à 0, ajouter une classe pour afficher une bordure rouge
+$borderClass = ($numeric_value > 0) ? 'red-border' : '';
 
 ?>
 
@@ -68,8 +106,8 @@ $rendus = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <div class="absences">
                     <h3><i class="fa-solid fa-ghost"></i> Absences</h3>
                     <a href="absences.php">
-                        <div class="widget sub-block">
-                            <span class="big">8h</span> <br>
+                        <div class="widget sub-block <?= $borderClass ?>">
+                            <span class="big"><?= $total_non_justifiees ?></span> <br>
                             <span>à justifier</span>
                         </div>
                     </a>

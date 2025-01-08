@@ -44,10 +44,10 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
     </div>
 
     <div class="profil-qr">
-        <img src="images/carte" alt="QR Code">
+        <img src="images/carte.png" alt="QR Code">
     </div>
     <div class="shortcuts">
-        <a href="">Notes</a>
+        <a href="notes.php">Notes</a>
         <a href="edt.php">Emploi du temps</a>
     </div>
     <div class="reservations block">

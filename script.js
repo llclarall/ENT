@@ -181,3 +181,48 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
+
+
+/* NOUVEAU MESSAGE (destinataires) CLARA */
+
+document.addEventListener("DOMContentLoaded", function () {
+    const inputDestinataire = document.getElementById("destinataire-input");
+    const suggestionsList = document.getElementById("suggestions-list");
+    const hiddenDestinataireId = document.getElementById("destinataire-id");
+
+    inputDestinataire.addEventListener("input", function () {
+        const query = inputDestinataire.value.trim();
+
+        if (query.length > 1) {
+            fetch(`search_destinataire.php?q=${encodeURIComponent(query)}`)
+                .then(response => response.json())
+                .then(data => {
+                    suggestionsList.innerHTML = "";
+
+                    data.forEach(user => {
+                        const li = document.createElement("li");
+                        li.textContent = `${user.prenom} ${user.nom}`;
+                        li.dataset.id = user.id; // Stocker l'ID dans l'élément
+                        li.classList.add("suggestion-item");
+
+                        li.addEventListener("click", function () {
+                            inputDestinataire.value = `${user.prenom} ${user.nom}`;
+                            hiddenDestinataireId.value = user.id;
+                            suggestionsList.innerHTML = ""; // Effacer les suggestions après la sélection
+                        });
+
+                        suggestionsList.appendChild(li);
+                    });
+                });
+        } else {
+            suggestionsList.innerHTML = ""; // Vider si saisie trop courte
+        }
+    });
+
+    // Cacher les suggestions si on clique ailleurs
+    document.addEventListener("click", function (e) {
+        if (!suggestionsList.contains(e.target) && e.target !== inputDestinataire) {
+            suggestionsList.innerHTML = "";
+        }
+    });
+});
