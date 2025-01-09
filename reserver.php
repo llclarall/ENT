@@ -24,7 +24,7 @@ include 'nav.php';
     <br>
     
     <div class="flex-container-btn">
-        <a href="mes_réservations" class="resas archives-btn">Mes réservations</a>
+        <a href="mes_reservations.php" class="resas archives-btn">Mes réservations</a>
     </div>
     
     <div class="container">

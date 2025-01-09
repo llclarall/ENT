@@ -145,10 +145,10 @@ try {
             <label for="reason">Raison (obligatoire) :</label>
             <select id="reason" name="reason" required>
                 <option value="" disabled selected>Choisissez votre raison ci-dessous</option>
-                <option value="illness">Maladie</option>
-                <option value="transport">Problème de transport</option>
-                <option value="family">Urgence familiale</option>
-                <option value="other">Autre</option>
+                <option value="Maladie">Maladie</option>
+                <option value="Transport">Problème de transport</option>
+                <option value="Urgence familiale">Urgence familiale</option>
+                <option value="Autre">Autre</option>
             </select>
             <br><br>
             

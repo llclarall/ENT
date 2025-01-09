@@ -27,38 +27,40 @@ document.addEventListener('DOMContentLoaded', () => {
   
     // Basculer la visibilité du menu sur mobile
     toggleMenu.addEventListener('click', () => {
-      sideNav.classList.toggle('hidden'); // Basculer la classe 'hidden' pour afficher/masquer la barre latérale
+        sideNav.classList.toggle('hidden');
     });
   
     // Fonctionnalité de bascule des menus déroulants
     dropdownToggles.forEach(toggle => {
-      toggle.addEventListener('click', (e) => {
-        e.preventDefault();
+        toggle.addEventListener('click', (e) => {
+            e.preventDefault();
   
-        const dropdown = toggle.nextElementSibling;
+            const dropdown = toggle.nextElementSibling;
   
-        // Basculer l'affichage du menu déroulant actuel
-        dropdown.classList.toggle('open');
-        toggle.classList.toggle('rotate');
+            // Basculer l'affichage du menu déroulant actuel
+            dropdown.classList.toggle('open');
+            toggle.classList.toggle('rotate');
   
-        // Fermer les autres menus déroulants
-        document.querySelectorAll('.dropdown').forEach(otherDropdown => {
-          if (otherDropdown !== dropdown) {
-            otherDropdown.classList.remove('open');
-            otherDropdown.previousElementSibling.classList.remove('rotate');
-          }
+            // Fermer les autres menus déroulants
+            document.querySelectorAll('.dropdown').forEach(otherDropdown => {
+                if (otherDropdown !== dropdown) {
+                    otherDropdown.classList.remove('open');
+                    otherDropdown.previousElementSibling.classList.remove('rotate');
+                }
+            });
         });
-      });
     });
   
-    // Assurez-vous que la barre latérale est visible lorsque la fenêtre dépasse 1130px
-    window.addEventListener('resize', () => {
-      if (window.innerWidth > 1130) {
-        sideNav.classList.remove('hidden');
-      }
+
+    // Fermer la barre latérale si un clic est effectué en dehors
+    document.addEventListener('click', (e) => {
+        if (window.innerWidth <= 1130) {
+            if (!sideNav.contains(e.target) && !toggleMenu.contains(e.target)) {
+                sideNav.classList.remove('hidden');
+            }
+        }
     });
-  });
-  
+});
 
 
 
@@ -248,3 +250,12 @@ function archiveMessage(messageId, isArchived, event) {
         window.location.href = 'archive_msg.php?id=' + messageId + '&new_status=' + (isArchived === 1 ? 0 : 1);
     }
 }
+
+
+
+
+/* NOTES dropdown */
+
+document.getElementById('semester').addEventListener('change', function() {
+    this.form.submit();
+});

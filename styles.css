@@ -79,9 +79,9 @@ header img:hover {
 }
 
 
-.side-nav.hidden {
+/* .side-nav.hidden {
 transform: translateX(-100%);
-}
+} */
 
 .side-nav .logo {
 padding: 15px;
@@ -1654,16 +1654,11 @@ grid-template-rows: auto;
 }
 
 .page-profil .block {
-    border-radius: 10px;
+    border-radius: 15px;
     padding: 20px;
     border: var(--bleu) 1px solid;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.page-profil .block:hover {
-    transform: scale(1.01);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
 .profil-header {
@@ -1684,6 +1679,10 @@ width: 120px;
 .profil-info h2 {
 font-size: 1.5rem;
 margin: 0;
+}
+
+.page-profil h3 {
+margin-top: 0;
 }
 
 .profil-info p {
@@ -1729,7 +1728,6 @@ background-color: #ddd;
 grid-area: p_reservations;
 background-color: #f9f9f9;
 padding: 15px;
-border-radius: 5px;
 }
 
 .page-profil .reservation-item {
@@ -1740,7 +1738,6 @@ margin: 10px 0;
 grid-area: p_absences;
 background-color: #f9f9f9;
 padding: 15px;
-border-radius: 5px;
 }
 
 .page-profil .absence-item {
@@ -1751,7 +1748,6 @@ margin: 10px 0;
 grid-area: p_documents;
 background-color: #f9f9f9;
 padding: 15px;
-border-radius: 5px;
 }
 
 .page-profil .table {
@@ -1793,6 +1789,68 @@ border: 1px solid #ccc;
     .profil-header img {
         width: 100px;
     }
+}
+
+
+
+/* Style pour la section Absences */
+
+.page-profil .absence-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.page-profil .absence-item span {
+    font-size: 1em;
+    color: #555;
+}
+
+.page-profil .absence-item span:nth-child(1) {
+    font-weight: bold;
+}
+
+.page-profil .absence-item form {
+    display: inline;
+}
+
+.page-profil .justifier-button {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: var(--bleu);
+    color: #fff;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.page-profil .justifier-button:hover {
+    background-color: var(--bleu-hover);
+}
+
+.page-profil .red-border {
+    border: 2px solid #ffafa7;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.page-profil .voir-plus {
+    text-align: center;
+    margin-top: 10px;
+    color: var(--bleu);
+    display: block;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.page-profil .voir-plus:hover {
+    color: var(--bleu-hover);
+    text-decoration: underline;
 }
 
 

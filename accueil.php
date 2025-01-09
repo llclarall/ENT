@@ -19,6 +19,8 @@ $rendus = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 
 
+
+// Récupérer le total des heures d'absences non justifiées pour l'utilisateur connecté
 $user_id = $_SESSION['id'];
 
 try {

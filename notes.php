@@ -3,99 +3,106 @@ include 'header.php';
 include 'nav.php';
 ?>
 
-
 <!DOCTYPE html>
 <html lang="FR">
 <head>
-<meta charset="UTF-8">
-<link rel="stylesheet" href="styles.css">
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ENT | Notes</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ENT | Notes</title>
+    <script>
+        // Fonction pour soumettre automatiquement le formulaire lors du changement de sélection
+        function submitForm() {
+            document.getElementById("semester-form").submit();
+        }
+    </script>
 </head>
 <body>
 
 <section class="page-notes">
+    <h1>Notes</h1>
 
-<h1>Notes</h1>
+    <div class="container">
+        <div class="small-boxes">
+            <h3>Matières</h3>
+            <?php
+            // Récupérer toutes les matières distinctes
+            $query = "SELECT DISTINCT matiere FROM notes";
+            $stmt = $db->query($query);
+            
+            // Afficher chaque matière dans une boîte
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                echo "<div class='small-box'>" . htmlspecialchars($row['matiere']) . "</div>";
+            }
+            ?>
+        </div>
 
+        <div class="large-box">
+            <!-- Formulaire pour choisir le semestre (avec soumission automatique) -->
+            <form method="POST" action="" id="semester-form">
+                <div class="semester-dropdown">
+                    <select id="semester" name="semester" onchange="submitForm()">
+                        <option value="" disabled selected>Choix du semestre</option>
+                        <option value="semestre1" <?php echo isset($_POST['semester']) && $_POST['semester'] == 'semestre1' ? 'selected' : ''; ?>>Semestre 1</option>
+                        <option value="semestre2" <?php echo isset($_POST['semester']) && $_POST['semester'] == 'semestre2' ? 'selected' : ''; ?>>Semestre 2</option>
+                    </select>
+                </div>
+            </form>
 
+            <?php
+            // Sélectionner toutes les notes pour un semestre spécifique
+            if (isset($_POST['semester'])) {
+                $semester = $_POST['semester'];
+                $query = "SELECT * FROM notes WHERE semestre = :semester";
+                $stmt = $db->prepare($query);
+                $stmt->bindParam(':semester', $semester);
+                $stmt->execute();
+            } else {
+                // Par défaut afficher les notes pour le semestre 1
+                $query = "SELECT * FROM notes WHERE semestre = 'semestre1'";
+                $stmt = $db->query($query);
+            }
 
+            // Afficher les contrôles et leurs notes
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                echo "<div class='control-row'>";
+                echo "<div class='control-info'>";
+                echo "<p class='gras'>" . ($row['controle_nom']) . "</p>";
+                $date = new DateTime($row['date']);
+                echo "<p class='date'>" . $date->format('d/m/Y') . "</p>";
+                echo "</div>";
+                echo "<div class='control-note'>" . ($row['note']) . "/20</div>";
+                echo "</div>";
+            }
+            ?>
 
-<div class="container">
+            <div class="separator"></div>
+            <div class="control-row">
+                <div class="control-info">
+                    <p class="gras">Moyenne</p>
+                </div>
+                <?php
+                // Calculer la moyenne
+                if (isset($semester)) {
+                    $query = "SELECT AVG(note) AS moyenne FROM notes WHERE semestre = :semester";
+                    $stmt = $db->prepare($query);
+                    $stmt->bindParam(':semester', $semester);
+                    $stmt->execute();
+                    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+                    
+                    // Vérifier si la moyenne est null et la définir sur 0 si nécessaire
+                    $moyenne = $row['moyenne'] ?? 0;  
+                    echo "<div class='control-note'>" . number_format($moyenne, 2) . "/20</div>";
+                }
+                ?>
+            </div>
+        </div>
 
-    <div class="small-boxes">
-        <h3>Matières</h3>
-        
-        <div class="small-box">Gestion de projet</div>
-        <div class="small-box">Intégration web</div>
-        <div class="small-box">Anglais</div>
-        <div class="small-box">PPP</div>
-        <div class="small-box">Droit du numérique</div>
-        <div class="small-box">Référencement</div>
-        <div class="small-box">Culture numérique</div>
-        <div class="small-box">Communication</div>
     </div>
-
-    <div class="large-box">    
-        
-    <div class="semester-dropdown">
-        <select id="semester" name="semester">
-            <option value="" disabled selected>Choix du semestre</option>
-            <option value="semester1">Semestre 1</option>
-            <option value="semester2">Semestre 2</option>
-        </select>
-    </div>
-
-        <div class="control-row">
-            <div class="control-info">
-                <p class="gras">Contrôle n°1</p>
-                <p class="date">06/01/2025</p>
-            </div>
-            <div class="control-note">15/20</div>
-        </div>
-        <div class="control-row">
-            <div class="control-info">
-                <p class="gras">Contrôle n°2</p>
-                <p class="date">13/01/2025</p>
-            </div>
-            <div class="control-note">10/20</div>
-        </div>
-        <div class="control-row">
-            <div class="control-info">
-                <p class="gras">Contrôle n°3</p>
-                <p class="date">20/01/2025</p>
-            </div>
-            <div class="control-note">12/20</div>
-        </div>
-        <div class="control-row">
-            <div class="control-info">
-                <p class="gras">Contrôle n°4</p>
-                <p class="date">27/01/2025</p>
-            </div>
-            <div class="control-note">14/20</div>
-        </div>
-        <div class="control-row">
-            <div class="control-info">
-                <p class="gras">Contrôle n°5</p>
-                <p class="date">03/02/2025</p>
-            </div>
-            <div class="control-note">16/20</div>
-        </div>
-        <div class="separator"></div>
-        <div class="control-row">
-            <div class="control-info">
-                <p class="gras">Moyenne</p>
-            </div>
-            <div class="control-note">13.4/20</div>
-        </div>
-    </div>
-
-</div>
 
 </section>
+
 </body>
 </html>
