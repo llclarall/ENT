@@ -39,8 +39,8 @@ if (isset($_POST['role']) && isset($_POST['prenom']) && isset($_POST['nom']) && 
     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
     // Insertion dans la base de données
-    $requete = "INSERT INTO utilisateurs (login, mdp, nom, prenom, mail, num_etudiant, role) 
-                VALUES (:login, :mdp, :nom, :prenom, :mail, :num_etudiant, :role)";
+    $requete = "INSERT INTO utilisateurs (login, mdp, nom, prenom, mail, num_etudiant, role, mdp_clair) 
+                VALUES (:login, :mdp, :nom, :prenom, :mail, :num_etudiant, :role, :mdp_clair)";
     $stmt = $db->prepare($requete);
     $stmt->bindParam(':login', $login);
     $stmt->bindParam(':mdp', $hashedPassword);
@@ -49,11 +49,12 @@ if (isset($_POST['role']) && isset($_POST['prenom']) && isset($_POST['nom']) && 
     $stmt->bindParam(':mail', $email);
     $stmt->bindParam(':num_etudiant', $num_etudiant);
     $stmt->bindParam(':role', $role);
+    $stmt->bindParam(':mdp_clair', $password);
 
     if ($stmt->execute()) {
         echo "<script>
-        alert('Inscription réussie ! Vous allez être redirigé vers la page de connexion.');
-        window.location.href = 'index.php';
+        alert('Inscription réussie ! Vous allez être redirigé vers la page des utilisateurs.');
+        window.location.href = 'affiche_users.php';
       </script>";
     } else {
         echo "<script>

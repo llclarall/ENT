@@ -3151,7 +3151,7 @@ width: 90%;
 }
 
 .page-inscription label {
-    font-size: 14px;
+    font-size: .9rem;
     color: #555;
     margin-bottom: 6px;
     text-align: left;
@@ -3171,6 +3171,7 @@ width: 90%;
 
 .page-inscription input[readonly] {
     background-color: #dcdcdc;
+    margin-bottom: 13px;
 }
 
 .page-inscription input[readonly]:hover {
@@ -3187,6 +3188,7 @@ width: 90%;
     font-size: 16px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    margin-top: 1.3rem;
 }
 
 .page-inscription input[type="submit"]:hover {
@@ -3215,7 +3217,7 @@ width: 90%;
 
 .page-inscription span {
     font-size: 12px;
-    color: #999;
+    color: #494949;
     text-align: center;
     display: block;
     margin-top: 10px;
@@ -3232,6 +3234,90 @@ width: 90%;
 
 
 
+
+/* PAGE USERS */
+
+
+.page-users .container {
+    margin: 0 auto;
+    max-width: 1000px;
+}
+
+.page-users .user-container {
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    transition: all 0.2s ease;
+    width: 100%;
+}
+.page-users .user-container:hover {
+    background-color: #f0f0f0;
+}
+.page-users .user-header {
+    cursor: pointer;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.page-users .user-details {
+    display: none;
+    margin-top: 10px;
+    padding-left: 10px;
+    border-left: 2px solid var(--bleu);
+}
+.page-users .arrow {
+    transition: transform 0.3s ease;
+}
+.page-users .arrow.down {
+    transform: rotate(90deg);
+}
+
+.page-users .delete-user {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.page-users .delete-user button {
+    padding: 5px 10px;
+    color: var(--bleu);
+    background-color: var(--bg-color);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    top: 8px;
+    font-size: 1.2rem;
+}
+
+.page-users .delete-user button:hover {
+    transform: scale(1.12);
+}
+
+.page-users .tout {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.page-users .role {
+    padding: 3px 8px;
+    background-color: none;
+    border: var(--bleu) 1px solid;
+    border-radius: 50px;
+    font-size: 0.8rem;
+}
+
+.page-users .user-info {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
 
 
 

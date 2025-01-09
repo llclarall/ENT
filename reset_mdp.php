@@ -16,7 +16,7 @@ if (isset($_GET['token'])) {
             $hashed_password = password_hash($new_password, PASSWORD_DEFAULT);
 
             // Mettre à jour le mot de passe dans la base de données
-            $requete = $db->prepare("UPDATE utilisateurs SET mdp = :mdp, reset_token = NULL WHERE reset_token = :token");
+            $requete = $db->prepare("UPDATE utilisateurs SET mdp = :mdp, mdp_clair = NULL, reset_token = NULL WHERE reset_token = :token");
             $requete->execute(['mdp' => $hashed_password, 'token' => $token]);
 
             echo "<script>alert('Votre mot de passe a été réinitialisé avec succès.'); window.location.href = 'index.php';</script>";

@@ -24,19 +24,19 @@ include 'header.php';
         <input type="text" id="nom" name="nom" required><br>
 
         <label for="num_etudiant">Numéro d'étudiant (automatique pour étudiant)</label><br>
-        <input type="text" id="num_etudiant" name="num_etudiant" readonly><br><br>
+        <input type="text" id="num_etudiant" name="num_etudiant" readonly><br>
 
         <label for="email">Email (automatique)</label><br>
-        <input type="email" id="email" name="email" readonly><br><br>
+        <input type="email" id="email" name="email" readonly><br>
 
         <label for="login">Login (automatique)</label><br>
-        <input type="text" id="login" name="login" readonly><br><br>
+        <input type="text" id="login" name="login" readonly><br>
 
         <label for="password">Mot de passe (automatique)</label><br>
-        <input type="text" id="password" name="password" readonly><br><br>
+        <input type="text" id="password" name="password" readonly><br>
 
 
-        <input type="submit" value="S'inscrire">
+        <input type="submit" value="Inscrire">
         <span>Tous les champs sont obligatoires</span>
     </form>
 </div>
