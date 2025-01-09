@@ -1,6 +1,19 @@
 <?php
 include 'header.php';
 include 'nav.php';
+
+
+
+$num_etudiant = $_SESSION['num_etudiant'];
+
+
+if (isset($_GET['mark_as_read'])) {
+    $update_query = "UPDATE notes SET consulted = 1 WHERE consulted = 0 AND etudiant_num = :num_etudiant";
+    $stmt = $db->prepare($update_query);
+    $stmt->bindParam(':num_etudiant', $num_etudiant);
+    $stmt->execute();
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -28,10 +41,12 @@ include 'nav.php';
         <div class="small-boxes">
             <h3>Matières</h3>
             <?php
-            // Récupérer toutes les matières distinctes
-            $query = "SELECT DISTINCT matiere FROM notes";
-            $stmt = $db->query($query);
-            
+            // Récupérer toutes les matières distinctes pour l'utilisateur connecté
+            $query = "SELECT DISTINCT matiere FROM notes WHERE etudiant_num = :num_etudiant";
+            $stmt = $db->prepare($query);
+            $stmt->bindParam(':num_etudiant', $num_etudiant);
+            $stmt->execute();
+
             // Afficher chaque matière dans une boîte
             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 echo "<div class='small-box'>" . htmlspecialchars($row['matiere']) . "</div>";
@@ -52,28 +67,31 @@ include 'nav.php';
             </form>
 
             <?php
-            // Sélectionner toutes les notes pour un semestre spécifique
+            // Sélectionner toutes les notes pour un semestre spécifique et l'utilisateur connecté
             if (isset($_POST['semester'])) {
                 $semester = $_POST['semester'];
-                $query = "SELECT * FROM notes WHERE semestre = :semester";
+                $query = "SELECT * FROM notes WHERE semestre = :semester AND etudiant_num = :num_etudiant";
                 $stmt = $db->prepare($query);
                 $stmt->bindParam(':semester', $semester);
+                $stmt->bindParam(':num_etudiant', $num_etudiant);
                 $stmt->execute();
             } else {
                 // Par défaut afficher les notes pour le semestre 1
-                $query = "SELECT * FROM notes WHERE semestre = 'semestre1'";
-                $stmt = $db->query($query);
+                $query = "SELECT * FROM notes WHERE semestre = 'semestre1' AND etudiant_num = :num_etudiant";
+                $stmt = $db->prepare($query);
+                $stmt->bindParam(':num_etudiant', $num_etudiant);
+                $stmt->execute();
             }
 
             // Afficher les contrôles et leurs notes
             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 echo "<div class='control-row'>";
                 echo "<div class='control-info'>";
-                echo "<p class='gras'>" . ($row['controle_nom']) . "</p>";
+                echo "<p class='gras'>" . htmlspecialchars($row['controle_nom']) . "</p>";
                 $date = new DateTime($row['date']);
                 echo "<p class='date'>" . $date->format('d/m/Y') . "</p>";
                 echo "</div>";
-                echo "<div class='control-note'>" . ($row['note']) . "/20</div>";
+                echo "<div class='control-note'>" . htmlspecialchars($row['note']) . "/20</div>";
                 echo "</div>";
             }
             ?>
@@ -84,11 +102,12 @@ include 'nav.php';
                     <p class="gras">Moyenne</p>
                 </div>
                 <?php
-                // Calculer la moyenne
+                // Calculer la moyenne pour l'utilisateur connecté
                 if (isset($semester)) {
-                    $query = "SELECT AVG(note) AS moyenne FROM notes WHERE semestre = :semester";
+                    $query = "SELECT AVG(note) AS moyenne FROM notes WHERE semestre = :semester AND etudiant_num = :num_etudiant";
                     $stmt = $db->prepare($query);
                     $stmt->bindParam(':semester', $semester);
+                    $stmt->bindParam(':num_etudiant', $num_etudiant);
                     $stmt->execute();
                     $row = $stmt->fetch(PDO::FETCH_ASSOC);
                     

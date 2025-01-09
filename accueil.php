@@ -79,6 +79,14 @@ $unread_count = $result['unread_count'];
 // Logique pour afficher ou non l'icône d'avertissement
 $alertMsg = ($unread_count > 0) ? "display" : "none";
 
+
+
+
+// Requête pour vérifier les notes non consultées
+$query = "SELECT COUNT(*) AS new_count FROM notes WHERE consulted = 0";
+$result = $db->query($query)->fetch();
+$new_note_count = (int)$result['new_count'];
+
 ?>
 
 
@@ -134,15 +142,22 @@ $alertMsg = ($unread_count > 0) ? "display" : "none";
                         </div>
                     </a>
                 </div>
+
                 <div class="notes">
                     <h3><i class="fa-solid fa-heart"></i> Notes</h3>
-                    <a href="notes.php">
-                        <div class="widget sub-block">
-                            <span class="big">3+</span> <br>
-                            <span>notes</span>
+                    <a href="notes.php?mark_as_read=1">
+                        <div class="widget sub-block <?= $new_note_count > 0 ? 'new-notes' : '' ?>">
+                            <?php if ($new_note_count > 0): ?>
+                                <span class="new-indicator "><div class="big"><?= $new_note_count ?></div> nouvelle(s) note(s)!</span>
+                            <?php else: ?>
+                                <span class="no-new-notes">Aucune nouvelle note</span>
+                            <?php endif; ?>
                         </div>
                     </a>
                 </div>
+
+
+
                 <div class="reservations">
                     <h3><i class="fa-solid fa-bookmark"></i> RSVP</h3>
                     <a href="reservations.php">

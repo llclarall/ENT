@@ -365,6 +365,12 @@ to {
     font-weight: bold;
 }
 
+
+.accueil .new-notes {
+    border: 2px solid var(--bleu);
+    background-color: #dbedff;
+}
+
 /* Grid Positionnement */
 .applications {
     grid-area: applications;
@@ -388,6 +394,7 @@ to {
     grid-area: messages;
     background-color: var(--bleu);
     color: var(--bg-color);
+    height: 100%;
 }
 
 .accueil .messages p {
@@ -1643,11 +1650,10 @@ display: grid;
 grid-template-columns: repeat(5, 1fr);
 grid-template-areas: 
     "p_header p_header p_header p_qrcode p_qrcode"
-    "p_shortcuts p_shortcuts p_absences p_absences p_absences"
-    "p_reservations p_reservations p_absences p_absences p_absences"
-    "p_reservations p_reservations p_documents p_documents p_documents";
+    "p_shortcuts p_shortcuts p_shortcuts p_absences p_absences"
+    "p_documents p_documents p_documents p_absences p_absences"
+    "p_documents p_documents p_documents p_reservations p_reservations";
 gap: 20px;
-padding: 20px;
 max-width: 1000px;
 margin: 0 auto;
 grid-template-rows: auto;
@@ -1704,7 +1710,7 @@ width: 100%;
 grid-area: p_shortcuts;
 display: flex;
 justify-content: space-between;
-gap: 10px;
+gap: 50px;
 width: 100%;
 }
 
@@ -1712,12 +1718,18 @@ width: 100%;
 padding: 20px 20px;
 background-color: #f0f0f0;
 border: 1px solid #ccc;
-border-radius: 5px;
+color: var(--bleu);
+border-radius: 15px;
 cursor: pointer;
 width: 100%;
 text-decoration: none;
-text-align: center;
+text-decoration: none;
 transition: all 0.2s ease;
+display: flex;
+font-weight: bold;
+align-items: center;
+text-align: center;
+justify-content: center;
 }
 
 .page-profil .shortcuts a:hover {
@@ -1766,11 +1778,14 @@ border: 1px solid #ccc;
         grid-template-areas:
             "p_header p_header"
             "p_shortcuts p_qrcode"
+            "p_documents p_documents"
             "p_absences p_absences"
-            "p_reservations p_reservations"
-            "p_documents p_documents";
+            "p_reservations p_reservations";
         grid-template-columns: 1fr 1fr;
         grid-template-rows: auto;
+    }
+    .page-profil .shortcuts {
+        gap: 20px;
     }
 }
 
@@ -1780,9 +1795,9 @@ border: 1px solid #ccc;
             "p_header"
             "p_shortcuts"
             "p_qrcode"
+            "p_documents"
             "p_absences"
-            "p_reservations"
-            "p_documents";
+            "p_reservations";
         grid-template-columns: 1fr;
         grid-template-rows: auto;
     }
@@ -1801,6 +1816,7 @@ border: 1px solid #ccc;
     align-items: center;
     padding: 10px 0;
     border-bottom: 1px solid #ddd;
+    flex-wrap: wrap;
 }
 
 .page-profil .absence-item span {
@@ -1816,6 +1832,15 @@ border: 1px solid #ccc;
     display: inline;
 }
 
+@media (max-width: 850px) {
+    .page-profil .justifier-button {
+        padding: 8px 10px;
+    }
+    .page-profil .absence-item {
+        gap: 10px;
+    }
+}
+
 .page-profil .justifier-button {
     display: inline-block;
     padding: 8px 16px;
@@ -1825,7 +1850,6 @@ border: 1px solid #ccc;
     text-decoration: none;
     font-weight: bold;
     text-align: center;
-    margin-top: 5px;
     transition: background-color 0.3s ease;
 }
 
@@ -1853,6 +1877,41 @@ border: 1px solid #ccc;
     text-decoration: underline;
 }
 
+
+/* Style des items de réservation */
+.page-profil .reservation-item {
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+    font-size: 1em;
+    color: #555;
+}
+
+.page-profil .reservation-item:last-child {
+    border-bottom: none;
+}
+
+/* Style pour le tableau des documents */
+.page-profil .documents table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    font-size: 1em;
+}
+
+.page-profil .documents table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    color: #555;
+}
+
+.page-profil .documents table td:first-child {
+    font-weight: bold;
+    color: #333;
+}
+
+.page-profil .documents table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
 
 
 
@@ -2807,6 +2866,8 @@ width: 90%;
     font-weight: bold;
     padding-bottom: 8px;
 }
+
+
 
 
 @media (max-width: 500px) {

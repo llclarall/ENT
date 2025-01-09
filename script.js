@@ -168,8 +168,8 @@ document.addEventListener('DOMContentLoaded', () => {
                                 }
 
                                 // Colorier la cellule
-                                cell.style.backgroundColor = courseColors[event.titre];  // Appliquer la couleur unique
-                                cell.style.color = '#000'; // Contraste pour le texte
+                                cell.style.backgroundColor = courseColors[event.titre];  
+                                cell.style.color = '#000'; 
                             }
                         }
                     });

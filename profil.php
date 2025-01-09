@@ -80,35 +80,35 @@ $absences = $absences_requete->fetchAll(PDO::FETCH_ASSOC);
         <div class="reservation-item">
         <span>OSMO Le vendredi 15 novembre 2024</span>
         </div>
-        <a href="#">Voir plus</a>
+        <a href="absences.php" class="voir-plus">Voir plus</a>
     </div>
 
 
 <!-- Section Absences -->
     <div class="absences block">
         <h3>Absences</h3>
-        <?php
-        foreach ($limited_absences as $absence) {
-            echo "<div class='absence-item " . ($absence['statut'] == 'À justifier' ? 'red-border' : '') . "'>";
-            echo "<span>" . date('d/m/Y H:i', strtotime($absence['date_absence'])) . "</span> ";
+        <?php if (empty($limited_absences)): ?>
+            <p>Pas encore d'absences</p>
+        <?php else: ?>
+            <?php foreach ($limited_absences as $absence) {
+                echo "<div class='absence-item " . ($absence['statut'] == 'À justifier' ? 'red-border' : '') . "'>";
+                echo "<span>" . date('d/m/Y H:i', strtotime($absence['date_absence'])) . "</span> ";
+                
+                if ($absence['statut'] == 'À justifier') {
+                    echo "<form method='POST' action='justifier_absence.php'>";
+                    echo "<input type='hidden' name='absence_id' value='" . $absence['id'] . "'>";
+                    echo "<a href='absences.php' type='submit' class='justifier-button'>Justifier</a>";
+                    echo "</form>";
+                } else {
+                    echo "<span>" . $absence['statut'] . "</span>";
+                }
+                echo "</div>";
+            } ?>
             
-            
-            if ($absence['statut'] == 'À justifier') {
-                echo "<form method='POST' action='justifier_absence.php'>";
-                echo "<input type='hidden' name='absence_id' value='" . $absence['id'] . "'>";
-                echo "<a href='absences.php' type='submit' class='justifier-button'>Justifier</a>";
-                echo "</form>";
-            }
-            else {
-                echo "<span>" . $absence['statut'] . "</span>";
-            }
-            echo "</div>";
-        }
-        ?>
-        
-        <!-- Bouton "Voir plus" si l'utilisateur a plus de 2 absences -->
-        <?php if ($has_more_than_two): ?>
-            <a href="absences.php" class="voir-plus">Voir plus</a>
+            <!-- Bouton "Voir plus" si l'utilisateur a plus de 2 absences -->
+            <?php if ($has_more_than_two): ?>
+                <a href="absences.php" class="voir-plus">Voir plus</a>
+            <?php endif; ?>
         <?php endif; ?>
     </div>
 
@@ -122,14 +122,38 @@ $absences = $absences_requete->fetchAll(PDO::FETCH_ASSOC);
         </tr>
         <tr>
             <td>2024/2025</td>
-            <td>BUT MMI2 CREATION NUMERIQUE-Champs</td>
+            <td>BUT MMI2 DEVELOPPEMENT - Champs</td>
         </tr>
         <tr>
             <td>2023/2024</td>
-            <td>BUT MMI1 DEVELOPPEMENT-Champs</td>
+            <td>BUT MMI1 - Champs</td>
         </tr>
         </table>
+
+        <table>
+        <tr>
+            <td>Années</td>
+            <td>Bulletins</td>
+        </tr>
+        <tr>
+            <td>2024/2025</td>
+            <td>Semestres 3 et 4</td>
+        </tr>
+        <tr>
+            <td>2023/2024</td>
+            <td>Semestres 1 et 2</td>
+        </tr>
+        </table>
+
+        <table>
+        <tr>
+            <td>Certificat de scolarité</td>
+            <td>Voir</td>
+        </tr>
+        </table>
+
     </div>
+
 </div>
 </section>
 
