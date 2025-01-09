@@ -64,6 +64,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="message-content">
                 <?php if ($message_envoye): ?>
                     <div class="success-message">Votre message a été envoyé avec succès !</div>
+                    <script>
+                        setTimeout(function() {
+                            window.location.href = 'messagerie.php';
+                        }, 1500); // Redirection après 2 secondes
+                    </script>
                 <?php endif; ?>
 
                 <?php if (!empty($erreurs)): ?>

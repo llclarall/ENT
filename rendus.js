@@ -198,7 +198,7 @@ function loadFiles(renduId, userId) {
                     fileList.appendChild(fileItem);
                 });
             } else {
-                fileList.innerHTML = '<p>Aucun fichier trouvé.</p>';
+                fileList.innerHTML = '<p>Aucun fichier rendu.</p>';
             }
         })
         .catch(error => {
@@ -367,7 +367,7 @@ function handleFile(file) {
     }
 
     const dropZone = document.getElementById('drop-zone');
-    const fileInfo = document.getElementById('file-info');
+    const fileInfo = document.getElementById('file-selected');
 
     // Efface les anciens messages pour éviter les duplications
     fileInfo.textContent = `Fichier sélectionné: ${file.name}`;
@@ -408,7 +408,7 @@ async function renderFile() {
         if (response.ok) {
             const data = await response.json();
             if (data.success) {
-                alert(`Fichier ${file.name} rendu avec succès!`);
+                alert(`Fichier ${file.name} rendu avec succès! Rafrachir la page pour voir les changements.`);
                 resetFileInput();
             } else {
                 alert(data.message || "Erreur lors de l'envoi du fichier.");
@@ -428,6 +428,6 @@ async function renderFile() {
 function resetFileInput() {
     document.getElementById('file-info').textContent = '';
     document.getElementById('renderFileButton').style.display = 'none';
-    document.getElementById('fileInput').value = ''; // Réinitialise le champ de fichier
+    document.getElementById('fileInput').value = '';
 }
 

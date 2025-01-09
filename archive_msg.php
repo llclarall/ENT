@@ -1,6 +1,5 @@
 <?php
-include('header.php');
-include('nav.php');
+include('config.php');
 
 if (isset($_GET['id']) && isset($_GET['new_status'])) {
     $message_id = $_GET['id'];

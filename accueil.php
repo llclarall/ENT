@@ -27,7 +27,7 @@ try {
 $requete_non_justifiees = $db->prepare("
     SELECT SEC_TO_TIME(SUM(TIME_TO_SEC(duree))) AS total_non_justifiees
     FROM absences 
-    WHERE user_id = :user_id AND justification = 'À justifier'
+    WHERE user_id = :user_id AND statut = 'À justifier'
 ");
 $requete_non_justifiees->execute(['user_id' => $user_id]);
 $result_non_justifiees = $requete_non_justifiees->fetch(PDO::FETCH_ASSOC);
@@ -146,11 +146,11 @@ $new_note_count = (int)$result['new_count'];
                 <div class="notes">
                     <h3><i class="fa-solid fa-heart"></i> Notes</h3>
                     <a href="notes.php?mark_as_read=1">
-                        <div class="widget sub-block <?= $new_note_count > 0 ? 'new-notes' : '' ?>">
+                        <div class="widget sub-block <?= $new_note_count > 0 ? 'new-notes' : '' ?> note">
                             <?php if ($new_note_count > 0): ?>
                                 <span class="new-indicator "><div class="big"><?= $new_note_count ?></div> nouvelle(s) note(s)!</span>
                             <?php else: ?>
-                                <span class="no-new-notes">Aucune nouvelle note</span>
+                                <span>Aucune nouvelle note</span>
                             <?php endif; ?>
                         </div>
                     </a>

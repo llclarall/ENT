@@ -1,3 +1,4 @@
+
 document.addEventListener("DOMContentLoaded", () => {
   const modal = document.getElementById("justification-modal");
   const justifyButtons = document.querySelectorAll('.justify-btn');
@@ -28,7 +29,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Validation du formulaire et envoi des données
   validateButton.addEventListener("click", () => {
-    const reason = reasonSelect.value;
+    
+/*     const reason = reasonSelect.value;
     const documentFile = documentInput.files[0];
     const comment = commentInput.value;
 
@@ -40,7 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!documentFile) {
       alert("Veuillez télécharger un document.");
       return;
-    }
+    } */
 
     const formData = new FormData();
     formData.append("absence_id", absenceId);
@@ -78,7 +80,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Fermer la modale si l'utilisateur clique en dehors de celle-ci
   window.addEventListener("click", (e) => {
-    // Si le clic est en dehors de la modale (mais pas sur des éléments internes), on la ferme
     if (e.target === modal) {
       modal.style.display = "none";
       clearModalFields();

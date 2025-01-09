@@ -19,7 +19,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     UPDATE absences 
                     SET justification = :reason, 
                         document_url = :file_path, 
-                        commentaire = :comment 
+                        commentaire = :comment,
+                        statut = 'Justifié' 
                     WHERE id = :absence_id
                 ");
                 $query->execute([

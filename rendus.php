@@ -1,13 +1,8 @@
 <?php
+ob_start(); // Démarrer la temporisation de sortie
 include('header.php');
 include('nav.php');
 
-
-// Vérifier si l'utilisateur est connecté
-if (!isset($_SESSION['id'])) {
-    header("Location: index.php");
-    exit();
-}
 
 
 // Récupérer les informations de l'utilisateur
@@ -97,7 +92,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     }
 }
 
-
+ob_end_flush();
 ?>
 
 <!DOCTYPE html>
@@ -214,23 +209,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
                 ondrop="handleDrop(event)" onclick="triggerFileInput()">
 
                     <p>Déposez votre fichier ici ou cliquez pour sélectionner</p>
-                    <input type="file" id="fileInput" onchange="handleFileSelect(event)" style="display: none;" />
+                    
+                    <input enctype="multipart/form-data" type="file" id="fileInput" onchange="handleFileSelect(event)" style="display: none;" />
                     
                     <!-- Champs cachés pour stocker les identifiants -->
                     <input type="hidden" id="userId" value="<?=$user['id']?>">
                     <input type="hidden" id="renduId" name="renduId" value="">
 
-                                
+                    <div id="file-selected" class="file-info"></div>                
                     
                 </form>
 
-                <button id="renderFileButton" onclick="renderFile()" style="display: none;" class="render-btn">Rendre le fichier</button>
-
-
-             <!-- Récupérer les fichiers associés à l'utilisateur et au rendu -->
                 <h3>Fichiers rendus</h3>
 
+                
+                <button id="renderFileButton" onclick="renderFile()" style="display: none;" class="render-btn">Rendre le fichier</button>
+                
                 <div id="file-info" class="file-info"></div>
+
+             <!-- Récupérer les fichiers associés à l'utilisateur et au rendu -->
+
                 
         </div>
     </div>

@@ -18,8 +18,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['file'])) {
         return;
     }
 
+    // Vérification de la taille du fichier (max 5MB par exemple)
+    $maxFileSize = 5 * 1024 * 1024; // 5MB
+    if ($file['size'] > $maxFileSize) {
+        echo json_encode(['success' => false, 'message' => 'Le fichier est trop volumineux.']);
+        return;
+    }
+
+    // Liste des extensions autorisées
+    $allowedExtensions = ['pdf', 'doc', 'docx', 'jpg', 'jpeg', 'png'];
+    $fileExtension = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+
+    if (!in_array($fileExtension, $allowedExtensions)) {
+        echo json_encode(['success' => false, 'message' => 'Type de fichier non autorisé.']);
+        return;
+    }
+
+    // Répertoire d'upload
     $uploadDir = 'uploads/';
-    $filePath = $uploadDir . basename($file['name']);
+    $fileName = basename($file['name']);
+    $filePath = $uploadDir . $fileName;
 
     // Vérifier si le dossier existe, sinon, le créer
     if (!is_dir($uploadDir)) {
@@ -31,8 +49,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['file'])) {
         try {
             // Insérer les informations dans la table 'fichiers'
             $stmt = $db->prepare("INSERT INTO fichiers (nom, chemin, fk_user, fk_rendu, date_upload) VALUES (?, ?, ?, ?, NOW())");
-            if ($stmt->execute([basename($file['name']), $filePath, $fk_user, $fk_rendu])) {
-                echo json_encode(['success' => true, 'message' => 'Fichier inséré dans la base de données avec succès.']);
+            if ($stmt->execute([$fileName, $filePath, $fk_user, $fk_rendu])) {
+                // Retourner une réponse JSON avec les informations du fichier
+                echo json_encode([
+                    'success' => true,
+                    'message' => 'Fichier inséré dans la base de données avec succès.',
+                    'fileName' => $fileName,
+                    'filePath' => $filePath
+                ]);
             } else {
                 echo json_encode(['success' => false, 'message' => 'Erreur lors de l\'enregistrement dans la base de données.']);
             }
@@ -43,5 +67,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['file'])) {
         echo json_encode(['success' => false, 'message' => 'Erreur lors du déplacement du fichier.']);
     }
 }
-
 ?>
