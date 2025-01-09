@@ -117,9 +117,9 @@ try {
                     <td class="duree"><?= date("H\hi", strtotime($absence['duree'])) ?></td>
                     <td>
                         <?php if ($absence['statut'] === 'À justifier'): ?>
-                            <button class="justify-btn">À justifier</button>
+                            <button class="justify-btn"><?=$absence['statut']?></button>
                         <?php else: ?>
-                            En attente de validation
+                            <?=$absence['statut']?>
                         <?php endif; ?>
                     </td>
                 </tr>

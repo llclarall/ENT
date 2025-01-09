@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     SET justification = :reason, 
                         document_url = :file_path, 
                         commentaire = :comment,
-                        statut = 'Justifié' 
+                        statut = 'À valider' 
                     WHERE id = :absence_id
                 ");
                 $query->execute([
