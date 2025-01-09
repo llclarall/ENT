@@ -27,38 +27,40 @@ document.addEventListener('DOMContentLoaded', () => {
   
     // Basculer la visibilité du menu sur mobile
     toggleMenu.addEventListener('click', () => {
-      sideNav.classList.toggle('hidden'); // Basculer la classe 'hidden' pour afficher/masquer la barre latérale
+        sideNav.classList.toggle('hidden');
     });
   
     // Fonctionnalité de bascule des menus déroulants
     dropdownToggles.forEach(toggle => {
-      toggle.addEventListener('click', (e) => {
-        e.preventDefault();
+        toggle.addEventListener('click', (e) => {
+            e.preventDefault();
   
-        const dropdown = toggle.nextElementSibling;
+            const dropdown = toggle.nextElementSibling;
   
-        // Basculer l'affichage du menu déroulant actuel
-        dropdown.classList.toggle('open');
-        toggle.classList.toggle('rotate');
+            // Basculer l'affichage du menu déroulant actuel
+            dropdown.classList.toggle('open');
+            toggle.classList.toggle('rotate');
   
-        // Fermer les autres menus déroulants
-        document.querySelectorAll('.dropdown').forEach(otherDropdown => {
-          if (otherDropdown !== dropdown) {
-            otherDropdown.classList.remove('open');
-            otherDropdown.previousElementSibling.classList.remove('rotate');
-          }
+            // Fermer les autres menus déroulants
+            document.querySelectorAll('.dropdown').forEach(otherDropdown => {
+                if (otherDropdown !== dropdown) {
+                    otherDropdown.classList.remove('open');
+                    otherDropdown.previousElementSibling.classList.remove('rotate');
+                }
+            });
         });
-      });
     });
   
-    // Assurez-vous que la barre latérale est visible lorsque la fenêtre dépasse 1130px
-    window.addEventListener('resize', () => {
-      if (window.innerWidth > 1130) {
-        sideNav.classList.remove('hidden');
-      }
+
+    // Fermer la barre latérale si un clic est effectué en dehors
+    document.addEventListener('click', (e) => {
+        if (window.innerWidth <= 1130) {
+            if (!sideNav.contains(e.target) && !toggleMenu.contains(e.target)) {
+                sideNav.classList.remove('hidden');
+            }
+        }
     });
-  });
-  
+});
 
 
 
@@ -166,8 +168,8 @@ document.addEventListener('DOMContentLoaded', () => {
                                 }
 
                                 // Colorier la cellule
-                                cell.style.backgroundColor = courseColors[event.titre];  // Appliquer la couleur unique
-                                cell.style.color = '#000'; // Contraste pour le texte
+                                cell.style.backgroundColor = courseColors[event.titre];  
+                                cell.style.color = '#000'; 
                             }
                         }
                     });
@@ -183,383 +185,77 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-/* RENDUS CLARA */
-
-/* modale */
-document.addEventListener('DOMContentLoaded', () => {
-    const modal = document.getElementById('modal');
-    const openModalBtn = document.getElementById('openModalBtn');
-    const closeModalBtn = document.getElementById('closeModalBtn');
-    
-    // Ouvrir la modale lorsque l'on clique sur le bouton "Ajouter un rendu"
-    openModalBtn.addEventListener('click', () => {
-        modal.style.display = 'flex'; // Afficher la modale
-    });
-
-    // Fermer la modale lorsque l'on clique sur le bouton de fermeture
-    closeModalBtn.addEventListener('click', () => {
-        modal.style.display = 'none'; // Cacher la modale
-    });
-
-    // Fermer la modale si l'on clique en dehors de la fenêtre modale
-    window.addEventListener('click', (event) => {
-        if (event.target === modal) {
-            modal.style.display = 'none';
-        }
-    });
-});
-
-
-
-// Fonction pour pin un rendu
-function pinRendu(renduId) {
-    var renduElement = document.getElementById("rendu-" + renduId);
-    var container = document.querySelector('.rendus-container');
-    var ajouterRenduDiv = document.getElementById('openModalBtn'); // La div ajouter-rendu
-
-    if (renduElement.classList.contains("pinned")) {
-        // Si l'élément est déjà épinglé, le dé-pincer
-        renduElement.classList.remove("pinned");
-
-        // Réorganiser l'élément pour le remettre à sa place dans la grille
-        container.appendChild(renduElement);
-
-        // Envoyer la requête pour désépingler
-        fetch('pin_rendu.php', {
-            method: 'POST',
-            body: JSON.stringify({ id: renduId, pinned: 0 }),
-            headers: { 'Content-Type': 'application/json' }
-        });
-
-    } else {
-        // Si l'élément n'est pas épinglé, l'épingler
-        renduElement.classList.add("pinned");
-
-        // Déplacer l'élément épinglé juste après la div ajouter-rendu
-        container.insertBefore(renduElement, ajouterRenduDiv.nextSibling);
-
-        // Envoyer la requête pour épingler
-        fetch('pin_rendu.php', {
-            method: 'POST',
-            body: JSON.stringify({ id: renduId, pinned: 1 }),
-            headers: { 'Content-Type': 'application/json' }
-        });
-    }
-}
+/* NOUVEAU MESSAGE (destinataires) CLARA */
 
 document.addEventListener("DOMContentLoaded", function () {
-    var pinnedRendus = document.querySelectorAll('.rendu-card.pinned');
+    const inputDestinataire = document.getElementById("destinataire-input");
+    const suggestionsList = document.getElementById("suggestions-list");
+    const hiddenDestinataireId = document.getElementById("destinataire-id");
 
-    pinnedRendus.forEach(function (rendu) {
-        var container = document.querySelector('.rendus-container');
-        var ajouterRenduDiv = document.getElementById('openModalBtn');
-        container.insertBefore(rendu, ajouterRenduDiv.nextSibling);
-    });
-});
+    inputDestinataire.addEventListener("input", function () {
+        const query = inputDestinataire.value.trim();
 
+        if (query.length > 1) {
+            fetch(`search_destinataire.php?q=${encodeURIComponent(query)}`)
+                .then(response => response.json())
+                .then(data => {
+                    suggestionsList.innerHTML = "";
 
+                    data.forEach(user => {
+                        const li = document.createElement("li");
+                        li.textContent = `${user.prenom} ${user.nom}`;
+                        li.dataset.id = user.id; // Stocker l'ID dans l'élément
+                        li.classList.add("suggestion-item");
 
-/* états rendus */
+                        li.addEventListener("click", function () {
+                            inputDestinataire.value = `${user.prenom} ${user.nom}`;
+                            hiddenDestinataireId.value = user.id;
+                            suggestionsList.innerHTML = ""; // Effacer les suggestions après la sélection
+                        });
 
-document.addEventListener('DOMContentLoaded', function() {
-    const elements = document.querySelectorAll('.rendu-card');
-
-    elements.forEach(function(element) {
-        const id = element.id.replace('rendu-', ''); // On récupère l'ID à partir de l'élément
-
-        fetch(`get-etat.php?id=${id}`)
-            .then(response => response.json())
-            .then(data => {
-                const etat = data.etat;
-
-                if (etat === 'fait') {
-                    element.classList.add('grise', 'termine');  // Ajout des classes après récupération de l'état
-                } else {
-                    element.classList.remove('grise', 'termine');
-                }
-            })
-            .catch(error => {
-                console.error('Erreur lors de la récupération de l\'état:', error);
-            });
-    });
-});
-
-function updateEtat(id, etat) {
-    const selectElement = document.getElementById(`etat-${id}`);
-    const renduCard = document.getElementById(`rendu-${id}`);
-
-    selectElement.classList.remove('a-faire', 'en-cours', 'fait');
-    selectElement.classList.add(etat);
-
-    // En fonction de l'état, on ajoute ou enlève les classes correspondantes
-    if (etat === 'fait') {
-        renduCard.classList.add('grise', 'termine');  // Ajouter les classes 'grise' et 'termine' lorsque l'état est 'fait'
-    } else {
-        renduCard.classList.remove('grise', 'termine');  // Enlever ces classes sinon
-    }
-
-    // Envoyer la mise à jour de l'état au serveur
-    const formData = new FormData();
-    formData.append('id', id);
-    formData.append('etat', etat);
-
-    fetch('update-etat.php', {
-        method: 'POST',
-        body: formData,
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Erreur lors de la mise à jour');
-        }
-        return response.text();
-    })
-    .then(data => {
-        console.log('État mis à jour :', data);  // Confirmer la mise à jour côté serveur
-
-        // Mettre à jour les classes après la confirmation de la mise à jour
-        if (etat === 'fait') {
-            renduCard.classList.add('grise', 'termine');  // Re-appliquer les classes 'grise' et 'termine'
+                        suggestionsList.appendChild(li);
+                    });
+                });
         } else {
-            renduCard.classList.remove('grise', 'termine');
+            suggestionsList.innerHTML = ""; // Vider si saisie trop courte
         }
-    })
-    .catch(error => {
-        console.error('Erreur :', error);
-        alert('Une erreur est survenue.');
-    });
-}
-
-
-
-/* Modale ajout tâches */
-
-// Ouvrir la modale
-function openModal(event) {
-    event.preventDefault();
-    
-    const modalLink = event.target; // L'élément cliqué
-    const title = modalLink.getAttribute('data-titre');
-    const renduId = modalLink.getAttribute('data-id');
-    const userId = modalLink.getAttribute('data-user-id');
-
-    // Mettre à jour les éléments de la modale avec ces informations
-    document.getElementById('modal-title').textContent = title;
-    document.getElementById('renduId').value = renduId;
-    document.getElementById('userId').value = userId;
-
-    document.getElementById('modal-tasks').style.display = 'flex';
-
-    // Charger les tâches spécifiques à ce rendu et utilisateur
-    loadTasks(renduId, userId);
-}
-
-// Fermer la modale
-function closeModal(event) {
-    if (event && event.target === document.getElementById('modal-tasks')) {
-        document.getElementById('modal-tasks').style.display = 'none';
-    }
-}
-
-// Ajouter une tâche
-function addTask() {
-    const taskInput = document.getElementById('taskInput');
-    const taskValue = taskInput.value.trim();
-    const renduId = document.getElementById('renduId').value; // Récupérer l'id du rendu actuel
-    const userId = document.getElementById('userId').value; // Récupérer l'id de l'utilisateur actuel
-    
-    if (taskValue) {
-        const taskList = document.getElementById('taskList');
-        const li = document.createElement('li');
-        
-        // Crée une case à cocher avec la tâche
-        li.innerHTML = `<input type="checkbox" class="task-checkbox" onclick="toggleTask(this)"> <span class="task-text">${taskValue}</span>`;
-
-        // Ajoute un gestionnaire de clic uniquement sur le texte de la tâche (pas sur la case à cocher)
-        li.querySelector('.task-text').addEventListener('click', toggleTaskByText);
-        
-        taskList.appendChild(li);
-        taskInput.value = ''; 
-
-        saveTasks(renduId, userId); // Sauvegarder les tâches spécifiques au rendu et à l'utilisateur
-    }
-}
-
-// Gérer la tâche quand la case est cochée ou décochée
-function toggleTask(checkbox) {
-    const li = checkbox.parentElement;
-    if (checkbox.checked) {
-        li.classList.add('completed');
-    } else {
-        li.classList.remove('completed');
-    }
-    saveTasks(document.getElementById('renduId').value, document.getElementById('userId').value); // Sauvegarder les tâches pour ce rendu et utilisateur
-}
-
-// Gérer le clic sur le texte de la tâche pour cocher/décocher la case
-function toggleTaskByText(event) {
-    const li = event.target.parentElement; 
-    const checkbox = li.querySelector('.task-checkbox');
-    checkbox.checked = !checkbox.checked;
-    toggleTask(checkbox); 
-}
-
-// Vérifier si l'utilisateur appuie sur 'Enter'
-function checkEnter(event) {
-    if (event.key === 'Enter') {
-        addTask();
-    }
-}
-
-// Sauvegarder les tâches dans le localStorage pour un rendu spécifique et un utilisateur
-function saveTasks(renduId, userId) {
-    const tasks = [];
-    const taskListItems = document.querySelectorAll('#taskList li');
-    
-    taskListItems.forEach((li) => {
-        const checkbox = li.querySelector('.task-checkbox');
-        tasks.push({
-            task: li.querySelector('.task-text').textContent.trim(),
-            completed: checkbox.checked
-        });
     });
 
-    // Stockage spécifique au rendu et utilisateur
-    localStorage.setItem(`tasks_rendu_${renduId}_user_${userId}`, JSON.stringify(tasks));
-}
-
-// Charger les tâches sauvegardées depuis le localStorage pour un rendu spécifique et un utilisateur
-function loadTasks(renduId, userId) {
-    const savedTasks = JSON.parse(localStorage.getItem(`tasks_rendu_${renduId}_user_${userId}`)) || [];
-    const taskList = document.getElementById('taskList');
-    taskList.innerHTML = ''; // Vider la liste des tâches avant de la remplir
-    
-    savedTasks.forEach(task => {
-        const li = document.createElement('li');
-        li.innerHTML = `<input type="checkbox" class="task-checkbox" ${task.completed ? 'checked' : ''} onclick="toggleTask(this)"> <span class="task-text">${task.task}</span>`;
-        if (task.completed) {
-            li.classList.add('completed');
+    // Cacher les suggestions si on clique ailleurs
+    document.addEventListener("click", function (e) {
+        if (!suggestionsList.contains(e.target) && e.target !== inputDestinataire) {
+            suggestionsList.innerHTML = "";
         }
-        taskList.appendChild(li);
     });
-
-    // Ajouter l'écouteur d'événement pour 'Enter' au champ de saisie
-    document.getElementById('taskInput').addEventListener('keydown', checkEnter);
-}
-
-// Charger les tâches spécifiques au rendu et utilisateur quand la page est chargée
-window.onload = function () {
-    // Rien à charger ici, la fonction loadTasks sera appelée au moment de l'ouverture de la modale
-};
-
-
-
-
-
-/* Drag-and-drop fichiers rendu */
-
-// Empêcher le comportement par défaut lors du glisser-déposer
-function allowDrop(event) {
-    event.preventDefault();
-}
-
-// Gérer le dépôt du fichier dans la zone de dépôt
-function handleDrop(event) {
-    event.preventDefault();
-    const files = event.dataTransfer.files; 
-    if (files.length > 0) {
-        handleFile(files[0]); 
-        document.getElementById('fileInput').files = files; 
-    }
-}
-
-
-// Gérer la sélection d'un fichier via le bouton d'importation
-function handleFileSelect(event) {
-    const file = event.target.files[0];
-    if (file) {
-        handleFile(file);
-    }
-}
-
-function triggerFileInput() {
-    document.getElementById('fileInput').click();
-}
-
-// Fonction pour traiter le fichier (affichage du nom de fichier)
-function handleFile(file) {
-    const dropZone = document.getElementById('drop-zone');
-    const fileName = document.createElement('p');
-    fileName.textContent = `Fichier sélectionné: ${file.name}`;
-    dropZone.appendChild(fileName);
-
-    document.getElementById('renderFileButton').style.display = 'inline-block';
-}
-
-// Fonction pour rendre le fichier
-async function renderFile() {
-    const fileInput = document.getElementById('fileInput');
-    const file = fileInput.files[0];
-    
-    if (!file) {
-        alert("Aucun fichier sélectionné.");
-        return;
-    }
-
-    // Récupérer les ID de l'utilisateur et du rendu
-    const fk_user = document.getElementById('userId').value;
-    const fk_rendu = document.getElementById('renduId').value;
-
-    if (!fk_user || !fk_rendu) {
-        alert("ID utilisateur ou rendu manquant.");
-        return;
-    }
-
-    console.log("Fichier à envoyer: ", file);
-    console.log("fk_user: ", fk_user, "fk_rendu: ", fk_rendu);
-
-    // Prépare les données du formulaire
-    const formData = new FormData();
-    formData.append('file', file);
-    formData.append('fk_user', fk_user);
-    formData.append('fk_rendu', fk_rendu); 
-    formData.append('taskTitle', document.querySelector('#taskInput').value); 
-
-    console.log("Données envoyées: ", Array.from(formData.entries()));
-
-try {
-const response = await fetch('move_uploaded_file.php', {
-    method: 'POST',
-    body: formData
 });
 
-// Vérification de la réponse du serveur
-if (response.ok) {
-    const data = await response.json(); // Réponse du serveur
-    console.log(data); // Ajoutez ceci pour afficher la réponse complète
-    if (data.success) {
-        alert(`Fichier ${file.name} rendu avec succès!`);
-        resetFileInput();
-    } else {
-        alert("Erreur lors de l'envoi du fichier.");
-    }
-} else {
-    alert("Erreur lors de l'envoi du fichier.");
-    console.log(await response.text()); // Afficher le message d'erreur du serveur
-}
 
-    } catch (error) {
-        console.error('Erreur lors de l\'envoi du fichier:', error);
-        alert("Erreur lors de l'envoi du fichier.");
+
+
+// Fonction pour supprimer un message
+function deleteMessage(messageId, event) {
+    event.preventDefault();  // Empêche l'action par défaut
+    if (confirm("Voulez-vous vraiment supprimer ce message ?")) {
+        window.location.href = 'delete_msg.php?id=' + messageId;
     }
 }
 
-// Réinitialiser le champ de fichier et le bouton après l'envoi
-function resetFileInput() {
-    document.getElementById('file-info').textContent = '';
-    document.getElementById('renderFileButton').style.display = 'none';
-    document.getElementById('fileInput').value = ''; // Réinitialise le champ de fichier
+// Fonction pour archiver ou désarchiver un message
+function archiveMessage(messageId, isArchived, event) {
+    event.preventDefault();
+
+    // Message à afficher en fonction de l'état actuel du message
+    const action = isArchived === 1 ? "désarchiver" : "archiver";
+    if (confirm(`Voulez-vous vraiment ${action} ce message ?`)) {
+        window.location.href = 'archive_msg.php?id=' + messageId + '&new_status=' + (isArchived === 1 ? 0 : 1);
+    }
 }
 
 
 
 
+/* NOTES dropdown */
+
+document.getElementById('semester').addEventListener('change', function() {
+    this.form.submit();
+});

@@ -1,22 +1,6 @@
 <?php 
 include('header.php');
-include('config.php');
 include('nav.php');
-
-// Vérifier si l'utilisateur est connecté
-if (!isset($_SESSION['id'])) {
-    header("Location: index.php");
-    exit();
-}
-
-
-// Récupérer les informations de l'utilisateur
-$id = $_SESSION['id'];
-$requete = "SELECT * FROM utilisateurs WHERE id = :id";
-$stmt = $db->prepare($requete);
-$stmt->bindParam(':id', $id);
-$stmt->execute();
-$user = $stmt->fetch(PDO::FETCH_ASSOC);
 
 
 // Récupérer les rendus associés à l'utilisateur ou non assignés à personne, triés par priorité (épinglés) et date
@@ -33,6 +17,75 @@ $stmt->bindParam(':user_id', $id); // ID de l'utilisateur connecté pour les ép
 $stmt->execute();
 $rendus = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+
+
+
+// Récupérer le total des heures d'absences non justifiées pour l'utilisateur connecté
+$user_id = $_SESSION['id'];
+
+try {
+$requete_non_justifiees = $db->prepare("
+    SELECT SEC_TO_TIME(SUM(TIME_TO_SEC(duree))) AS total_non_justifiees
+    FROM absences 
+    WHERE user_id = :user_id AND justification = 'À justifier'
+");
+$requete_non_justifiees->execute(['user_id' => $user_id]);
+$result_non_justifiees = $requete_non_justifiees->fetch(PDO::FETCH_ASSOC);
+
+// Calcul du total des heures non justifiées
+if ($result_non_justifiees && !empty($result_non_justifiees['total_non_justifiees'])) {
+    $seconds_non_justifiees = strtotime($result_non_justifiees['total_non_justifiees']) - strtotime('TODAY'); 
+    $hours_non_justifiees = floor($seconds_non_justifiees / 3600); 
+    $minutes_non_justifiees = floor(($seconds_non_justifiees % 3600) / 60); 
+
+    if ($hours_non_justifiees > 0 && $minutes_non_justifiees > 0) {
+        $total_non_justifiees = $hours_non_justifiees . 'h' . $minutes_non_justifiees; 
+        
+    } elseif ($hours_non_justifiees > 0) {
+        $total_non_justifiees = $hours_non_justifiees . 'h';
+    } else {
+        $total_non_justifiees = $minutes_non_justifiees . 'min';
+    }
+} else {
+    $total_non_justifiees = '0h'; 
+}
+} catch (PDOException $e) {
+echo "Erreur : " . $e->getMessage();
+$total_non_justifiees = 'Erreur';
+}
+
+$numeric_value = preg_replace('/[^0-9]/', '', $total_non_justifiees); // Supprime les caractères non numériques
+
+// si le nb d'absences à justifier est supérieur à 0, ajouter une classe pour afficher une bordure rouge
+$borderClass = ($numeric_value > 0) ? 'red-border' : '';
+
+
+
+
+
+// Récupérer le nombre de messages non lus pour l'utilisateur connecté
+$user_id = $_SESSION['id'];
+
+$query = "SELECT COUNT(*) AS unread_count
+          FROM messages
+          WHERE destinataire_id = :user_id AND is_read = 0 AND is_archived = 0";
+
+$stmt = $db->prepare($query);
+$stmt->execute(['user_id' => $user_id]);
+$result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+$unread_count = $result['unread_count'];
+
+// Logique pour afficher ou non l'icône d'avertissement
+$alertMsg = ($unread_count > 0) ? "display" : "none";
+
+
+
+
+// Requête pour vérifier les notes non consultées
+$query = "SELECT COUNT(*) AS new_count FROM notes WHERE consulted = 0";
+$result = $db->query($query)->fetch();
+$new_note_count = (int)$result['new_count'];
 
 ?>
 
@@ -53,7 +106,7 @@ $rendus = $stmt->fetchAll(PDO::FETCH_ASSOC);
     
 <section class="accueil">
     
-    <h1>Bienvenue <?php echo $user['prenom']; ?>!</h1>
+    <h1>Bienvenue <?php echo $user['prenom']; ?> !</h1>
     
     
     <div class="container">
@@ -83,21 +136,28 @@ $rendus = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <div class="absences">
                     <h3><i class="fa-solid fa-ghost"></i> Absences</h3>
                     <a href="absences.php">
-                        <div class="widget sub-block">
-                            <span class="big">8h</span> <br>
+                        <div class="widget sub-block <?= $borderClass ?>">
+                            <span class="big"><?= $total_non_justifiees ?></span> <br>
                             <span>à justifier</span>
                         </div>
                     </a>
                 </div>
+
                 <div class="notes">
                     <h3><i class="fa-solid fa-heart"></i> Notes</h3>
-                    <a href="notes.php">
-                        <div class="widget sub-block">
-                            <span class="big">3+</span> <br>
-                            <span>notes</span>
+                    <a href="notes.php?mark_as_read=1">
+                        <div class="widget sub-block <?= $new_note_count > 0 ? 'new-notes' : '' ?>">
+                            <?php if ($new_note_count > 0): ?>
+                                <span class="new-indicator "><div class="big"><?= $new_note_count ?></div> nouvelle(s) note(s)!</span>
+                            <?php else: ?>
+                                <span class="no-new-notes">Aucune nouvelle note</span>
+                            <?php endif; ?>
                         </div>
                     </a>
                 </div>
+
+
+
                 <div class="reservations">
                     <h3><i class="fa-solid fa-bookmark"></i> RSVP</h3>
                     <a href="reservations.php">
@@ -114,11 +174,15 @@ $rendus = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <!-- Derniers messages -->
         <a href="messagerie.php">
             <div class="widget messages">
-                <h2>Derniers messages</h2><hr>
-                <p>Le prochain QCM se...</p>
-                <p>Gaëlle Charpentier | 12/11</p>
+                <h2><i class="fa-solid fa-circle-exclamation" style="display: <?= $alertMsg ?>;"></i> Derniers messages </h2><hr>
+                <?php if ($unread_count > 0): ?>
+                    <p>Vous avez <?= $unread_count ?> message(s) non lu(s)</p>
+                <?php else: ?>
+                    <p>Aucun nouveau message</p>
+                <?php endif; ?>
             </div>
         </a>
+
 
 
         <!-- Menu -->
@@ -148,7 +212,7 @@ foreach ($rendus as $rendu) {
                 <p class='pinned rendu'>
                     <strong>" . htmlspecialchars($rendu['titre']) . "</strong> le " . date('d/m', strtotime($rendu['date'])) . "
                 </p>
-                <img src='images/pin.png' alt='Rendu épinglé' class='pin-icon'>
+                <img src='images/pin.png' alt='Rendu épinglé' class='pin-icon' title='Rendu épinglé'>
               </a>";
     } else {
         echo "<a href='rendus.php'>

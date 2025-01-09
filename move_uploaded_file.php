@@ -3,7 +3,7 @@ include('config.php');
 
 // Vérifier si la requête est bien en POST et que le fichier a été envoyé
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['file'])) {
-    if (!isset($_SESSION['user_id'])) {
+    if (!isset($_SESSION['id'])) {
         echo json_encode(['success' => false, 'message' => 'Utilisateur non connecté.']);
         return;
     }

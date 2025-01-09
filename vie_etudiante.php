@@ -1,5 +1,4 @@
 <?php
-include('config.php');
 include('header.php');
 include('nav.php');
 ?>

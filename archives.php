@@ -1,6 +1,5 @@
 <?php 
     include('header.php');
-    include('config.php');
     include('nav.php');
 ?>
 
@@ -20,16 +19,6 @@
       <!-- Archives des cours -->
       <div class="flex-container-btn"><a href="elearning.php" class="archives-btn">Accéder au Elearning</a>
     </div>
-
-
-      <!-- <div class="semestre-dropdown">
-        <label for="semestre">Semestre</label>
-        <select id="semestre" name="semestre">
-      <option value="semestre">Semestre</option>
-      <option value="semestre1">Semestre 1</option>
-      <option value="semestre2">Semestre 2</option>
-        </select>
-      </div> -->
 
 
       <!-- Création numérique Section -->
@@ -88,6 +77,5 @@
   </main>  
 
 
-  <script src="script.js"></script>
 </body>
 </html>   

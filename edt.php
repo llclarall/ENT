@@ -1,6 +1,5 @@
 <?php 
 include 'nav.php';
-include 'config.php';
 include 'header.php';
 
 
@@ -85,6 +84,5 @@ $endDateFormatted = $endDate->format('d') . ' ' . $moisFrancais[(int)$endDate->f
 
 
 
-<script src="../script.js"></script>
 </body>
 </html>

@@ -1,6 +1,5 @@
 <?php 
     include('header.php');
-    include('config.php');
     include('nav.php');
 ?>
 
@@ -68,6 +67,5 @@
     </section>
   </main> 
   
-  <script src="../script.js"></script>
 </body>
 </html>

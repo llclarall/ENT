@@ -40,39 +40,7 @@
           <li><a href="absences.php" role="menuitem"><span>Absences</span></a></li> 
         </ul>
       </li>
-
-      <!-- Messagerie -->      
-      <li>
-        <a href="#" class="menu-item dropdown-toggle" aria-expanded="false" aria-label="Messagerie">
-          <i class="fas fa-comment-dots" aria-hidden="true"></i>
-          <span>Messagerie</span>
-        </a>
-        <ul class="dropdown" role="menu">
-          <li><a href="messagerie.php" role="menuitem"><span>Messagerie</span></a></li>
-          <li><a href="annuaire.php" role="menuitem"><span>Annuaire</span></a></li>
-        </ul>
-      </li>
-
-      <!-- Vie étudiante -->          
-      <li>
-        <a href="vie_etudiante.php" class="menu-item" aria-label="Page vie étudiante">
-          <i class="fas fa-users" aria-hidden="true"></i>
-          <span>Vie étudiante</span>
-        </a>
-      </li>
-
-      <!-- Réservations menu -->
-      <li>
-        <a href="#" class="menu-item dropdown-toggle" aria-expanded="false" aria-label="Réservations">
-          <i class="fas fa-calendar-check" aria-hidden="true"></i>
-          <span>Réservations</span>
-        </a>
-        <ul class="dropdown" role="menu">
-          <li><a href="reserver.php" role="menuitem"><span>Réserver</span></a></li> 
-          <li><a href="voir_reservations.php" role="menuitem"><span>Mes réservations</span></a></li> 
-        </ul>
-      </li>
-
+      
       <!-- Cours -->    
       <li>
         <a href="#" class="menu-item dropdown-toggle" aria-expanded="false" aria-label="Cours">
@@ -86,6 +54,41 @@
           <li><a href="notes.php" role="menuitem"><span>Notes</span></a></li>
         </ul>
       </li>
+
+      <!-- Messagerie -->      
+      <li>
+        <a href="#" class="menu-item dropdown-toggle" aria-expanded="false" aria-label="Messagerie">
+          <i class="fas fa-comment-dots" aria-hidden="true"></i>
+          <span>Messagerie</span>
+        </a>
+        <ul class="dropdown" role="menu">
+          <li><a href="messagerie.php" role="menuitem"><span>Messagerie</span></a></li>
+          <li><a href="annuaire.php" role="menuitem"><span>Annuaire</span></a></li>
+        </ul>
+      </li>
+
+
+      <!-- Réservations menu -->
+      <li>
+        <a href="#" class="menu-item dropdown-toggle" aria-expanded="false" aria-label="Réservations">
+          <i class="fas fa-calendar-check" aria-hidden="true"></i>
+          <span>Réservations</span>
+        </a>
+        <ul class="dropdown" role="menu">
+          <li><a href="reserver.php" role="menuitem"><span>Réserver</span></a></li> 
+          <li><a href="mes_reservations.php" role="menuitem"><span>Mes réservations</span></a></li> 
+        </ul>
+      </li>
+
+      
+      <!-- Vie étudiante -->          
+      <li>
+        <a href="vie_etudiante.php" class="menu-item" aria-label="Page vie étudiante">
+          <i class="fas fa-users" aria-hidden="true"></i>
+          <span>Vie étudiante</span>
+        </a>
+      </li>
+
     </ul>
     
     <!-- Deconnexion -->     

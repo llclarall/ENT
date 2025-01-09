@@ -38,6 +38,16 @@ header {
     height: 70px;
 }
 
+header a {
+    color: white;
+    text-decoration: none;
+    margin-right: 1rem;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
 header img {
     width: 55px;
     height: 55px;
@@ -69,9 +79,9 @@ header img:hover {
 }
 
 
-.side-nav.hidden {
+/* .side-nav.hidden {
 transform: translateX(-100%);
-}
+} */
 
 .side-nav .logo {
 padding: 15px;
@@ -312,10 +322,21 @@ to {
     border-radius: 15px;
     text-align: center;
     border: black solid 1px;
+    transition: all 0.2s ease;
+}
+
+.accueil .sub-block:hover {
+    transform: scale(1.01);
+    cursor: pointer;
 }
 
 .accueil .absences, .accueil .notes, .accueil .reservations {
     flex: 1;
+}
+
+.accueil .red-border {
+    border: rgb(184, 51, 51) 2px solid;
+    background-color: #ffe8e8;
 }
 
 .accueil img {
@@ -344,6 +365,12 @@ to {
     font-weight: bold;
 }
 
+
+.accueil .new-notes {
+    border: 2px solid var(--bleu);
+    background-color: #dbedff;
+}
+
 /* Grid Positionnement */
 .applications {
     grid-area: applications;
@@ -363,10 +390,21 @@ to {
     grid-area: menu;
 }
 
-.messages {
+.accueil .messages {
     grid-area: messages;
     background-color: var(--bleu);
     color: var(--bg-color);
+    height: 100%;
+}
+
+.accueil .messages p {
+    text-align: center;
+}
+
+.accueil .messages i {
+    margin-right: 7px;
+    color: #FFBFBF;
+    font-size: 1.7rem;
 }
 
 
@@ -599,7 +637,7 @@ to {
 }
 
 .login-form input[type="submit"]:focus {
-    outline: red auto 15px;
+    outline: black auto 15px;
 }
 
 .login-form input[type="submit"]:hover {
@@ -775,7 +813,7 @@ section:not(.connexion) {
 
 h1:not(.connexion) {
     font-size: 2rem;
-    margin: 1rem 0;
+    margin: 1rem 0 2rem 0;
     text-align: center;
 }
 
@@ -1076,56 +1114,78 @@ background-color: var(--bleu-hover);
     width: 100%;
 }
   
-.page-messagerie .sidebar button {
+.page-messagerie .sidebar button, .page-messagerie .sidebar a {
     padding: 10px 10px;
     margin: 5px 0;
     border: none;
     border-radius: 5px;
+    text-decoration: none;
     cursor: pointer;
-    font-size: 0.9rem;
     background-color: var(--bleu-hover);
-    color: white;
+    color: var(--bg-color);
+    text-align: center;
     transition: background-color 0.3s ease;
 }
   
-.page-messagerie .sidebar button:hover {
-background-color: var(--bleu);
+.page-messagerie .sidebar button:hover, .page-messagerie .sidebar a:hover {
+    background-color: var(--bleu);
 }
 
-.page-messagerie .sidebar button.active {
+.page-messagerie .sidebar button.active, .page-messagerie .sidebar a.active {
 background-color: var(--bleu);
 color: white;
 }
 
 .page-messagerie .messages {
 padding: 10px;
-background-color: white;
 width: 100%;
+background-color: var(--bg-color);
 }
+
+/* Message non lu */
+.page-messagerie .message-item.unread {
+    background-color: var(--bleu);
+    color: var(--bg-color);
+}
+
+.page-messagerie .message-item.unread:hover {
+    background-color: var(--bleu-hover);
+    color: var(--bg-color);
+}
+
+/* Message lu */
+.page-messagerie .message-item.read {
+    background-color: var(--bg-color); 
+    border: var(--bleu) 2px solid;
+    color: var(--bleu);
+}
+
+.page-messagerie .message-item.read:hover {
+    background-color: var(--bleu-hover);
+    color: var(--bg-color);
+}
+
 
 .page-messagerie .message-item {
 display: flex;
 justify-content: space-between;
 align-items: center;
 text-decoration: none; 
-background-color: var(--bleu);
 padding: 8px 12px;
 margin-bottom: 8px;
 border-radius: 8px;
-color: white;
 transition: background-color 0.3s ease;
-}
+position: relative;
+}    
 
 .page-messagerie .message-item:hover {
 background-color: var(--bleu-hover);
-color: white;
 cursor: pointer;
 }
 
 .page-messagerie .message-info p {
 margin: 5px 0 0;
 font-size: 0.875rem;
-color: white;
 }
 
 .page-messagerie .message-meta {
@@ -1136,6 +1196,40 @@ align-items: flex-end;
 
 .page-messagerie .date {
 font-size: 0.875rem;
+}
+
+.page-messagerie .message-actions {
+display: none;
+position: absolute;
+top: 20px;
+right: 10px;
+}
+
+.page-messagerie .message-item:hover .message-actions {
+display: block;
+}
+
+.page-messagerie .message-item:hover .date {
+display: none;
+}
+
+.page-messagerie .message-actions i {
+margin-left: 10px;
+cursor: pointer;
+transition: transform 0.2s ease;
+font-size: 1.2rem;
+}
+
+.page-messagerie .message-actions i:hover {
+transform: scale(1.1);
+}
+
+.page-messagerie .delete {
+color: red;
+}
+
+.page-messagerie .archive {
+color: orange;
 }
   
 
@@ -1225,10 +1319,10 @@ font-size: 0.875rem;
 }
 
 
-/* MESSAGE 1 MEL */
+/* PAGE détails MESSAGE MEL */
 .page-messagerie .message-content {
     margin: 0 auto;
-    padding: 20px;
+    padding: 20px 50px;
     background-color: var(--bg-color);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
@@ -1237,6 +1331,7 @@ font-size: 0.875rem;
     width: 100%;
     border: var(--bleu) 2px solid;
     position: relative;
+    height: fit-content;
 }
 
 /* Bouton "Retour" */
@@ -1278,7 +1373,7 @@ margin-bottom: 10px;
 }
 
 .page-messagerie .message-text {
-font-size: 0.8rem;
+font-size: 0.9rem;
 line-height: 1.5;
 margin-bottom: 20px;
 }
@@ -1287,14 +1382,15 @@ margin-bottom: 20px;
 .page-messagerie .actions {
 display: flex;
 justify-content: space-around;
+padding-top: 1rem;
 }
 
 .page-messagerie .action-button {
 background-color: var(--bleu);
-color: white;
+color: var(--bg-color);
 border: none;
-padding: 10px 20px;
-font-size: 1rem;
+padding: 10px 15px;
+font-size: .9rem;
 border-radius: 5px;
 cursor: pointer;
 transition: background-color 0.3s ease;
@@ -1304,19 +1400,23 @@ transition: background-color 0.3s ease;
 background-color: var(--bleu-hover);
 }
 
-/* Design responsive */
+
+
+
+
+
 @media (min-width: 768px) {
 .page-messagerie .message-content {
-    margin: 0 2rem;
+    margin: 0 1rem;
 }
-
 .page-messagerie .back-button {
     padding: 6px 12px;
 }
-
-.page-messagerie .action-button {
-    padding: 12px 24px;
-    font-size: 1rem;
+.page-messagerie .container-messagerie {
+    padding: 0;
+}
+.page-messagerie .actions {
+    gap: 20px;
 }
 }
 
@@ -1325,25 +1425,133 @@ background-color: var(--bleu-hover);
     max-width: 800px; 
     font-size: 1rem;
 }
-
 .page-messagerie .back-button {
     padding: 6px 12px; 
     font-size: 0.9rem;
 }
-
-.page-messagerie .action-button {
-    padding: 12px 24px; 
-    font-size: 1rem; 
-}
-
 .page-messagerie .sender-name {
     font-size: 1.5rem; 
 }
-
 .page-messagerie .message-text {
     font-size: 1.1rem; 
 }
 }
+
+
+
+
+/* PAGE NOUVEAU MESSAGE CLARA */
+
+/* Messages de succès et d'erreur */
+.page-messagerie .success-message {
+    color: #155724;
+    background-color: #d4edda;
+    border: 1px solid #c3e6cb;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+}
+
+.page-messagerie .error-message {
+    color: #721c24;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+}
+
+.page-messagerie .error-message ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.page-messagerie .btn-submit {
+    background-color: var(--bleu);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.page-messagerie .btn-submit:hover {
+    background-color: var(--bleu-hover);
+}
+
+.page-messagerie .suggestions-list {
+    border: none;
+    position: absolute;
+    background: #fff;
+    max-height: 200px;
+    overflow-y: auto;
+    width: 100%;
+    z-index: 100;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.page-messagerie .suggestions-list li {
+    padding: 8px;
+    cursor: pointer;
+    border: 1px solid var(--bleu-hover);
+    border-radius: 5px;
+}
+
+.page-messagerie .suggestions-list .suggestion-item {
+    padding: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.page-messagerie .suggestions-list .suggestion-item:hover {
+    background: #f0f0f0;
+}
+
+.form-nv-msg input[type="text"], .form-nv-msg textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+    background-color: #f9f9f9;
+}
+
+.form-nv-msg label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #2F4156;
+}
+
+/* page messages envoyés */
+
+
+.envoyes .message-item {
+    background-color: var(--bg-color);
+    border: var(--bleu) 2px solid;
+    color: var(--bleu);
+}
+
+.envoyes .message-item:hover {
+    background-color: var(--bleu-hover);
+    color: var(--bg-color);
+}
+
+.envoyes .no-messages {
+    text-align: center;
+    font-size: 1.2em;
+    color: #555;
+    margin-top: 20px;
+}
+
+
+
 
 
 /* ANNUAIRE MEL */
@@ -1442,27 +1650,21 @@ display: grid;
 grid-template-columns: repeat(5, 1fr);
 grid-template-areas: 
     "p_header p_header p_header p_qrcode p_qrcode"
-    "p_shortcuts p_shortcuts p_absences p_absences p_absences"
-    "p_reservations p_reservations p_absences p_absences p_absences"
-    "p_reservations p_reservations p_documents p_documents p_documents";
+    "p_shortcuts p_shortcuts p_shortcuts p_absences p_absences"
+    "p_documents p_documents p_documents p_absences p_absences"
+    "p_documents p_documents p_documents p_reservations p_reservations";
 gap: 20px;
-padding: 20px;
 max-width: 1000px;
 margin: 0 auto;
 grid-template-rows: auto;
 }
 
 .page-profil .block {
-    border-radius: 10px;
+    border-radius: 15px;
     padding: 20px;
     border: var(--bleu) 1px solid;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.page-profil .block:hover {
-    transform: scale(1.01);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
 .profil-header {
@@ -1485,6 +1687,10 @@ font-size: 1.5rem;
 margin: 0;
 }
 
+.page-profil h3 {
+margin-top: 0;
+}
+
 .profil-info p {
 margin: 0;
 font-size: 1rem;
@@ -1504,7 +1710,7 @@ width: 100%;
 grid-area: p_shortcuts;
 display: flex;
 justify-content: space-between;
-gap: 10px;
+gap: 50px;
 width: 100%;
 }
 
@@ -1512,12 +1718,18 @@ width: 100%;
 padding: 20px 20px;
 background-color: #f0f0f0;
 border: 1px solid #ccc;
-border-radius: 5px;
+color: var(--bleu);
+border-radius: 15px;
 cursor: pointer;
 width: 100%;
 text-decoration: none;
-text-align: center;
+text-decoration: none;
 transition: all 0.2s ease;
+display: flex;
+font-weight: bold;
+align-items: center;
+text-align: center;
+justify-content: center;
 }
 
 .page-profil .shortcuts a:hover {
@@ -1528,7 +1740,6 @@ background-color: #ddd;
 grid-area: p_reservations;
 background-color: #f9f9f9;
 padding: 15px;
-border-radius: 5px;
 }
 
 .page-profil .reservation-item {
@@ -1539,7 +1750,6 @@ margin: 10px 0;
 grid-area: p_absences;
 background-color: #f9f9f9;
 padding: 15px;
-border-radius: 5px;
 }
 
 .page-profil .absence-item {
@@ -1550,7 +1760,6 @@ margin: 10px 0;
 grid-area: p_documents;
 background-color: #f9f9f9;
 padding: 15px;
-border-radius: 5px;
 }
 
 .page-profil .table {
@@ -1569,11 +1778,14 @@ border: 1px solid #ccc;
         grid-template-areas:
             "p_header p_header"
             "p_shortcuts p_qrcode"
+            "p_documents p_documents"
             "p_absences p_absences"
-            "p_reservations p_reservations"
-            "p_documents p_documents";
+            "p_reservations p_reservations";
         grid-template-columns: 1fr 1fr;
         grid-template-rows: auto;
+    }
+    .page-profil .shortcuts {
+        gap: 20px;
     }
 }
 
@@ -1583,9 +1795,9 @@ border: 1px solid #ccc;
             "p_header"
             "p_shortcuts"
             "p_qrcode"
+            "p_documents"
             "p_absences"
-            "p_reservations"
-            "p_documents";
+            "p_reservations";
         grid-template-columns: 1fr;
         grid-template-rows: auto;
     }
@@ -1594,6 +1806,112 @@ border: 1px solid #ccc;
     }
 }
 
+
+
+/* Style pour la section Absences */
+
+.page-profil .absence-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+    flex-wrap: wrap;
+}
+
+.page-profil .absence-item span {
+    font-size: 1em;
+    color: #555;
+}
+
+.page-profil .absence-item span:nth-child(1) {
+    font-weight: bold;
+}
+
+.page-profil .absence-item form {
+    display: inline;
+}
+
+@media (max-width: 850px) {
+    .page-profil .justifier-button {
+        padding: 8px 10px;
+    }
+    .page-profil .absence-item {
+        gap: 10px;
+    }
+}
+
+.page-profil .justifier-button {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: var(--bleu);
+    color: #fff;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+.page-profil .justifier-button:hover {
+    background-color: var(--bleu-hover);
+}
+
+.page-profil .red-border {
+    border: 2px solid #ffafa7;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.page-profil .voir-plus {
+    text-align: center;
+    margin-top: 10px;
+    color: var(--bleu);
+    display: block;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.page-profil .voir-plus:hover {
+    color: var(--bleu-hover);
+    text-decoration: underline;
+}
+
+
+/* Style des items de réservation */
+.page-profil .reservation-item {
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+    font-size: 1em;
+    color: #555;
+}
+
+.page-profil .reservation-item:last-child {
+    border-bottom: none;
+}
+
+/* Style pour le tableau des documents */
+.page-profil .documents table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    font-size: 1em;
+}
+
+.page-profil .documents table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    color: #555;
+}
+
+.page-profil .documents table td:first-child {
+    font-weight: bold;
+    color: #333;
+}
+
+.page-profil .documents table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
 
 
 
@@ -1620,14 +1938,14 @@ border: 1px solid #ccc;
     width: 35px;
 }
 
-.page-rendus .rendu-card.grise {
+/* .page-rendus .rendu-card.grise {
     opacity: 0.5; 
 }
 
 .page-rendus .rendu-card.termine {
     order: 9999; 
 }
-
+ */
 
 .page-rendus .pin:hover {
     transform: scale(1.1);
@@ -1814,14 +2132,19 @@ border: 1px solid #ccc;
     background-color: var(--bleu-hover);
 }
 
-
-@media (max-width: 850px) {
+@media (max-width: 1200px) and (min-width: 1100px) {
     .page-rendus .rendus-container {
         grid-template-columns: repeat(2, 1fr);
     }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 1000px) {
+    .page-rendus .rendus-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 700px) {
     .page-rendus .rendus-container {
         grid-template-columns: 1fr;
         gap: 20px;
@@ -1851,7 +2174,6 @@ border: 1px solid #ccc;
 }
 
 
-/* Classe qui déplace un rendu épinglé en haut */
 .rendu-card.pinned {
     background-color: var(--pinned); 
 }
@@ -1859,7 +2181,7 @@ border: 1px solid #ccc;
 
 /* modale ajout tâches */
 .modal-tasks {
-    display: none; /* Cachée par défaut */
+    display: none; 
     position: fixed;
     top: 0;
     left: 0;
@@ -1875,7 +2197,7 @@ border: 1px solid #ccc;
     background-color: white;
     padding: 20px;
     border-radius: 5px;
-    width: 400px;
+    max-width: 500px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -1905,6 +2227,7 @@ border: 1px solid #ccc;
     display: flex;
     align-items: center;
     margin-bottom: 10px;
+    cursor: pointer;
 }
 
 .taskList li.completed {
@@ -1937,6 +2260,60 @@ border: 1px solid #ccc;
     align-items: center;
     margin-top: 20px;
 }
+
+.delete-btn {
+    background: var(--bg-color);
+    border: none;
+    cursor: pointer;
+    margin-left: auto;
+    transition: all 0.2s ease;
+    font-size: .8rem;
+}
+
+.delete-btn:hover {
+    transform: scale(1.2);
+}
+
+.addTask-btn {
+    padding: 10px;
+    background-color: var(--bleu);
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border-radius: 5px;
+}
+
+.addTask-btn:hover {
+    background-color: var(--bleu-hover);
+}
+
+.delete-file-img {
+    width: 20px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.delete-file-img:hover {
+    transform: scale(1.1);
+}
+
+.file-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.file-item-list {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+
 
 /* Zone de dépôt de fichiers */
 .modal-tasks .drop-zone {
@@ -2005,60 +2382,6 @@ border: 1px solid #ccc;
     left: 10px;
 }
 
-
-
-
-/* MEDIA QUERIES SECTIONS */
-
-@media (max-width: 1320px) {
-    section:not(.connexion) {
-        margin-left: calc(250px + 2%);
-        margin-right: 3%;
-        width: calc(100% - 250px - 4%);
-    }
-}
-
-@media (max-width: 1130px) {
-    section:not(.connexion) {
-        margin: 0 auto;
-        padding: 0 3rem; 
-        width: 100%;
-    }
-}
-
-@media (max-width: 600px) {
-    section:not(.connexion) {
-        padding: 0 1rem; 
-    }
-    .accueil .flex-container {
-        flex-wrap: wrap;
-        width: 100%;
-    }
-}
-
-@media (max-width: 460px) {
-    section:not(.connexion) {
-        padding: 0 0.5rem; 
-    }
-    .accueil .sub-block {
-        font-size: 0.8rem; 
-    }
-    .accueil .sub-block img {
-        width: 35px;
-    }
-    .accueil .big {
-        font-size: 2.2rem;
-    }
-    .accueil .flex-container {
-        font-size: 0.8rem;
-        gap: .5rem;
-    }
-    .accueil .notifs h3 {
-        font-size: 0.8rem;
-        text-align: center;
-    }
-
-}
 
 
 .sr-only {
@@ -2221,6 +2544,7 @@ white-space: nowrap !important;
     background-color: var(--bleu-hover);
 }
 
+
 @media (max-width: 700px) {
     .page-materiel .grid-container {
         grid-template-columns: repeat(2, 1fr);
@@ -2235,4 +2559,640 @@ white-space: nowrap !important;
         grid-template-columns: 1fr;
         gap: 20px;
     }
+}
+
+
+
+
+
+
+/* ABSENCES ALY */
+
+.page-absences .container {
+    margin: 0 auto;
+    max-width: 1000px;
+}
+
+.page-absences table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #C7D9E5;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    border-radius: 10px;
+}
+
+.page-absences table th:first-of-type {
+    border-radius: 10px 0 0 0;
+}
+
+.page-absences table th:last-of-type {
+    border-radius: 0 10px 0 0;
+}
+
+.page-absences table th, .page-absences table td {
+padding: 1.2rem;
+text-align: left;
+}
+
+.page-absences table th {
+background-color: var(--bleu);
+color: var(--bg-color);
+}
+
+.page-absences table td {
+border-bottom: 1px solid #afafbc;
+}
+
+.page-absences table tr:last-child td {
+border-bottom: none;
+}
+
+.page-absences .total-hours {
+padding-top: .5rem;
+font-size: 1.2rem;
+color: var(--bleu-hover);
+}
+
+.page-absences .modal {
+display: none;
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-color: rgba(0, 0, 0, 0.5);
+justify-content: center;
+align-items: center;
+z-index: 999;
+}
+
+.page-absences .modal-content {
+background-color: #fff;
+padding: 20px;
+border-radius: 8px;
+width: 400px;
+max-width: 100%;
+box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+overflow: hidden;
+}
+
+.page-absences .modal h3 {
+font-size: 1.4rem;
+margin-bottom: 1rem;
+color: #333;
+text-align: center;
+}
+
+.page-absences label {
+font-size: 1rem;
+margin-bottom: 0.5rem;
+color: #333;
+display: block;
+}
+
+.page-absences select, .page-absences textarea, .page-absences input[type="file"] {
+width: 100%;
+padding: 0.8rem;
+margin-bottom: 1rem;
+border: 1px solid #ccc;
+border-radius: 4px;
+font-size: 1rem;
+background-color: #f9f9f9;
+color: #333;
+box-sizing: border-box;
+}
+
+.page-absences textarea {
+resize: vertical;
+min-height: 100px;
+max-height: 150px;
+}
+
+.page-absences input[type="file"] {
+font-size: 0.9rem;
+}
+
+.page-absences button {
+background-color: var(--bleu);
+color: white;
+border: none;
+padding: 10px 20px;
+margin-right: 10px;
+border-radius: 4px;
+cursor: pointer;
+font-size: 1rem;
+transition: background-color 0.3s ease;
+}
+
+.page-absences button:hover {
+background-color: #1a2430;
+}
+
+.page-absences .cancel-justification {
+background-color: var(--bleu-hover);
+}
+
+.page-absences .cancel-justification:hover {
+background-color: #3f5b6a;
+}
+
+.page-absences .modal-content button {
+display: inline-block;
+}
+
+.page-absences small {
+display: block;
+font-size: 0.9rem;
+color: #555;
+margin-top: 5px;
+}
+
+.page-absences .modal-content {
+max-width: 450px;
+width: 90%;
+}
+
+.page-absences .total-non-justifiees {
+    color: rgb(163, 58, 58);
+}
+
+.page-absences .details {
+    margin-top: 3rem;
+}
+
+.page-absences .total-hours, .page-absences .total-non-justifiees {
+    margin: 1rem 0;
+}
+
+
+@media (max-width: 700px) {
+.page-absences table th, .page-absences table td {
+    padding: 1rem;
+}
+.page-absences .modal-content {
+    padding: 20px;
+}
+.page-absences .modal-content button:last-of-type {
+    margin-top: 0;
+}
+}
+
+@media (max-width: 500px) {
+.page-absences table th, .page-absences table td {
+    padding: 0.8rem;
+}
+.page-absences .modal-content {
+    padding: 20px;
+}
+}
+
+
+
+
+
+/* NOTES EMI */
+
+.page-notes .container {
+    display: flex;
+    flex-direction: row;
+    max-width: 1000px;
+    gap: 35px;
+    margin: 2rem auto;
+}
+
+.page-notes .small-boxes h3 {
+    padding-bottom: 10px;
+    text-align: center;
+}
+
+.page-notes .small-boxes {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    width: 100%;
+    max-width: 220px;
+}
+
+
+.page-notes .small-box {
+    width: 100%;
+    height: 35px;
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    border: var(--bleu) 1px solid;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+}
+
+.page-notes .small-box:hover {
+    background-color: var(--bleu-hover);
+}
+
+.page-notes .large-box {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px;
+    background-color: var(--bleu-hover);
+    color: var(--bg-color);
+    border-radius: 10px;
+    width: 700px; 
+    margin-top: 80px;
+    position: relative;
+}
+
+.page-notes .control-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.page-notes .control-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.page-notes .control-info p {
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+.page-notes .control-note {
+    font-weight: bold;
+    font-size: 1.1rem;
+    text-align: right;
+    margin-left: auto;
+}
+
+.page-notes .separator {
+    width: 100%;
+    height: 2px;
+    background-color: white;
+    margin-bottom: 10px;
+    opacity: 0.5;
+}
+
+.page-notes .semester-dropdown {
+    color: var(--bg-color);
+    border-radius: 8px;
+    position: absolute;
+    top: -60px;
+    left: 0;
+}
+
+.page-notes .semester-dropdown label {
+    margin-right: 15px;
+    font-size: 1rem;
+}
+
+.page-notes .semester-dropdown select {
+    padding: 8px 15px;
+    font-size: 1rem;
+    background-color: #ffffff;
+    color: var(--bleu);
+    border: 1px solid var(--bleu);
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.page-notes .gras {
+    font-weight: bold;
+    padding-bottom: 8px;
+}
+
+
+
+
+@media (max-width: 500px) {
+    .page-notes .container {
+        flex-direction: column;
+        gap: 20px;
+        width: 100%;
+    }
+    .page-notes .small-boxes {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: start;
+        width: 100%;
+        gap: 10px;
+        max-width: fit-content;
+        padding: 0 10px;
+    }
+    .page-notes .small-boxes h3 {
+        width: 100%;
+        margin-bottom: 0;
+    }
+    .page-notes .small-box {
+        font-size: 0.9rem;
+        width: fit-content;
+        padding: 5px 10px;
+        margin: 0;
+    }
+    .page-notes .large-box {
+        width: 100%;
+    }
+    .page-notes .semester-dropdown {
+        top: -50px;
+    }
+}
+
+
+
+
+
+/* PAGE MES RESERVATIONS CLARA */
+
+.page-mes-reservations .container {
+    margin: 2rem auto;
+    max-width: 1000px;
+}
+
+.page-mes-reservations .rsvp-container {
+    display: flex;
+    gap: 50px;
+    width: 100%;
+}
+
+.page-mes-reservations .reservations {
+    width: 100%;
+}
+
+.page-mes-reservations .reservation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: var(--bg-color);
+    border: var(--bleu) 2px solid;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+}
+
+.page-mes-reservations .reservation h2 {
+    margin: 0;
+}
+
+.page-mes-reservations .reservation p {
+    margin-bottom: 0;
+    color: #555;
+}
+
+.page-mes-reservations .reservation-actions {
+    display: flex;
+    gap: 20px;
+}
+
+.page-mes-reservations .type {
+    border-radius: 20px;
+    border: var(--bleu) 1px solid;
+    background-color: #C7D9E5;
+    padding: 5px 10px;
+    font-size: .85rem;
+    height: fit-content;
+}
+
+.page-mes-reservations .titre {
+    display: flex;
+    gap: 15px;
+}
+
+.page-mes-reservations .ligne {
+    border-right: var(--bleu) 2px solid;
+    height: 200px;
+    margin: 12px;
+}
+
+.page-mes-reservations .timeline span {
+    padding: 10px 0;
+    display: block;
+}
+
+.page-mes-reservations .statut {
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: .85rem;
+    margin-right: 10px;
+}
+
+.page-mes-reservations .reservation-actions .a-venir {
+    background-color: #b2f5d7;
+    color: var(--bleu);
+}
+
+.page-mes-reservations .reservation-actions .en-cours {
+    background-color: #F9CC9C;
+    color: var(--bleu);
+}
+
+.page-mes-reservations .reservation-actions .terminee {
+    background-color: #F39E9E;
+    color: var(--bleu);
+}
+
+.page-mes-reservations .reservation.a-venir {
+    border: #b2f5d7 3px solid;
+}
+
+.page-mes-reservations .reservation.en-cours {
+    border: #F9CC9C 3px solid; 
+}
+
+.page-mes-reservations .reservation.terminee {
+    border: #F39E9E 3px solid; 
+}
+
+.page-mes-reservations .filtres {
+    display: flex;
+    gap: 25px;
+    margin: 4rem 0 2rem 0;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.page-mes-reservations .filtres button {
+    padding: 10px 20px;
+    background-color: var(--bleu);
+    color: var(--bg-color);
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 1rem;
+    width: 150px;
+    transition: background-color 0.3s ease;
+}
+
+.page-mes-reservations .filtres button:hover {
+    background-color: var(--bleu-hover);
+}
+
+.page-mes-reservations .filtres button.active {
+    background-color: var(--bleu-hover);
+}
+
+.page-mes-reservations .reserver-lien {
+    color: var(--bleu);
+    margin: 3rem 0;
+    display: block;
+    transition: all 0.2s ease;
+}
+
+.page-mes-reservations .reserver-lien:hover {
+    text-decoration: none;
+}
+
+
+@media (max-width: 600px) {
+    .page-mes-reservations .rsvp-container {
+        gap: 20px;
+    }
+}
+
+@media (max-width: 500px) {
+    .page-mes-reservations .reservation {
+        flex-direction: column;
+        gap: 20px;
+        justify-content: start;
+        align-items: start;
+        max-width: 350px;
+    }
+    .page-mes-reservations .rsvp-container {
+        justify-content: center;
+        align-items: center;
+        margin: 0 auto;
+        width: fit-content;
+    }
+}
+
+
+
+
+
+/* PAGE MDP OUBLIE CLARA */
+
+.page-mdp-oublie {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    gap: 20px;
+}
+
+.mdp-oublie {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+}
+
+.page-mdp-oublie h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: var(--bleu);
+}
+
+.mdp-oublie label {
+    font-size: 16px;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.mdp-oublie input[type="mail"], .mdp-oublie input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.mdp-oublie button {
+    width: 100%;
+    padding: 10px;
+    background-color: var(--bleu);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.mdp-oublie button:hover {
+    background-color: var(--bleu-hover);
+}
+
+.mdp-oublie p {
+    text-align: center;
+    font-size: 14px;
+    color: #555;
+    margin-top: 20px;
+}
+
+
+
+
+
+/* MEDIA QUERIES SECTIONS */
+
+@media (max-width: 1320px) {
+    section:not(.connexion) {
+        margin-left: calc(250px + 2%);
+        margin-right: 3%;
+        width: calc(100% - 250px - 4%);
+    }
+}
+
+@media (max-width: 1130px) {
+    section:not(.connexion) {
+        margin: 0 auto;
+        padding: 0 3rem; 
+        width: 100%;
+    }
+}
+
+@media (max-width: 600px) {
+    section:not(.connexion) {
+        padding: 0 1rem; 
+    }
+    .accueil .flex-container {
+        flex-wrap: wrap;
+        width: 100%;
+    }
+}
+
+@media (max-width: 460px) {
+    section:not(.connexion) {
+        padding: 0 0.5rem; 
+    }
+    .accueil .sub-block {
+        font-size: 0.8rem; 
+    }
+    .accueil .sub-block img {
+        width: 35px;
+    }
+    .accueil .big {
+        font-size: 2.2rem;
+    }
+    .accueil .flex-container {
+        font-size: 0.8rem;
+        gap: .5rem;
+    }
+    .accueil .notifs h3 {
+        font-size: 0.8rem;
+        text-align: center;
+    }
+
 }

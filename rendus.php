@@ -1,7 +1,7 @@
 <?php
 include('header.php');
-include('config.php');
 include('nav.php');
+
 
 // Vérifier si l'utilisateur est connecté
 if (!isset($_SESSION['id'])) {
@@ -113,6 +113,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
 
 <h1>Rendus</h1>
 <br>
+
 <div class="rendus-container">
 
     <!-- Bouton d'ajout de rendu -->
@@ -187,14 +188,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
 
 
 
-        <a href="#" data-id="<?= $rendu['id'] ?>" data-titre="<?= $rendu['titre'] ?>" data-user-id="<?= $user['id'] ?>" onclick="openModal(event)">Consulter et déposer</a>
+        <a href="#" data-id="<?= $rendu['id'] ?>" data-titre="<?= $rendu['titre'] ?>" data-description="<?= $rendu['description'] ?>" data-user-id="<?= $user['id'] ?>" onclick="openModal(event)">Consulter et déposer</a>
 
 
-        <!-- Modale ajout tâches -->
+        <!-- Modale ajout tâches et zone de dépôt -->
         <div id="modal-tasks" class="modal-tasks" style="display: none;" onclick="closeModal(event)">
             <div class="modal-content" onclick="event.stopPropagation()">
                 <span class="close" onclick="closeModal()">&times;</span>
                 <h2 id="modal-title"><?= $rendu['titre'] ?></h2>
+                <p id="modal-description"><?= $rendu['description'] ?></p>
                 
                 <ul id="taskList" class="taskList">
                     <!-- Les tâches seront ajoutées ici -->
@@ -203,9 +205,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
                 <!-- Formulaire pour ajouter une tâche -->
                 <div class="task-form">
                     <input type="text" id="taskInput" placeholder="Ajouter une tâche" class="taskInput" onkeydown="checkEnter(event)"/>
-                    <button onclick="addTask()">Ajouter</button>
+                    <button onclick="addTask()" class="addTask-btn">Ajouter</button>
                 </div>
 
+<br>
+                <h3>Zone de dépôt</h3>
                 <form id="drop-zone" class="drop-zone" ondragover="allowDrop(event)" 
                 ondrop="handleDrop(event)" onclick="triggerFileInput()">
 
@@ -214,20 +218,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
                     
                     <!-- Champs cachés pour stocker les identifiants -->
                     <input type="hidden" id="userId" value="<?=$user['id']?>">
-                    <input type="hidden" id="renduId" value="<?=$rendu['id']?>">
+                    <input type="hidden" id="renduId" name="renduId" value="">
+
+                                
                     
-                    <div id="file-info" class="file-info"></div>
                 </form>
 
                 <button id="renderFileButton" onclick="renderFile()" style="display: none;" class="render-btn">Rendre le fichier</button>
 
 
-            </div>
-        </div>
- 
+             <!-- Récupérer les fichiers associés à l'utilisateur et au rendu -->
+                <h3>Fichiers rendus</h3>
 
+                <div id="file-info" class="file-info"></div>
+                
+        </div>
     </div>
-    <?php endforeach; ?>
+
+</div>
+<?php endforeach; ?>
 
 
 </div>
@@ -235,5 +244,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
 
 </section>
     
+<script src="rendus.js"></script>
 </body>
 </html>
