@@ -8,10 +8,10 @@ function togglePassword(inputId, toggleElement) {
     // Vérifie le type actuel de l'input
     if (passwordInput.type === "password") {
         passwordInput.type = "text";
-        toggleElement.textContent = "🙈"; 
+        toggleElement.innerHTML = "<i class='fa-regular fa-eye'></i>"; 
     } else {
         passwordInput.type = "password";
-        toggleElement.textContent = "👁️"; 
+        toggleElement.innerHTML = "<i class='fa-regular fa-eye-slash'></i>"; 
     }
 }
 
@@ -259,3 +259,7 @@ function archiveMessage(messageId, isArchived, event) {
 document.getElementById('semester').addEventListener('change', function() {
     this.form.submit();
 });
+
+
+
+

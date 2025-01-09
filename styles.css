@@ -536,6 +536,8 @@ to {
     max-width: 400px;
 }
 
+
+
 .connexion h2 {
     margin-top: 20px;
     padding: 10px 0;
@@ -584,7 +586,7 @@ to {
     height: 70px;
 }
 
-.right-section {
+.connexion .right-section {
     width: 60%;
     display: flex;
     flex-direction: column;
@@ -594,7 +596,7 @@ to {
     box-sizing: border-box;
 }
 
-.login-form {
+.connexion .login-form {
     background: #ffffff;
     padding: 25px 35px;
     border-radius: 12px;
@@ -605,15 +607,15 @@ to {
     flex-direction: column;
 }
 
-.login-form label {
+.connexion .login-form label {
     display: block;
     margin-bottom: 8px;
     font-weight: bold;
     color: #2F4156;
 }
 
-.login-form input[type="text"],
-.login-form input[type="password"] {
+.connexion .login-form input[type="text"],
+.connexion .login-form input[type="password"] {
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
@@ -622,13 +624,13 @@ to {
     background-color: #f9f9f9;
 }
 
-.login-form input[type="text"]:focus,
-.login-form input[type="password"]:focus {
+.connexion .login-form input[type="text"]:focus,
+.connexion .login-form input[type="password"]:focus {
     border-color: #577C8E;
     outline: rgba(87, 124, 142, 1) auto 15px;
 }
 
-.login-form input[type="submit"] {
+.connexion .login-form input[type="submit"] {
     background-color: #2F4156;
     color: white;
     padding: 10px 20px;
@@ -642,15 +644,15 @@ to {
     padding: 10px 30px;
 }
 
-.login-form input[type="submit"]:focus {
+.connexion .login-form input[type="submit"]:focus {
     outline: black auto 15px;
 }
 
-.login-form input[type="submit"]:hover {
+.connexion .login-form input[type="submit"]:hover {
     background-color: #3E5D71;
 }
 
-.login-form .forgot-password {
+.connexion .login-form .forgot-password {
     display: block;
     text-align: center;
     margin-top: 15px;
@@ -659,25 +661,11 @@ to {
     text-decoration: none;
 }
 
-.login-form .forgot-password:hover {
+.connexion .login-form .forgot-password:hover {
     text-decoration: underline;
     color: #577C8E;
 }
 
-.forgot-password {
-    display: block;
-    margin-top: 15px;
-    justify-content: left;
-    font-size: 0.9rem;
-    color: #577C8E;
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-.forgot-password:hover {
-    text-decoration: underline;
-    color: #3E5D71;
-}
 
 
 @media (max-width: 800px) {
@@ -692,7 +680,7 @@ to {
         bottom: 0;
         flex-direction: row;
     }
-    .right-section {
+    .connexion .right-section {
         width: 100%;
     }
 }
@@ -711,7 +699,7 @@ to {
         width: 50px;
         height: 50px;
     }
-    .login-form input[type="submit"] {
+    .connexion .login-form input[type="submit"] {
         padding: 10px 20px;
     }
 }
@@ -817,7 +805,7 @@ section:not(.connexion) {
     width: calc(100% - 250px - 10%);
 }
 
-h1:not(.connexion) {
+h1:not(.connexion h1) {
     font-size: 2rem;
     margin: 1rem 0 2rem 0;
     text-align: center;
@@ -3143,6 +3131,106 @@ width: 90%;
     color: #555;
     margin-top: 20px;
 }
+
+
+
+
+
+
+/* PAGE INSCRIPTION CLARA */
+
+
+.page-inscription .container {
+    margin: 0 auto;
+    max-width: 400px;
+    padding: 20px;
+}
+
+.page-inscription form {
+    width: 100%;
+}
+
+.page-inscription label {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 6px;
+    text-align: left;
+    width: 100%;
+}
+
+.page-inscription input[type="text"],
+.page-inscription input[type="password"],
+.page-inscription input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.page-inscription input[readonly] {
+    background-color: #dcdcdc;
+}
+
+.page-inscription input[readonly]:hover {
+    cursor: not-allowed;
+}
+
+.page-inscription input[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--bleu);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.page-inscription input[type="submit"]:hover {
+    background-color: var(--bleu-hover);
+}
+
+
+.page-inscription .password-container {
+    position: relative;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.page-inscription .toggle-password {
+    position: absolute;
+    top: 0;
+    right: 10px;
+    cursor: pointer;
+    font-size: .9em;
+}
+
+.page-inscription .confirm_password {
+    margin: 0;
+}
+
+.page-inscription span {
+    font-size: 12px;
+    color: #999;
+    text-align: center;
+    display: block;
+    margin-top: 10px;
+}
+
+.page-inscription select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+
 
 
 
