@@ -1,6 +1,5 @@
 <?php 
     include('header.php');
-    include('nav.php');
 
 // Récupérer l'ID du message
 $message_id = $_GET['id'];

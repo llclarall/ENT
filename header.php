@@ -35,6 +35,8 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
     <a href="profil.php"><?=$user['prenom']?><img src="images/filler.png" alt=""></a>
 </header>
 
+
+<!-- nav -->
   <button class="toggle-menu" aria-label="Ouvrir le menu">
     <i class="fas fa-bars"></i>
   </button>

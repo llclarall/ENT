@@ -1,8 +1,8 @@
 <?php 
-include 'header.php';
+include 'header-back.php';
 ?>
 
-<title>ENT | Inscription</title>
+<title>Back-Office | Inscription</title>
 
 <section class="page-inscription">
 

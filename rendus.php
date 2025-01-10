@@ -1,7 +1,6 @@
 <?php
 ob_start(); // Démarrer la temporisation de sortie
 include('header.php');
-include('nav.php');
 
 
 

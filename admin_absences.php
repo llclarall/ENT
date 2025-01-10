@@ -1,5 +1,5 @@
 <?php
-include 'header.php';
+include 'header-back.php';
 
 // Récupérer la liste des étudiants
 try {
@@ -22,7 +22,7 @@ $absences = [];
 }
 ?>
 
-<title>Secrétariat | Absences</title>
+<title>Back-Office | Absences</title>
 
 <section class="page-absences-admin">
 
@@ -91,41 +91,49 @@ $absences = [];
             <th>Date</th>
             <th>Durée</th>
             <th>Justificatif</th>
+            <th>Commentaire</th>
             <th>Action</th>
         </tr>
     </thead>
     <tbody>
-        <?php if (!empty($absences)): ?>
-            <?php foreach ($absences as $absence): ?>
-                <tr>
-                    <td><?= $absence['prenom'] . ' ' . $absence['nom'] ?></td>
-                    <td><?= date("d/m/Y à H\hi", strtotime($absence['date_absence'])) ?></td>
-                    <td><?= date("H\hi", strtotime($absence['duree'])) ?></td>
-                    <td>
-                        <?php if (!empty($absence['document_url'])): ?>
-                            <a href="<?= $absence['document_url'] ?>" target="_blank">Voir</a>
-                        <?php else: ?>
-                            Aucun justificatif
-                        <?php endif; ?>
-                    </td>
-                    <td class="actions">
-                        <form method="POST" action="validate_absence.php" style="display:inline;">
-                            <input type="hidden" name="absence_id" value="<?= $absence['id'] ?>">
-                            <button type="submit" name="action" value="valider">Valider</button>
-                        </form>
-                        <form method="POST" action="validate_absence.php" style="display:inline;">
-                            <input type="hidden" name="absence_id" value="<?= $absence['id'] ?>">
-                            <button type="submit" name="action" value="rejeter">Rejeter</button>
-                        </form>
-                    </td>
-                </tr>
-            <?php endforeach; ?>
-        <?php else: ?>
+    <?php if (!empty($absences)): ?>
+        <?php foreach ($absences as $absence): ?>
             <tr>
-                <td colspan="5">Aucune absence à valider.</td>
+                <td data-label="Étudiant"><?= $absence['prenom'] . ' ' . $absence['nom'] ?></td>
+                <td data-label="Date"><?= date("d/m/Y à H\hi", strtotime($absence['date_absence'])) ?></td>
+                <td data-label="Durée"><?= date("H\hi", strtotime($absence['duree'])) ?></td>
+                <td data-label="Justificatif">
+                    <?php if (!empty($absence['document_url'])): ?>
+                        <a href="<?= $absence['document_url'] ?>" target="_blank">Voir</a>
+                    <?php else: ?>
+                        Aucun justificatif
+                    <?php endif; ?>
+                </td>
+                <td data-label="Commentaire">
+                    <?php if (!empty($absence['comment'])): ?>
+                        <p><?= $absence['comment'] ?></p>
+                    <?php else: ?>
+                        Aucun commentaire
+                    <?php endif; ?>
+                </td>
+                <td class="actions">
+                    <form method="POST" action="validate_absence.php" style="display:inline;">
+                        <input type="hidden" name="absence_id" value="<?= $absence['id'] ?>">
+                        <button type="submit" name="action" value="valider">Valider</button>
+                    </form>
+                    <form method="POST" action="validate_absence.php" style="display:inline;">
+                        <input type="hidden" name="absence_id" value="<?= $absence['id'] ?>">
+                        <button type="submit" name="action" value="rejeter">Rejeter</button>
+                    </form>
+                </td>
             </tr>
-        <?php endif; ?>
-    </tbody>
+        <?php endforeach; ?>
+    <?php else: ?>
+        <tr>
+            <td colspan="5">Aucune absence à valider.</td>
+        </tr>
+    <?php endif; ?>
+</tbody>
 </table>
 </div>
 

@@ -1,6 +1,5 @@
 <?php
 include 'header.php';
-include 'nav.php';
 
 $user_id = $_SESSION['id'];
 

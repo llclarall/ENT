@@ -1,6 +1,5 @@
 <?php
 include('header.php');
-include('nav.php');
 
 // Récupérer l'id de l'utilisateur
 $user_id = $_SESSION['id'];

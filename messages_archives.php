@@ -1,6 +1,5 @@
 <?php 
     include('header.php');
-    include('nav.php');
 
 // Récupérer les messages archivés pour l'utilisateur connecté
 $user_id = $_SESSION['id']; 

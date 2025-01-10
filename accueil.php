@@ -1,6 +1,5 @@
 <?php 
 include('header.php');
-include('nav.php');
 
 
 // Récupérer les rendus associés à l'utilisateur ou non assignés à personne, triés par priorité (épinglés) et date
@@ -210,14 +209,14 @@ foreach ($rendus as $rendu) {
     if ($rendu['pinned'] == 1) {
         echo "<a href='rendus.php' class='rendu-pinned'>
                 <p class='pinned rendu'>
-                    <strong>" . htmlspecialchars($rendu['titre']) . "</strong> le " . date('d/m', strtotime($rendu['date'])) . "
+                    <strong>" . htmlspecialchars($rendu['titre']) . "</strong> pour le " . date('d/m', strtotime($rendu['date'])) . "
                 </p>
                 <img src='images/pin.png' alt='Rendu épinglé' class='pin-icon' title='Rendu épinglé'>
               </a>";
     } else {
         echo "<a href='rendus.php'>
                 <p class='rendu'>
-                    <strong>" . htmlspecialchars($rendu['titre']) . "</strong> le " . date('d/m', strtotime($rendu['date'])) . "
+                    <strong>" . htmlspecialchars($rendu['titre']) . "</strong> pour le " . date('d/m', strtotime($rendu['date'])) . "
                 </p>
               </a>";
     }

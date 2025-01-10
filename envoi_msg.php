@@ -1,6 +1,5 @@
 <?php
 include('header.php');
-include('nav.php');
 
 $message_envoye = false; // Pour afficher un message de confirmation
 $erreurs = []; // Pour gérer les erreurs

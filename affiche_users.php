@@ -1,5 +1,5 @@
 <?php
-require 'header.php';
+include 'header-back.php';
 
 // Vérifier si l'utilisateur est connecté et est un administrateur
 /* if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
@@ -25,7 +25,7 @@ $autres_utilisateurs = array_filter($utilisateurs, function($user) {
 });
 ?>
 
-<title>Liste des Utilisateurs</title>
+<title>Back-Office | Utilisateurs</title>
 
 <section class="page-users">
     

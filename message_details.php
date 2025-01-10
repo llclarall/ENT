@@ -1,6 +1,5 @@
 <?php 
 include('header.php');
-include('nav.php');
 
 // Vérifier que l'utilisateur est connecté
 if (!isset($_SESSION['id'])) {
