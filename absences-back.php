@@ -11,7 +11,7 @@ $absences_query = $db->query("
 SELECT absences.*, utilisateurs.prenom, utilisateurs.nom 
 FROM absences 
 JOIN utilisateurs ON absences.user_id = utilisateurs.id
-WHERE absences.statut = 'À valider'
+WHERE absences.statut = 'En attente de validation'
 ORDER BY date_absence DESC
 ");
 $absences = $absences_query->fetchAll(PDO::FETCH_ASSOC);
@@ -85,8 +85,8 @@ $absences = [];
                     <?php endif; ?>
                 </td>
                 <td data-label="Commentaire">
-                    <?php if (!empty($absence['comment'])): ?>
-                        <p><?= $absence['comment'] ?></p>
+                    <?php if (!empty($absence['commentaire'])): ?>
+                        <p><?= $absence['commentaire'] ?></p>
                     <?php else: ?>
                         Aucun commentaire
                     <?php endif; ?>

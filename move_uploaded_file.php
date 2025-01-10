@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['file'])) {
     }
 
     // Liste des extensions autorisées
-    $allowedExtensions = ['pdf', 'doc', 'docx', 'jpg', 'jpeg', 'png'];
+    $allowedExtensions = ['pdf', 'doc', 'docx', 'jpg', 'jpeg', 'zip'];
     $fileExtension = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
 
     if (!in_array($fileExtension, $allowedExtensions)) {
@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['file'])) {
     }
 
     // Répertoire d'upload
-    $uploadDir = 'uploads_rendus/';
+    $uploadDir = 'uploads/';
     $fileName = basename($file['name']);
     $filePath = $uploadDir . $fileName;
 

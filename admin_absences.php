@@ -11,7 +11,7 @@ $absences_query = $db->query("
 SELECT absences.*, utilisateurs.prenom, utilisateurs.nom 
 FROM absences 
 JOIN utilisateurs ON absences.user_id = utilisateurs.id
-WHERE absences.statut = 'À valider'
+WHERE absences.statut = 'En attente de validation'
 ORDER BY date_absence DESC
 ");
 $absences = $absences_query->fetchAll(PDO::FETCH_ASSOC);

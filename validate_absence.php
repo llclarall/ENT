@@ -8,7 +8,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'secretaire') {
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $absence_id = $_POST['absence_id'];
-    $statut = $_POST['action'] === 'valider' ? 'Validé' : 'Rejeté';
+    $statut = $_POST['action'] === 'valider' ? 'Justifié' : 'Rejeté | Rejustifier';
 
     try {
         // Validation des données

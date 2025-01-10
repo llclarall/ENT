@@ -27,7 +27,7 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
             <p>Inscrivez et affichez les utilisateurs.</p>
             <div class="flex-btn">
                 <a href="inscription.php" class="btn">Inscrire un  utilisateur</a>
-                <a href="inscription.php" class="btn">Afficher les utilisateurs</a>
+                <a href="affiche_users.php" class="btn">Afficher les utilisateurs</a>
             </div>
         </div>
         <div class="card">
@@ -36,7 +36,7 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
             <p>Enregistrez les absences et validez-les.</p>
             <div class="flex-btn">
                 <a href="admin_absences.php" class="btn">Ajouter des absences</a>
-                <a href="admin_absences.php" class="btn">Valider des justificatifs</a>
+                <a href="absences-back.php" class="btn">Valider des justificatifs</a>
             </div>
         </div>
         <div class="card">
@@ -45,7 +45,7 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
             <p>Ajoutez et gérez les notes des étudiants.</p>
             <div class="flex-btn">
                 <a href="notes-back.php" class="btn">Ajouter des notes</a>
-                <a href="notes-back.php" class="btn">Insérer un PDF de notes</a>
+                <a href="notes-back-pdf.php" class="btn">Insérer un PDF de notes</a>
             </div>
         </div>
     </div>

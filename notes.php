@@ -38,17 +38,16 @@ if (isset($_GET['mark_as_read'])) {
 
     <div class="container">
         <div class="small-boxes">
-            <h3>Matières</h3>
+            <h3>Compétences</h3>
             <?php
             // Récupérer toutes les matières distinctes pour l'utilisateur connecté
-            $query = "SELECT DISTINCT matiere FROM notes WHERE etudiant_num = :num_etudiant";
+            $query = "SELECT DISTINCT competence FROM notes";
             $stmt = $db->prepare($query);
-            $stmt->bindParam(':num_etudiant', $num_etudiant);
             $stmt->execute();
 
             // Afficher chaque matière dans une boîte
             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                echo "<div class='small-box'>" . htmlspecialchars($row['matiere']) . "</div>";
+                echo "<button class='small-box'>" . htmlspecialchars($row['competence']) . "</button>";
             }
             ?>
         </div>
@@ -58,7 +57,6 @@ if (isset($_GET['mark_as_read'])) {
             <form method="POST" action="" id="semester-form">
                 <div class="semester-dropdown">
                     <select id="semester" name="semester" onchange="submitForm()">
-                        <option value="" disabled selected>Choix du semestre</option>
                         <option value="semestre1" <?php echo isset($_POST['semester']) && $_POST['semester'] == 'semestre1' ? 'selected' : ''; ?>>Semestre 1</option>
                         <option value="semestre2" <?php echo isset($_POST['semester']) && $_POST['semester'] == 'semestre2' ? 'selected' : ''; ?>>Semestre 2</option>
                     </select>

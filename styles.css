@@ -141,6 +141,12 @@ font-size: 18px;
 background-color: #34495e;
 }
 
+.side-nav .active {
+    background-color: var(--bleu-hover); /* Couleur de fond de l'élément actif */
+    font-weight: bold;
+}
+
+
 /* Dropdown Toggle Arrow */
 .side-nav .dropdown-toggle::after {
 content: "▼";
@@ -547,12 +553,12 @@ to {
     text-align: center;
 }
 
-.connexion .password-container {
+.connexion .password-container, .page-mdp-oublie .password-container {
     position: relative;
     display: inline-block;
 }
 
-.connexion .toggle-password {
+.connexion .toggle-password, .page-mdp-oublie .toggle-password {
     position: absolute;
     top: 50%;
     right: 5px;
@@ -3980,7 +3986,7 @@ footer a:hover {
 .footer-modal {
     display: none;
     position: fixed;
-    z-index: 1;
+    z-index: 10000;
     left: 0;
     top: 0;
     width: 100%;

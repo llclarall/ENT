@@ -34,7 +34,7 @@ try {
     $requete_non_justifiees = $db->prepare("
         SELECT SEC_TO_TIME(SUM(TIME_TO_SEC(duree))) AS total_non_justifiees
         FROM absences 
-        WHERE user_id = :user_id AND statut = 'À justifier'
+        WHERE user_id = :user_id AND statut = 'À justifier' OR statut = 'Rejeté | Rejustifier' OR statut = 'Non justifié' OR statut = 'En attente de validation'
     ");
     $requete_non_justifiees->execute(['user_id' => $user_id]);
     $result_non_justifiees = $requete_non_justifiees->fetch(PDO::FETCH_ASSOC);
@@ -115,7 +115,7 @@ try {
                     <td><?= date("d/m/Y à H\hi", strtotime($absence['date_absence'])) ?></td>
                     <td class="duree"><?= date("H\hi", strtotime($absence['duree'])) ?></td>
                     <td>
-                        <?php if ($absence['statut'] === 'À justifier'): ?>
+                        <?php if ($absence['statut'] === 'À justifier' || $absence['statut'] === 'Rejeté | Rejustifier'): ?>
                             <button class="justify-btn"><?=$absence['statut']?></button>
                         <?php else: ?>
                             <?=$absence['statut']?>

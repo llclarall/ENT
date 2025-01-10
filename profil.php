@@ -79,7 +79,7 @@ $absences = $absences_requete->fetchAll(PDO::FETCH_ASSOC);
         <div class="reservation-item">
         <span>OSMO Le vendredi 15 novembre 2024</span>
         </div>
-        <a href="absences.php" class="voir-plus">Voir plus</a>
+        <a href="mes_reservations.php" class="voir-plus">Voir plus</a>
     </div>
 
 

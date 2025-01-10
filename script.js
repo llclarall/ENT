@@ -18,39 +18,55 @@ function togglePassword(inputId, toggleElement) {
 
 
 
-/* NAV ALY*/
+/* NAV ALY */
 
 document.addEventListener('DOMContentLoaded', () => {
     const sideNav = document.querySelector('.side-nav');
     const toggleMenu = document.querySelector('.toggle-menu');
     const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
-  
+
     // Basculer la visibilité du menu sur mobile
     toggleMenu.addEventListener('click', () => {
         sideNav.classList.toggle('hidden');
     });
-  
+
+    // Initialisation : Ouvrir les dropdowns contenant un enfant actif
+    document.querySelectorAll('.dropdown').forEach(dropdown => {
+        const activeChild = dropdown.querySelector('.active');
+        if (activeChild) {
+            dropdown.classList.add('open');
+            dropdown.previousElementSibling.classList.add('rotate');
+            dropdown.previousElementSibling.setAttribute('aria-expanded', 'true');
+        }
+    });
+
     // Fonctionnalité de bascule des menus déroulants
     dropdownToggles.forEach(toggle => {
         toggle.addEventListener('click', (e) => {
             e.preventDefault();
-  
+
             const dropdown = toggle.nextElementSibling;
-  
+
             // Basculer l'affichage du menu déroulant actuel
             dropdown.classList.toggle('open');
             toggle.classList.toggle('rotate');
-  
-            // Fermer les autres menus déroulants
+
+            const isExpanded = toggle.classList.contains('rotate');
+            toggle.setAttribute('aria-expanded', isExpanded);
+
+            // Fermer les autres menus déroulants sauf ceux avec un enfant actif
             document.querySelectorAll('.dropdown').forEach(otherDropdown => {
                 if (otherDropdown !== dropdown) {
-                    otherDropdown.classList.remove('open');
-                    otherDropdown.previousElementSibling.classList.remove('rotate');
+                    const hasActiveChild = otherDropdown.querySelector('.active');
+                    if (!hasActiveChild) {
+                        otherDropdown.classList.remove('open');
+                        otherDropdown.previousElementSibling.classList.remove('rotate');
+                        otherDropdown.previousElementSibling.setAttribute('aria-expanded', 'false');
+                    }
                 }
             });
         });
     });
-  
 
     // Fermer la barre latérale si un clic est effectué en dehors
     document.addEventListener('click', (e) => {
@@ -61,6 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
 
 
 

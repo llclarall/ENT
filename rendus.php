@@ -203,9 +203,11 @@ ob_end_flush();
 
 <br>
                 <h3>Zone de dépôt</h3>
+                <small>Les documents acceptés sont au format PDF, ZIP, JPG, DOC ou DOCX.</small>
+                    
                 <form id="drop-zone" class="drop-zone" ondragover="allowDrop(event)" 
                 ondrop="handleDrop(event)" onclick="triggerFileInput()">
-
+                
                     <p>Déposez votre fichier ici ou cliquez pour sélectionner</p>
                     
                     <input enctype="multipart/form-data" type="file" id="fileInput" onchange="handleFileSelect(event)" style="display: none;" />

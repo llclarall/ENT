@@ -26,7 +26,7 @@ try {
 $requete_non_justifiees = $db->prepare("
     SELECT SEC_TO_TIME(SUM(TIME_TO_SEC(duree))) AS total_non_justifiees
     FROM absences 
-    WHERE user_id = :user_id AND (statut = 'À justifier' OR statut = 'Rejeté')
+    WHERE user_id = :user_id AND (statut = 'À justifier' OR statut = 'Rejeté | Rejustifier' OR statut = 'En attente de validation')
 ");
 $requete_non_justifiees->execute(['user_id' => $user_id]);
 $result_non_justifiees = $requete_non_justifiees->fetch(PDO::FETCH_ASSOC);
@@ -147,7 +147,7 @@ $new_note_count = (int)$result['new_count'];
                     <a href="absences.php">
                         <div class="widget sub-block <?= $borderClass ?>">
                             <span class="big"><?= $total_non_justifiees ?></span> <br>
-                            <span>à justifier</span>
+                            <span>non justifiées</span>
                         </div>
                     </a>
                 </div>
@@ -169,7 +169,7 @@ $new_note_count = (int)$result['new_count'];
 
                 <div class="reservations">
                     <h3><i class="fa-solid fa-bookmark"></i> RSVP</h3>
-                    <a href="reservations.php">
+                    <a href="mes_reservations.php">
                         <div class="widget sub-block">
                             <span class="big">1</span> <br>
                             <span>réservation</span>
@@ -254,7 +254,7 @@ if ($count == 0 && count($rendus) > 0) {
         <div class="widget actualites">
             <h2>Vie étudiante</h2> <hr>
             <p>Un tournoi d'échecs est organisé du mardi 26 au mercredi 28 novembre...</p>
-            <a href="vie_etudiante" class="btn">En savoir plus</a>
+            <a href="vie_etudiante.php" class="btn">En savoir plus</a>
         </div>
     </div>
 

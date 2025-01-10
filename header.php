@@ -14,6 +14,16 @@ $stmt = $db->prepare($requete);
 $stmt->bindParam(':id', $id);
 $stmt->execute();
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+
+
+// Fonction pour vérifier si la page actuelle correspond à un lien
+function setActiveClass($page) {
+    $currentPage = basename($_SERVER['SCRIPT_NAME']); 
+    return $currentPage === $page ? 'active' : ''; // Renvoie 'active' si c'est la page en cours
+}
+
+
 ?>
 
 
@@ -51,7 +61,7 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
     <ul class="menu">
       <!-- Accueil -->
       <li>
-        <a href="accueil.php" class="menu-item" aria-label="Page d'accueil"> 
+        <a href="accueil.php" class="menu-item <?php echo setActiveClass('accueil.php'); ?>" aria-label="Page d'accueil"> 
           <i class="fas fa-home" aria-hidden="true"></i>
           <span>Accueil</span>
         </a>
@@ -64,8 +74,8 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
           <span>Emploi du temps</span>
         </a>
         <ul class="dropdown" role="menu">
-          <li><a href="edt.php" role="menuitem"><span>Emploi du temps</span></a></li>
-          <li><a href="absences.php" role="menuitem"><span>Absences</span></a></li> 
+          <li><a href="edt.php" role="menuitem" class="<?php echo setActiveClass('edt.php'); ?>"><span>Emploi du temps</span></a></li>
+          <li><a href="absences.php" role="menuitem" class="<?php echo setActiveClass('absences.php'); ?>"><span>Absences</span></a></li> 
         </ul>
       </li>
       
@@ -76,10 +86,10 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
           <span>Cours</span>
         </a>
         <ul class="dropdown" role="menu">
-          <li><a href="elearning.php" role="menuitem"><span>Elearning</span></a></li> 
-          <li><a href="archives.php" role="menuitem"><span>Archives</span></a></li> 
-          <li><a href="rendus.php" role="menuitem"><span>Rendus</span></a></li>
-          <li><a href="notes.php?mark_as_read=1" role="menuitem"><span>Notes</span></a></li>
+          <li><a href="elearning.php" role="menuitem" class="<?php echo setActiveClass('elearning.php'); ?>"><span>Elearning</span></a></li> 
+          <li><a href="archives.php" role="menuitem" class="<?php echo setActiveClass('archives.php'); ?>"><span>Archives</span></a></li> 
+          <li><a href="rendus.php" role="menuitem" class="<?php echo setActiveClass('rendus.php'); ?>"><span>Rendus</span></a></li>
+          <li><a href="notes.php?mark_as_read=1" role="menuitem" class="<?php echo setActiveClass('notes.php'); ?>"><span>Notes</span></a></li>
         </ul>
       </li>
 
@@ -90,8 +100,8 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
           <span>Messagerie</span>
         </a>
         <ul class="dropdown" role="menu">
-          <li><a href="messagerie.php" role="menuitem"><span>Messagerie</span></a></li>
-          <li><a href="annuaire.php" role="menuitem"><span>Annuaire</span></a></li>
+          <li><a href="messagerie.php" role="menuitem" class="<?php echo setActiveClass('messagerie.php'); ?>"><span>Messagerie</span></a></li>
+          <li><a href="annuaire.php" role="menuitem" class="<?php echo setActiveClass('annuaire.php'); ?>"><span>Annuaire</span></a></li>
         </ul>
       </li>
 
@@ -103,15 +113,15 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
           <span>Réservations</span>
         </a>
         <ul class="dropdown" role="menu">
-          <li><a href="reserver.php" role="menuitem"><span>Réserver</span></a></li> 
-          <li><a href="mes_reservations.php" role="menuitem"><span>Mes réservations</span></a></li> 
+          <li><a href="reserver.php" role="menuitem" class="<?php echo setActiveClass('reserver.php'); ?>"><span>Réserver</span></a></li> 
+          <li><a href="mes_reservations.php" role="menuitem" class="<?php echo setActiveClass('mes_reservations.php'); ?>"><span>Mes réservations</span></a></li> 
         </ul>
       </li>
 
       
       <!-- Vie étudiante -->          
       <li>
-        <a href="vie_etudiante.php" class="menu-item" aria-label="Page vie étudiante">
+        <a href="vie_etudiante.php" class="menu-item <?php echo setActiveClass('vie_etudiante.php'); ?>" aria-label="Page vie étudiante">
           <i class="fas fa-users" aria-hidden="true"></i>
           <span>Vie étudiante</span>
         </a>

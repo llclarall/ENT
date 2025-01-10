@@ -44,6 +44,9 @@ if ($user) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mot de passe oublié</title>
     <link rel="stylesheet" href="styles.css">
+    <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    rel="stylesheet"/>
 </head>
 <body>
     
@@ -53,7 +56,7 @@ if ($user) {
 <div class="page-mdp-oublie" id="content">
     <h1>Mot de passe oublié</h1>
     <form method="POST" class="mdp-oublie">
-        <label for="mail">Entrez votre mail :</label>
+        <label for="mail">Entrez votre mail universitaire :</label>
         <input type="mail" name="mail" id="mail" required>
         <button type="submit">Envoyer le lien de réinitialisation</button>
     </form>

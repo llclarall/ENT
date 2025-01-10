@@ -7,8 +7,7 @@ include 'header-back.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Upload PDF et Informations</title>
-    <link rel="stylesheet" href="style.css"> <!-- Si vous avez un fichier CSS -->
+    <title>Back-Office | Notes PDF</title>
 </head>
 <body>
 <section class="page-notes-pdf" id="content">

@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <link rel="stylesheet" href="styles.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Insertion des Notes</title>
+    <title>Back-Office | Notes</title>
 </head>
 <body>
 

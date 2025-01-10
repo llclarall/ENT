@@ -30,16 +30,21 @@ if (isset($_GET['token'])) {
                 <meta charset="UTF-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
                 <title>Réinitialision mot de passe</title>
+                <link
+                href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+                rel="stylesheet"/>
+                <link rel="stylesheet" href="styles.css">
             </head>
             <body>
                 
-            </body>
-            </html>
             <div class="page-mdp-oublie" id="content">
             <h1>Réinitialisez votre mot de passe</h1>
                 <form method="POST" class="mdp-oublie">
                     <label for="password">Nouveau mot de passe :</label>
-                    <input type="password" name="password" id="password" required>
+                    <div class="password-container">
+                        <input type="password" id="password" name="password" required>
+                        <span class="toggle-password" onclick="togglePassword('password', this)"><i class="fa-regular fa-eye-slash"></i></span>
+                    </div>
                     <br><br>
                     <button type="submit">Réinitialiser le mot de passe</button>
                 </form>
@@ -53,3 +58,7 @@ if (isset($_GET['token'])) {
     echo "Token manquant.";
 }
 ?>
+
+<script src="script.js"></script>
+</body>
+</html>
