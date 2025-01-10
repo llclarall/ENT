@@ -82,8 +82,18 @@ $alertMsg = ($unread_count > 0) ? "display" : "none";
 
 
 // Requête pour vérifier les notes non consultées
-$query = "SELECT COUNT(*) AS new_count FROM notes WHERE consulted = 0";
-$result = $db->query($query)->fetch();
+$num_etudiant = $_SESSION['num_etudiant'];
+
+$query = "SELECT COUNT(*) AS new_count 
+          FROM notes n 
+          JOIN utilisateurs u ON n.etudiant_num = u.num_etudiant 
+          WHERE n.consulted = 0 AND u.num_etudiant = :num_etudiant";
+
+$stmt = $db->prepare($query);
+$stmt->bindParam(':num_etudiant', $num_etudiant, PDO::PARAM_INT);
+$stmt->execute();
+
+$result = $stmt->fetch(PDO::FETCH_ASSOC);
 $new_note_count = (int)$result['new_count'];
 
 ?>

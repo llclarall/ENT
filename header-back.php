@@ -7,6 +7,12 @@ if (!isset($_SESSION['id'])) {
     exit();
 }
 
+// Vérifier si l'utilisateur est connecté et est un administrateur
+if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'secretaire') {
+    echo "Accès refusé.";
+    exit;
+}
+
 // Récupérer les informations de l'utilisateur
 $id = $_SESSION['id'];
 $requete = "SELECT * FROM utilisateurs WHERE id = :id";
@@ -14,6 +20,7 @@ $stmt = $db->prepare($requete);
 $stmt->bindParam(':id', $id);
 $stmt->execute();
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
 ?>
 
 <!DOCTYPE html>

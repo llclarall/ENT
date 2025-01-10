@@ -1,52 +1,51 @@
-composer require smalot/pdfparser
-
-
 <?php
-require 'vendor/autoload.php';
-include 'config.php';
+require_once 'config.php'; 
+require_once 'libs/TCPDF/tcpdf.php';
+require_once 'libs/pdfparser/src/Smalot/PdfParser/Config.php';
+require_once 'libs/pdfparser/src/Smalot/PdfParser/Parser.php';
+require_once 'libs/pdfparser/src/Smalot/PdfParser/Document.php';
+require_once 'libs/pdfparser/src/Smalot/PdfParser/Header.php';
+require_once 'libs/pdfparser/src/Smalot/PdfParser/Page.php';
+require_once 'libs/pdfparser/src/Smalot/PdfParser/Element.php';
+require_once 'libs/pdfparser/src/Smalot/PdfParser/Font.php';
+require_once 'libs/pdfparser/src/Smalot/PdfParser/Object.php';
+require_once 'libs/pdfparser/src/Smalot/PdfParser/StreamObject.php';
+
 use Smalot\PdfParser\Parser;
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['pdf_file'])) {
-    // Vérifiez que le fichier a été uploadé sans erreur
-    if ($_FILES['pdf_file']['error'] == UPLOAD_ERR_OK) {
-        $file_tmp = $_FILES['pdf_file']['tmp_name'];
+try {
+    // Initialiser le parser
+    $parser = new Parser();
+    $pdf = $parser->parseFile('uploads_notes/fichier_notes.pdf');
 
-        // Analyse du fichier PDF
-        $parser = new Parser();
-        $pdf = $parser->parseFile($file_tmp);
-        $text = $pdf->getText();
+    // Extraire le texte du PDF
+    $text = $pdf->getText();
 
-        // Exemple : Supposons que chaque ligne du PDF est formatée comme "num_etudiant;nom;note"
-        $lines = explode("\n", $text);
-        $notes_data = [];
+    echo nl2br($text);
 
-        foreach ($lines as $line) {
-            $fields = explode(";", $line);
-            if (count($fields) === 3) {
-                $notes_data[] = [
-                    'num_etudiant' => trim($fields[0]),
-                    'nom' => trim($fields[1]),
-                    'note' => trim($fields[2])
-                ];
-            }
-        }
-
-        // Insertion des données dans la table "notes"
-        foreach ($notes_data as $data) {
-            $stmt = $db->prepare("INSERT INTO notes (etudiant_num, controle_nom, note, semestre) VALUES (:num_etudiant, :controle_nom, :note, :semestre)");
-            $stmt->execute([
-                ':num_etudiant' => $data['num_etudiant'],
-                ':controle_nom' => 'Nom du contrôle', // À remplacer ou dynamiser
-                ':note' => $data['note'],
-                ':semestre' => 'semestre1' // À ajuster selon les besoins
-            ]);
-        }
-
-        echo "Les notes ont été insérées avec succès !";
-    } else {
-        echo "Erreur lors de l'upload du fichier.";
-    }
-} else {
-    echo "Aucun fichier reçu.";
+} catch (Exception $e) {
+    echo "Erreur : " . $e->getMessage();
 }
+
+// Traitement du texte pour trouver les lignes contenant les notes
+$lines = explode("\n", $text);
+foreach ($lines as $line) {
+    if (preg_match('/^(\d{6})\s+([\d,.]+)/', $line, $matches)) {
+        $etudiant_num = $matches[1];
+        $note = str_replace(',', '.', $matches[2]); // Remplacer virgules par des points
+
+        // Préparation de l'insertion
+        $query = "INSERT INTO notes (etudiant_num, note, matiere, date)
+                  VALUES (:etudiant_num, :note, :matiere, :date)";
+        $stmt = $db->prepare($query);
+        $stmt->execute([
+            ':etudiant_num' => $etudiant_num,
+            ':note' => $note,
+            ':matiere' => 'Dev Web Integration',
+            ':date' => '2024-11-08' 
+        ]);
+    }
+}
+
+echo "Les notes ont été insérées avec succès.";
 ?>

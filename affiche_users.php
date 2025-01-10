@@ -1,11 +1,6 @@
 <?php
 include 'header-back.php';
 
-// Vérifier si l'utilisateur est connecté et est un administrateur
-/* if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
-    echo "Accès refusé.";
-    exit;
-} */
 
 // Récupérer les utilisateurs
 $stmt = $db->prepare("SELECT * FROM utilisateurs ORDER BY nom, prenom");

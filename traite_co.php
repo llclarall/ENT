@@ -28,8 +28,13 @@ if (isset($_POST['login']) && isset($_POST['password'])) {
         $_SESSION['mail'] = $user['mail'];
         $_SESSION['formation'] = $user['formation'];
 
+
         // Rediriger vers la page d'accueil ou une autre page sécurisée
-        header("Location: accueil.php");
+        if ($user['role'] == 'secretaire') {
+            header("Location: back-office.php");
+        } else {
+            header("Location: accueil.php");
+        }
         exit();
     } else {
         // Mot de passe incorrect ou utilisateur introuvable

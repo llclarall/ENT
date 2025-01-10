@@ -1,5 +1,6 @@
 <?php
     include('config.php');
+
 ?>
 
 <!DOCTYPE html>
@@ -45,6 +46,7 @@
         <br><br>
 
         <input type="submit" class="connecter" value="Se connecter">
+
         <a href="mdp_oublie.php" class="forgot-password">Mot de passe oublié ?</a>
     </form>
 
