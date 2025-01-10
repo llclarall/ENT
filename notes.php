@@ -3,29 +3,27 @@ include 'header.php';
 
 $num_etudiant = $_SESSION['num_etudiant'];
 
-
-/* if (isset($_GET['mark_as_read'])) {
-    $update_query = "UPDATE notes SET consulted = 1 WHERE consulted = 0 AND etudiant_num = :num_etudiant";
-    $stmt = $db->prepare($update_query);
-    $stmt->bindParam(':num_etudiant', $num_etudiant);
-    $stmt->execute();
-}
- */
-
- // Définir le semestre sélectionné par défaut
+// Définir le semestre sélectionné par défaut
 $selected_semester = isset($_POST['semester']) ? $_POST['semester'] : 'semestre1';
 
-// Vérifier si des notes non consultées (consulted = 0) existent pour le semestre 1
+// Vérification des notes non consultées pour les semestres
 $query_check_semester1 = "SELECT COUNT(*) AS count FROM notes WHERE semestre = 'semestre1' AND etudiant_num = :num_etudiant AND consulted = 0";
 $stmt_check_semester1 = $db->prepare($query_check_semester1);
 $stmt_check_semester1->bindParam(':num_etudiant', $num_etudiant);
 $stmt_check_semester1->execute();
-$result = $stmt_check_semester1->fetch(PDO::FETCH_ASSOC);
+$result_semester1 = $stmt_check_semester1->fetch(PDO::FETCH_ASSOC);
 
-if ($result['count'] == 0) {
-    // Si aucune note non consultée dans le semestre 1, afficher les notes du semestre 2
+$query_check_semester2 = "SELECT COUNT(*) AS count FROM notes WHERE semestre = 'semestre2' AND etudiant_num = :num_etudiant AND consulted = 0";
+$stmt_check_semester2 = $db->prepare($query_check_semester2);
+$stmt_check_semester2->bindParam(':num_etudiant', $num_etudiant);
+$stmt_check_semester2->execute();
+$result_semester2 = $stmt_check_semester2->fetch(PDO::FETCH_ASSOC);
+
+// Si il n'y a pas de notes non consultées dans le semestre 1, on redirige vers le semestre 2
+if ($result_semester1['count'] == 0 && $result_semester2['count'] > 0) {
     $selected_semester = 'semestre2';
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -111,8 +109,8 @@ if ($result['count'] == 0) {
             <form method="POST" action="" id="semester-form">
                 <div class="semester-dropdown">
                     <select id="semester" name="semester" onchange="submitForm()">
-                        <option value="semestre1" <?php echo $selected_semester == 'semestre1' ? 'selected' : ''; ?>>Semestre 1</option>
-                        <option value="semestre2" <?php echo $selected_semester == 'semestre2' ? 'selected' : ''; ?>>Semestre 2</option>
+                        <option value="semestre1" <?php echo ($selected_semester == 'semestre1') ? 'selected' : ''; ?>>Semestre 1</option>
+                        <option value="semestre2" <?php echo ($selected_semester == 'semestre2') ? 'selected' : ''; ?>>Semestre 2</option>
                     </select>
                 </div>
             </form>
@@ -155,18 +153,16 @@ if ($result['count'] == 0) {
                 </div>
                 <?php
                 // Calculer la moyenne pour l'utilisateur connecté
-                if (isset($semester)) {
-                    $query = "SELECT AVG(note) AS moyenne FROM notes WHERE semestre = :semester AND etudiant_num = :num_etudiant";
-                    $stmt = $db->prepare($query);
-                    $stmt->bindParam(':semester', $semester);
-                    $stmt->bindParam(':num_etudiant', $num_etudiant);
-                    $stmt->execute();
-                    $row = $stmt->fetch(PDO::FETCH_ASSOC);
-                    
-                    // Vérifier si la moyenne est null et la définir sur 0 si nécessaire
-                    $moyenne = $row['moyenne'] ?? 0;  
-                    echo "<div class='control-note'>" . number_format($moyenne, 2) . "/20</div>";
-                }
+                $query = "SELECT AVG(note) AS moyenne FROM notes WHERE semestre = :semester AND etudiant_num = :num_etudiant";
+                $stmt = $db->prepare($query);
+                $stmt->bindParam(':semester', $selected_semester);
+                $stmt->bindParam(':num_etudiant', $num_etudiant);
+                $stmt->execute();
+                $row = $stmt->fetch(PDO::FETCH_ASSOC);
+                
+                // Vérifier si la moyenne est null et la définir sur 0 si nécessaire
+                $moyenne = $row['moyenne'] ?? 0;  
+                echo "<div class='control-note'>" . number_format($moyenne, 2) . "/20</div>";
                 ?>
             </div>
         </div>
@@ -175,11 +171,12 @@ if ($result['count'] == 0) {
 
 </section>
 
-
 <?php include('footer.php');?>
 
 </body>
 </html>
+
+
 <?php
 
 // Met à jour le champ 'consulted' pour les notes consultées par l'utilisateur
