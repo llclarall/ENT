@@ -115,5 +115,8 @@ $absences = [];
 </main>
 </section>
 
+<?php include('footer.php');?>
+
+
 </body>
 </html>

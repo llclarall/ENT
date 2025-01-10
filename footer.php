@@ -1,7 +1,8 @@
 
     <link rel="stylesheet" href="styles.css">
+<body>
 
-    <footer class="footer">
+    <footer>
         <div>
             <h2>À propos de nous</h2>
             <p>Université Gustave Eiffel</p>
@@ -69,4 +70,3 @@
         }
     </script>
 </body>
-</html>

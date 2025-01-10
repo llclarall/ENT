@@ -17,6 +17,8 @@ body {
     box-sizing: border-box;
     background-color: var(--bg-color);
     font-family: Arial, sans-serif;
+    position: relative;
+    min-height: 100vh;
 }
 
 html {
@@ -802,6 +804,8 @@ section:not(.connexion) {
     margin-left: calc(250px + 5%); 
     margin-right: 5%; 
     width: calc(100% - 250px - 10%);
+    padding-bottom: 5rem;
+    min-height: 100vh;
 }
 
 h1:not(.connexion h1) {
@@ -3859,12 +3863,14 @@ width: 90%;
         margin: 0 auto;
         padding: 0 3rem; 
         width: 100%;
+        padding-bottom: 5rem;
     }
 }
 
 @media (max-width: 600px) {
     section:not(.connexion) {
         padding: 0 1rem; 
+        padding-bottom: 5rem;
     }
     .accueil .flex-container {
         flex-wrap: wrap;
@@ -3875,6 +3881,7 @@ width: 90%;
 @media (max-width: 460px) {
     section:not(.connexion) {
         padding: 0 0.5rem; 
+        padding-bottom: 5rem;
     }
     .accueil .sub-block {
         font-size: 0.8rem; 
@@ -3912,38 +3919,59 @@ a.skip:focus {
     left: 0;
 }
 
+.actualites .btn {
+    padding: 10px 20px;
+    background-color: var(--bg-color);
+    color: var(--bleu);
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 1rem;
+    display: block;
+    width: fit-content;
+    transition: background-color 0.3s ease;
+}
 
+.actualites .btn:hover {
+    background-color: var(--bleu-hover);
+    color: var(--bg-color);
+}
 
 /* FOOTER SECTION */
 
+/* Footer toujours en bas */
 footer {
-    background-color: #2F4156;
-    color: white;
+    background-color: var(--bleu);
+    color: var(--bg-color);
     padding: 20px;
     display: flex;
-    justify-content: center; 
+    justify-content: center;
     gap: 100px;
-    flex-wrap: wrap;
     text-align: left;
-    position: absolute;
-    bottom: -300px;
     width: 100%;
+    margin-top: auto;
+    flex-wrap: wrap;
+    position: relative;
 }
+
 footer div {
-    max-width: 400px; 
+    max-width: 400px;
 }
+
 footer h2 {
     margin: 0 0 10px;
-    text-align: left;
 }
+
 footer p, footer a {
     margin: 5px 0;
-    text-align: left; 
 }
+
 footer a {
     color: #FFDC8A;
     text-decoration: none;
 }
+
 footer a:hover {
     text-decoration: underline;
 }
@@ -3959,12 +3987,11 @@ footer a:hover {
     height: 100%;
     overflow: auto;
     background-color: rgba(0, 0, 0, 0.5);
-    padding-top: 60px;
 }
 .footer-modal-content {
     background-color: #fefefe;
-    margin: 0 auto;
-    padding: 3rem;
+    margin: 2rem auto;
+    padding: 2rem;
     width: 80%;
     text-align: left;
     border-radius: 8px;

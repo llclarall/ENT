@@ -89,5 +89,7 @@ include 'header-back.php';
         </form>
         
 </section>
+
+<?php include('footer.php');?>
 </body>
 </html>

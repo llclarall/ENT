@@ -79,5 +79,7 @@ $autres_utilisateurs = array_filter($utilisateurs, function($user) {
     }
 </script>
 
+<?php include('footer.php');?>
+
 </body>
 </html>

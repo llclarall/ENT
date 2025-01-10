@@ -1,6 +1,7 @@
 <?php 
 include('header.php');
 
+
 // Récupérer les rendus associés à l'utilisateur ou non assignés à personne, triés par priorité (épinglés) et date
 $query = "SELECT r.*, 
            CASE WHEN p.fk_user IS NOT NULL THEN 1 ELSE 0 END AS pinned
@@ -251,12 +252,16 @@ if ($count == 0 && count($rendus) > 0) {
 
         <!-- Actualités -->
         <div class="widget actualites">
-            <h2>Actualités</h2> <hr>
+            <h2>Vie étudiante</h2> <hr>
             <p>Un tournoi d'échecs est organisé du mardi 26 au mercredi 28 novembre...</p>
-            <button>En savoir plus</button>
+            <a href="vie_etudiante" class="btn">En savoir plus</a>
         </div>
     </div>
+
 </section>
+
+<?php include('footer.php');?>
+
 </body>
 
 </html>

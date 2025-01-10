@@ -51,3 +51,5 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
     </div>
 </div>
 </section>
+
+<?php include('footer.php');?>

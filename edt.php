@@ -81,6 +81,7 @@ $endDateFormatted = $endDate->format('d') . ' ' . $moisFrancais[(int)$endDate->f
     </table>
 </section>
 
+<?php include('footer.php');?>
 
 
 </body>

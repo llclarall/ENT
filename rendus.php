@@ -237,8 +237,10 @@ ob_end_flush();
 
 </div>
 
-
 </section>
+
+<?php include('footer.php');?>
+
     
 <script src="rendus.js"></script>
 </body>

@@ -171,6 +171,9 @@ try {
   </main>
 </section>
 
+<?php include('footer.php');?>
+
+
 <script src="absences.js"></script>
 </body>
 </html>

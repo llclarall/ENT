@@ -122,5 +122,7 @@ if (isset($_GET['mark_as_read'])) {
 
 </section>
 
+<?php include('footer.php');?>
+
 </body>
 </html>

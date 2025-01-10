@@ -7,7 +7,7 @@ $erreurs = []; // Pour gérer les erreurs
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $expediteur_id = $_POST['expediteur_id']; 
     $destinataire_id = $_POST['destinataire_id']; 
-    $objet = htmlspecialchars(trim($_POST['objet'])); // Nettoyage des données
+    $objet = htmlspecialchars(trim($_POST['objet'])); 
     $message = htmlspecialchars(trim($_POST['message']));
 
     // Validation des champs
@@ -66,7 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <script>
                         setTimeout(function() {
                             window.location.href = 'messagerie.php';
-                        }, 1000); // Redirection après 2 secondes
+                        }, 1000); 
                     </script>
                 <?php endif; ?>
 
@@ -130,5 +130,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
         </div>
     </section>
+
+    <?php include('footer.php');?>
 </body>
 </html>

@@ -43,7 +43,7 @@ include 'header-back.php';
 
 </section>
 
-
+<?php include('footer.php');?>
 
 <script>
 
