@@ -4,13 +4,28 @@ include 'header.php';
 $num_etudiant = $_SESSION['num_etudiant'];
 
 
-if (isset($_GET['mark_as_read'])) {
+/* if (isset($_GET['mark_as_read'])) {
     $update_query = "UPDATE notes SET consulted = 1 WHERE consulted = 0 AND etudiant_num = :num_etudiant";
     $stmt = $db->prepare($update_query);
     $stmt->bindParam(':num_etudiant', $num_etudiant);
     $stmt->execute();
 }
+ */
 
+ // Définir le semestre sélectionné par défaut
+$selected_semester = isset($_POST['semester']) ? $_POST['semester'] : 'semestre1';
+
+// Vérifier si des notes non consultées (consulted = 0) existent pour le semestre 1
+$query_check_semester1 = "SELECT COUNT(*) AS count FROM notes WHERE semestre = 'semestre1' AND etudiant_num = :num_etudiant AND consulted = 0";
+$stmt_check_semester1 = $db->prepare($query_check_semester1);
+$stmt_check_semester1->bindParam(':num_etudiant', $num_etudiant);
+$stmt_check_semester1->execute();
+$result = $stmt_check_semester1->fetch(PDO::FETCH_ASSOC);
+
+if ($result['count'] == 0) {
+    // Si aucune note non consultée dans le semestre 1, afficher les notes du semestre 2
+    $selected_semester = 'semestre2';
+}
 ?>
 
 <!DOCTYPE html>
@@ -68,6 +83,7 @@ if (isset($_GET['mark_as_read'])) {
         <div class="small-boxes">
             <h3>Compétences</h3>
             <?php
+
             // Récupérer toutes les matières distinctes pour l'utilisateur connecté
             $query = "SELECT DISTINCT competence FROM notes";
             $stmt = $db->prepare($query);
@@ -81,7 +97,7 @@ if (isset($_GET['mark_as_read'])) {
                 $stmt_count = $db->prepare($query_count);
                 $stmt_count->bindParam(':competence', $row['competence']);
                 $stmt_count->bindParam(':num_etudiant', $num_etudiant);
-                $stmt_count->bindParam(':semester', $_POST['semester']);
+                $stmt_count->bindParam(':semester', $selected_semester);
                 $stmt_count->execute();
                 $count_row = $stmt_count->fetch(PDO::FETCH_ASSOC);
 
@@ -95,36 +111,34 @@ if (isset($_GET['mark_as_read'])) {
             <form method="POST" action="" id="semester-form">
                 <div class="semester-dropdown">
                     <select id="semester" name="semester" onchange="submitForm()">
-                        <option value="semestre1" <?php echo isset($_POST['semester']) && $_POST['semester'] == 'semestre1' ? 'selected' : ''; ?>>Semestre 1</option>
-                        <option value="semestre2" <?php echo isset($_POST['semester']) && $_POST['semester'] == 'semestre2' ? 'selected' : ''; ?>>Semestre 2</option>
+                        <option value="semestre1" <?php echo $selected_semester == 'semestre1' ? 'selected' : ''; ?>>Semestre 1</option>
+                        <option value="semestre2" <?php echo $selected_semester == 'semestre2' ? 'selected' : ''; ?>>Semestre 2</option>
                     </select>
                 </div>
             </form>
 
             <?php
             // Sélectionner toutes les notes pour un semestre spécifique et l'utilisateur connecté
-            if (isset($_POST['semester'])) {
-                $semester = $_POST['semester'];
-                $query = "SELECT * FROM notes WHERE semestre = :semester AND etudiant_num = :num_etudiant";
-                $stmt = $db->prepare($query);
-                $stmt->bindParam(':semester', $semester);
-                $stmt->bindParam(':num_etudiant', $num_etudiant);
-                $stmt->execute();
-            } else {
-                // Par défaut afficher les notes pour le semestre 1
-                $query = "SELECT * FROM notes WHERE semestre = 'semestre1' AND etudiant_num = :num_etudiant";
-                $stmt = $db->prepare($query);
-                $stmt->bindParam(':num_etudiant', $num_etudiant);
-                $stmt->execute();
-            }
+            $query = "SELECT * FROM notes WHERE semestre = :semester AND etudiant_num = :num_etudiant";
+            $stmt = $db->prepare($query);
+            $stmt->bindParam(':semester', $selected_semester);
+            $stmt->bindParam(':num_etudiant', $num_etudiant);
+            $stmt->execute();
 
             // Afficher les contrôles et leurs notes
             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 $competenceClass = str_replace(' ', '-', strtolower($row['competence']));
                 echo "<div class='control-row $competenceClass'>";
-                echo "<div class='control-info'>";
-                echo "<p class='gras'>" . htmlspecialchars($row['controle_nom']) . "</p>";
-                echo "<p>" . htmlspecialchars($row['matiere']) . "</p>";
+                echo "<div class='control-info'>";                
+                
+                // Ajouter une icône si consulted = 0
+                if ($row['consulted'] == 0) {
+                    echo " <p class='gras'><i class='fa-solid fa-circle-exclamation' title='Nouvelle note'></i>" . htmlspecialchars($row['controle_nom']) . "</p>";
+                }
+                else {
+                    echo "<p class='gras'>" . htmlspecialchars($row['controle_nom']) . "</p>";
+                }
+
                 $date = new DateTime($row['date']);
                 echo "<p class='date'>" . $date->format('d/m/Y') . "</p>";
                 echo "</div>";
@@ -161,7 +175,20 @@ if (isset($_GET['mark_as_read'])) {
 
 </section>
 
+
 <?php include('footer.php');?>
 
 </body>
 </html>
+<?php
+
+// Met à jour le champ 'consulted' pour les notes consultées par l'utilisateur
+function markNotesAsRead($db, $num_etudiant) {
+    $update_query = "UPDATE notes SET consulted = 1 WHERE consulted = 0 AND etudiant_num = :num_etudiant";
+    $stmt = $db->prepare($update_query);
+    $stmt->bindParam(':num_etudiant', $num_etudiant);
+    $stmt->execute();
+}
+
+markNotesAsRead($db, $num_etudiant);
+?>

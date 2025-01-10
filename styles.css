@@ -415,7 +415,7 @@ to {
     text-align: center;
 }
 
-.accueil .messages i {
+.fa-circle-exclamation {
     margin-right: 7px;
     color: #FFBFBF;
     font-size: 1.7rem;
