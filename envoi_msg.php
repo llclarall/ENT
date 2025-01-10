@@ -66,7 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <script>
                         setTimeout(function() {
                             window.location.href = 'messagerie.php';
-                        }, 1500); // Redirection après 2 secondes
+                        }, 1000); // Redirection après 2 secondes
                     </script>
                 <?php endif; ?>
 

@@ -42,7 +42,7 @@ $messages = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     <div class="messages">
       <?php if (empty($messages)): ?>
-        <p>Aucun message archivé.</p>
+        <p class="no-messages">Aucun message archivé.</p>
       <?php else: ?>
         <?php foreach ($messages as $message): ?>
           <a href="message.php?id=<?= $message['id'] ?>" class="message-item <?= $message['is_archived'] ? 'archived' : 'unarchived' ?>">

@@ -77,7 +77,7 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
           <li><a href="elearning.php" role="menuitem"><span>Elearning</span></a></li> 
           <li><a href="archives.php" role="menuitem"><span>Archives</span></a></li> 
           <li><a href="rendus.php" role="menuitem"><span>Rendus</span></a></li>
-          <li><a href="notes.php" role="menuitem"><span>Notes</span></a></li>
+          <li><a href="notes.php?mark_as_read=1" role="menuitem"><span>Notes</span></a></li>
         </ul>
       </li>
 

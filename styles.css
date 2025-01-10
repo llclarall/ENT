@@ -1358,24 +1358,46 @@ font-weight: bold;
 margin-bottom: 5px;
 }
 
-.page-messagerie .email, .date-time {
+.page-messagerie .email {
 color: #555;
 font-size: 0.9rem;
-margin-bottom: 10px;
+}
+
+.page-messagerie .date-time {
+color: #555;
+position: absolute;
+top: 5px;
+right: 30px;
+font-size: 0.85rem;
+max-width: 50px;
+text-align: right;
+}
+
+@media (width<=500px) {
+.page-messagerie .date-time {
+    position: static;
+    text-align: center;
+    max-width: fit-content;
+    margin: 0 auto;
+}
+}
+
+.page-messagerie .subject {
+font-size: 1.2rem;
 }
 
 .page-messagerie .message-text {
 font-size: 0.9rem;
 line-height: 1.5;
-margin-bottom: 20px;
+margin: 3rem 0;
 }
 
 /* Boutons "Répondre" et "Transférer" */
-.page-messagerie .actions {
+/* .page-messagerie .actions {
 display: flex;
 justify-content: space-around;
 padding-top: 1rem;
-}
+} */
 
 .page-messagerie .action-button {
 background-color: var(--bleu);
@@ -1385,12 +1407,74 @@ padding: 10px 15px;
 font-size: .9rem;
 border-radius: 5px;
 cursor: pointer;
+display: block;
+margin: 1rem auto;
 transition: background-color 0.3s ease;
 }
 
 .page-messagerie .action-button:hover {
 background-color: var(--bleu-hover);
 }
+
+.page-messagerie .repondre {
+margin-right: auto;
+}
+
+.page-messagerie .transferer {
+margin-left: auto;
+}
+
+
+
+/* form répondre et transférer */
+.page-messagerie .transfer-form, .response-form {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    max-width: 500px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.page-messagerie .transfer-form textarea, .response-form textarea {
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+    font-size: 16px;
+}
+
+.page-messagerie .transfer-form select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+/* Bouton pour les actions de transfert et de réponse */
+.page-messagerie .submit-button {
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.page-messagerie .submit-button:hover {
+    background-color: #218838;
+}
+
+
 
 
 
@@ -1452,6 +1536,7 @@ background-color: var(--bleu-hover);
     margin-bottom: 15px;
     border-radius: 5px;
 }
+
 
 .page-messagerie .error-message ul {
     margin: 0;
@@ -1535,7 +1620,7 @@ background-color: var(--bleu-hover);
     color: var(--bg-color);
 }
 
-.envoyes .no-messages {
+.no-messages {
     text-align: center;
     font-size: 1.2em;
     color: #555;

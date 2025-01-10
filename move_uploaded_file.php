@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['file'])) {
     }
 
     // Répertoire d'upload
-    $uploadDir = 'uploads/';
+    $uploadDir = 'uploads_rendus/';
     $fileName = basename($file['name']);
     $filePath = $uploadDir . $fileName;
 
