@@ -7,6 +7,12 @@ Identifiant : clara.moubarak
 
 Mot de passe : clara
 
+ou
+
+Identifiant : alyssa.karahan
+
+Mot de passe : alyssa
+
 Pour l'administrateur : 
 
 Identifiant : isabelle.rouas
