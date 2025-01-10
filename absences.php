@@ -14,46 +14,26 @@ try {
     $result = $requete->fetch(PDO::FETCH_ASSOC);
 
     // Gestion du total des heures (conversion)
+    $total_heures = '0h'; // Valeur par défaut
     if ($result && !empty($result['total_duree'])) {
-        $seconds = strtotime($result['total_duree']) - strtotime('TODAY'); 
-        $hours = floor($seconds / 3600); 
-        $minutes = floor(($seconds % 3600) / 60); 
-
-        if ($hours > 0 && $minutes > 0) {
-            $total_heures = $hours . 'h' . $minutes; 
-        } elseif ($hours > 0) {
-            $total_heures = $hours . 'h'; 
-        } else {
-            $total_heures = $minutes . 'min'; 
-        }
-    } else {
-        $total_heures = '0h'; 
+        list($hours, $minutes, $seconds) = sscanf($result['total_duree'], '%d:%d:%d');
+        $total_heures = ($hours > 0 ? $hours . 'h' : '') . ($minutes > 0 ? $minutes . 'min' : '');
     }
 
     // Requête pour récupérer le total des heures non justifiées
     $requete_non_justifiees = $db->prepare("
         SELECT SEC_TO_TIME(SUM(TIME_TO_SEC(duree))) AS total_non_justifiees
         FROM absences 
-        WHERE user_id = :user_id AND statut = 'À justifier' OR statut = 'Rejeté | Rejustifier' OR statut = 'Non justifié' OR statut = 'En attente de validation'
+        WHERE user_id = :user_id AND statut IN ('À justifier', 'Rejeté | Rejustifier', 'En attente de validation')
     ");
     $requete_non_justifiees->execute(['user_id' => $user_id]);
     $result_non_justifiees = $requete_non_justifiees->fetch(PDO::FETCH_ASSOC);
 
     // Calcul du total des heures non justifiées
+    $total_non_justifiees = '0h'; // Valeur par défaut
     if ($result_non_justifiees && !empty($result_non_justifiees['total_non_justifiees'])) {
-        $seconds_non_justifiees = strtotime($result_non_justifiees['total_non_justifiees']) - strtotime('TODAY'); 
-        $hours_non_justifiees = floor($seconds_non_justifiees / 3600); 
-        $minutes_non_justifiees = floor(($seconds_non_justifiees % 3600) / 60); 
-
-        if ($hours_non_justifiees > 0 && $minutes_non_justifiees > 0) {
-            $total_non_justifiees = $hours_non_justifiees . 'h' . $minutes_non_justifiees; 
-        } elseif ($hours_non_justifiees > 0) {
-            $total_non_justifiees = $hours_non_justifiees . 'h'; 
-        } else {
-            $total_non_justifiees = $minutes_non_justifiees . 'min'; 
-        }
-    } else {
-        $total_non_justifiees = '0h'; 
+        list($hours_non_justifiees, $minutes_non_justifiees, $seconds_non_justifiees) = sscanf($result_non_justifiees['total_non_justifiees'], '%d:%d:%d');
+        $total_non_justifiees = ($hours_non_justifiees > 0 ? $hours_non_justifiees . 'h' : '') . ($minutes_non_justifiees > 0 ? $minutes_non_justifiees . 'min' : '');
     }
 
     // Récupérer les absences pour l'affichage
@@ -66,7 +46,7 @@ try {
     $absences = $absences_requete->fetchAll(PDO::FETCH_ASSOC);
 } catch (Exception $e) {
     // Gestion des erreurs
-    echo "Erreur : " . $e->getMessage();
+    echo "<div class='error'>Erreur : " . htmlspecialchars($e->getMessage()) . "</div>";
     $total_heures = 'Erreur';
     $total_non_justifiees = 'Erreur';
     $absences = [];
@@ -89,13 +69,13 @@ try {
 
   <main class="container" id="content">
 
-  <div id="total-hours" class="total-hours">
-    <h2>Total des heures manquées : <span class="total-missed"><?= $total_heures ?></span></h2>
-  </div>
+    <div id="total-hours" class="total-hours">
+        <h2>Total des heures manquées : <span class="total-missed"><?= $total_heures ?></span></h2>
+    </div>
 
-  <div id="total-non-justifiees" class="total-non-justifiees">
-    <h2>Total des heures non-justifiées : <span class="total-missed"><?= $total_non_justifiees ?></span></h2>
-  </div>
+    <div id="total-non-justifiees" class="total-non-justifiees">
+        <h2>Total des heures non-justifiées : <span class="total-missed"><?= $total_non_justifiees ?></span></h2>
+    </div>
 
     <div id="absences">
       <h2 class="details">Détails des absences</h2>
