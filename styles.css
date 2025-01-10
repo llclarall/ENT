@@ -627,7 +627,6 @@ to {
 .connexion .login-form input[type="text"]:focus,
 .connexion .login-form input[type="password"]:focus {
     border-color: #577C8E;
-    outline: rgba(87, 124, 142, 1) auto 15px;
 }
 
 .connexion .login-form input[type="submit"] {
@@ -929,7 +928,6 @@ cursor: pointer;
 
 .semestre-dropdown select:hover, 
 .semestre-dropdown select:focus {
-outline: none;
 border-color: #888;
 box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
@@ -1580,7 +1578,6 @@ background-color: var(--bleu);
 .search-bar input {
 flex-grow: 1;
 border: none;
-outline: none;
 padding: 10px 15px;
 font-size: 1rem;
 background-color: transparent; 
@@ -3576,7 +3573,6 @@ width: 90%;
 .page-insert-notes input[type="number"]:focus,
 .page-insert-notes select:focus {
     border-color: var(--bleu);
-    outline: none;
 }
 
 .page-insert-notes button {
@@ -3615,6 +3611,74 @@ width: 90%;
     color: #721c24;
 }
 
+
+/* page notes pdf */
+
+.page-notes-pdf form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 600px;
+    margin: 3rem auto;
+}
+
+.page-notes-pdf.page-notes-pdf label {
+    font-size: .9rem;
+    color: #555;
+}
+
+.page-notes-pdf input[type="text"], input[type="file"], .page-notes-pdf select, input[type="date"] {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid var(--bleu);
+    border-radius: 4px;
+    width: 100%;
+}
+
+.page-notes-pdf button {
+    padding: 12px 20px;
+    background-color: var(--bleu);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.page-notes-pdf button:hover {
+    background-color: var(--bleu-hover);
+}
+
+.page-notes-pdf input[type="text"]:focus, input[type="file"]:focus {
+    border-color: #4CAF50;
+}
+
+.page-notes-pdf input[type="text"], input[type="file"], button {
+    font-size: 16px;
+}
+
+.page-notes-pdf input {
+    font-family: Arial, sans-serif;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    padding: 10px;
+}
+
+.page-notes-pdf .group {
+    display: flex;
+    gap: 20px;
+}
+
+@media screen and (max-width: 768px) {
+    .page-notes-pdf {
+        padding: 15px;
+    }
+
+    .page-notes-pdf .container {
+        padding: 0;
+    }
+}
 
 
 
