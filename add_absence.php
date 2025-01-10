@@ -2,14 +2,14 @@
 include 'config.php';
 
 
-/* if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'secretaire') {
-    header('Location: login.php');
+if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'secretaire') {
+    header('Location: index.php');
     exit;
-} */
+}
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $user_id = $_POST['student_id']; // Corrected name
+    $user_id = $_POST['student_id'];
     $date_absence = $_POST['date_absence'];
     $duree = $_POST['duree'];
 

@@ -1,10 +1,10 @@
 <?php
 include 'config.php';
 
-/* if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'secretaire') {
-    header('Location: login.php');
+if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'secretaire') {
+    header('Location: index.php');
     exit;
-} */
+}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $absence_id = $_POST['absence_id'];
@@ -27,9 +27,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'absence_id' => $absence_id
         ]);
 
-        header('Location: admin_absences.php?success=Statut de l\'absence mis à jour avec succès');
+        header('Location: absences-back.php?success=Statut de l\'absence mis à jour avec succès');
     } catch (Exception $e) {
-        header('Location: admin_absences.php?error=' . urlencode($e->getMessage()));
+        header('Location: absences-back.php?error=' . urlencode($e->getMessage()));
     }
     exit;
 }

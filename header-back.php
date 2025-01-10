@@ -37,7 +37,7 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
 <body>
 
 <header>
-    <a href="back-office.php">Back-Office<img src="images/logo.png" alt=""></a>
+    <a href="back-office.php">Back-Office</a>
 </header>
 
 
@@ -80,40 +80,20 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
         </a>
         <ul class="dropdown" role="menu">
           <li><a href="admin_absences.php" role="menuitem"><span>Insérer des absences</span></a></li> 
-          <li><a href="admin_absences.php" role="menuitem"><span>Absences à valider</span></a></li> 
+          <li><a href="absences-back.php" role="menuitem"><span>Absences à valider</span></a></li> 
         </ul>
       </li>
 
       <!-- notes -->      
       <li>
         <a href="#" class="menu-item dropdown-toggle" aria-expanded="false" aria-label="Messagerie">
-          <i class="fas fa-comment-dots" aria-hidden="true"></i>
+          <i class="fas fa-pencil-alt" aria-hidden="true"></i>
           <span>Gestion des notes</span>
         </a>
         <ul class="dropdown" role="menu">
-          <li><a href="notes-back.php" role="menuitem"><span>Notes</span></a></li>
-          <li><a href="notes-back-pdf.php" role="menuitem"><span>pdf</span></a></li>
+          <li><a href="notes-back.php" role="menuitem"><span>Ajouter une note</span></a></li>
+          <li><a href="notes-back-pdf.php" role="menuitem"><span>Insérer un PDF de notes</span></a></li>
         </ul>
-      </li>
-
-      <!-- messagerie -->      
-      <li>
-        <a href="#" class="menu-item dropdown-toggle" aria-expanded="false" aria-label="Messagerie">
-          <i class="fas fa-comment-dots" aria-hidden="true"></i>
-          <span>Messagerie</span>
-        </a>
-        <ul class="dropdown" role="menu">
-          <li><a href="messagerie.php" role="menuitem"><span>Messagerie</span></a></li>
-          <li><a href="annuaire.php" role="menuitem"><span>Annuaire</span></a></li>
-        </ul>
-      </li>
-      
-      <!-- Vie étudiante -->          
-      <li>
-        <a href="vie_etudiante.php" class="menu-item" aria-label="Page vie étudiante">
-          <i class="fas fa-users" aria-hidden="true"></i>
-          <span>Vie étudiante</span>
-        </a>
       </li>
 
     </ul>
