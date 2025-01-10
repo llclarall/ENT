@@ -50,7 +50,7 @@ if ($user) {
 </body>
 </html>
 
-<div class="page-mdp-oublie">
+<div class="page-mdp-oublie" id="content">
     <h1>Mot de passe oublié</h1>
     <form method="POST" class="mdp-oublie">
         <label for="mail">Entrez votre mail :</label>

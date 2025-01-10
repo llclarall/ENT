@@ -43,7 +43,7 @@ $absences = $absences_requete->fetchAll(PDO::FETCH_ASSOC);
 </head>
 <body>
 
-<section class="page-profil">
+<section class="page-profil" id="content">
 
 <h1>Profil</h1>
 

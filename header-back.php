@@ -36,6 +36,8 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
 </head>
 <body>
 
+<a href="#content" class="skip">Aller au contenu</a>
+
 <header>
     <a href="back-office.php">Back-Office</a>
 </header>

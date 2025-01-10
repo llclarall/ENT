@@ -87,7 +87,7 @@ try {
 
 <h1>Absences</h1>
 
-  <main class="container">
+  <main class="container" id="content">
 
   <div id="total-hours" class="total-hours">
     <h2>Total des heures manquées : <span class="total-missed"><?= $total_heures ?></span></h2>

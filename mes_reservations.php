@@ -17,7 +17,7 @@ include 'header.php';
 
 <h1>Mes réservations</h1>
 
-<div class="container">
+<div class="container" id="content">
 
     <div class="filtres">
         <button class="filtre">Matériel</button>

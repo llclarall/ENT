@@ -16,7 +16,7 @@ include 'header.php';
 
 <section class="page-annuaire">
   
-  <main class="directory">
+  <main class="directory" id="content">
     <h1>Annuaire</h1>
     <div class="search-container">
       <label for="name" class="search-label">Nom :</label>

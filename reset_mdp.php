@@ -35,7 +35,7 @@ if (isset($_GET['token'])) {
                 
             </body>
             </html>
-            <div class="page-mdp-oublie">
+            <div class="page-mdp-oublie" id="content">
             <h1>Réinitialisez votre mot de passe</h1>
                 <form method="POST" class="mdp-oublie">
                     <label for="password">Nouveau mot de passe :</label>

@@ -13,7 +13,7 @@ include('header.php');
 </head>
 <body>
 
-<section class="page-vie-etudiante">
+<section class="page-vie-etudiante" id="content">
 
 <h1>Vie étudiante</h1>
 

@@ -158,7 +158,7 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 
 
-<div class="container-messagerie">
+<div class="container-messagerie" id="content">
 
   <div class="sidebar">
     <a href="messagerie.php" class="active">Boîte de réception</a>

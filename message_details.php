@@ -49,7 +49,7 @@ if (!$message) {
 <section class="page-messagerie">
 <h1>Message envoyé</h1>
 
-<div class="container-messagerie">
+<div class="container-messagerie" id="content">
 
   <div class="sidebar">
     <a href="messagerie.php">Boîte de réception</a>

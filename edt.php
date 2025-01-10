@@ -46,14 +46,14 @@ $endDateFormatted = $endDate->format('d') . ' ' . $moisFrancais[(int)$endDate->f
 <body>
 
 
-<section class="page-edt">
+<section class="page-edt" id="content">
     
 <h1>Emploi du Temps</h1>
 
 <!-- Affichage dynamique des dates de début et de fin de semaine -->
 <h2>Semaine du <?php echo $startDate; ?> au <?php echo $endDateFormatted; ?></h2>
 
-    <table id="edt-container" class="edt-container">
+    <table id="edt-container " class="edt-container">
     <thead>
         <tr id="edt-header" class="edt-header">
             <th class="edt-day"></th>

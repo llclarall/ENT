@@ -33,7 +33,7 @@ if (isset($_GET['mark_as_read'])) {
 </head>
 <body>
 
-<section class="page-notes">
+<section class="page-notes" id="content">
     <h1>Notes</h1>
 
     <div class="container">

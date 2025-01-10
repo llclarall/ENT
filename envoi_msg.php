@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body>
 
-    <section class="page-messagerie">
+    <section class="page-messagerie" id="content">
         <h1>Messagerie</h1>
         <div class="container-messagerie">
 

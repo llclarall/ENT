@@ -11,7 +11,7 @@ include 'header-back.php';
     <link rel="stylesheet" href="style.css"> <!-- Si vous avez un fichier CSS -->
 </head>
 <body>
-<section class="page-notes-pdf">
+<section class="page-notes-pdf" id="content">
     <h1>Importer des notes via un fichier PDF</h1>
     
         <form action="process_pdf.php" method="POST" enctype="multipart/form-data">

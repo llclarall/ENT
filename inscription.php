@@ -4,7 +4,7 @@ include 'header-back.php';
 
 <title>Back-Office | Inscription</title>
 
-<section class="page-inscription">
+<section class="page-inscription" id="content">
 
 <h1>Inscription</h1>
 <div class="container">

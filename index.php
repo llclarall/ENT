@@ -25,7 +25,7 @@
 
     <div class="right-section">
 
-        <h2>Se connecter</h2>
+        <h2 id="content">Se connecter</h2>
         <?php
     // Vérifie s'il y a une erreur dans l'URL
     if (isset($_GET['erreur']) && $_GET['erreur'] == 'login') {

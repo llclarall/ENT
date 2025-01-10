@@ -31,7 +31,7 @@
     </head>
     <body>
 
-    <section class="page-messagerie">
+    <section class="page-messagerie" id="content">
     <h1>Messages envoyés</h1>
 
     <div class="container-messagerie envoyes">

@@ -27,7 +27,7 @@ $messages = $stmt->fetchAll(PDO::FETCH_ASSOC);
 </head>
 <body>
 
-<section class="page-messagerie">
+<section class="page-messagerie" id="content">
 
 <h1>Messages archivés</h1>
 

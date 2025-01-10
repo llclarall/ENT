@@ -24,7 +24,7 @@ $absences = [];
 
 <title>Back-Office | Absences</title>
 
-<section class="page-absences-admin">
+<section class="page-absences-admin" id="content">
 
 <h1>Gestion des absences</h1>
 

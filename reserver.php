@@ -17,7 +17,7 @@ include 'header.php';
 </head>
 <body>
 
-<section class="page-reserver">
+<section class="page-reserver" id="content">
     
         <h1>Réserver</h1>
     <br>

@@ -22,7 +22,7 @@ $autres_utilisateurs = array_filter($utilisateurs, function($user) {
 
 <title>Back-Office | Utilisateurs</title>
 
-<section class="page-users">
+<section class="page-users" id="content">
     
     <h1>Liste des Utilisateurs</h1>
     

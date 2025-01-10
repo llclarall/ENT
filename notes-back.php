@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body>
 
-<section class="page-insert-notes">
+<section class="page-insert-notes" id="content">
     <h1>Insertion des Notes</h1>
 
     <div class="container">

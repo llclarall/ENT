@@ -13,7 +13,7 @@
 <body>
     <!-- Main Section -->
     <main>
-    <section class="page-elearning">
+    <section class="page-elearning" id="content">
       <h1>E-learning</h1>
       <!-- Archives des cours -->
       <div class="flex-container-btn"><a href="archives.php" class="archives-btn">Accéder aux Archives</a>

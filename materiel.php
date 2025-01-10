@@ -15,7 +15,7 @@ include 'header.php';
 </head>
 <body>
 
-<section class="page-materiel">
+<section class="page-materiel" id="content">
     
 <h1 class="matosh">Matériel</h1>
 

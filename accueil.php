@@ -1,7 +1,6 @@
 <?php 
 include('header.php');
 
-
 // Récupérer les rendus associés à l'utilisateur ou non assignés à personne, triés par priorité (épinglés) et date
 $query = "SELECT r.*, 
            CASE WHEN p.fk_user IS NOT NULL THEN 1 ELSE 0 END AS pinned
@@ -113,7 +112,7 @@ $new_note_count = (int)$result['new_count'];
 
 <body>
     
-<section class="accueil">
+<section class="accueil" id="content">
     
     <h1>Bienvenue <?php echo $user['prenom']; ?> !</h1>
     

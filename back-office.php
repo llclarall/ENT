@@ -12,7 +12,7 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
 <title>ENT | Back-Office</title>
 
-<section class="back-office">
+<section class="back-office" id="content">
 
 <h1>Bienvenue dans le Back-Office</h1>
 

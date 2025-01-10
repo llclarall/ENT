@@ -3,7 +3,6 @@ ob_start(); // Démarrer la temporisation de sortie
 include('header.php');
 
 
-
 // Récupérer les informations de l'utilisateur
 $id = $_SESSION['id'];
 $requete = "SELECT * FROM utilisateurs WHERE id = :id";
@@ -108,7 +107,7 @@ ob_end_flush();
 <h1>Rendus</h1>
 <br>
 
-<div class="rendus-container">
+<div class="rendus-container" id="content">
 
     <!-- Bouton d'ajout de rendu -->
     <div class="ajouter-rendu" id="openModalBtn">
