@@ -6,21 +6,17 @@ $num_etudiant = $_SESSION['num_etudiant'];
 // Définir le semestre sélectionné par défaut
 $selected_semester = isset($_POST['semester']) ? $_POST['semester'] : 'semestre1';
 
-// Vérification des notes non consultées pour les semestres
+$semestre_choisi = isset($_POST['semester']) ? $_POST['semester'] : 'semestre1';
+
+// Vérifier si des notes non consultées (consulted = 0) existent pour le semestre 1
 $query_check_semester1 = "SELECT COUNT(*) AS count FROM notes WHERE semestre = 'semestre1' AND etudiant_num = :num_etudiant AND consulted = 0";
 $stmt_check_semester1 = $db->prepare($query_check_semester1);
 $stmt_check_semester1->bindParam(':num_etudiant', $num_etudiant);
 $stmt_check_semester1->execute();
-$result_semester1 = $stmt_check_semester1->fetch(PDO::FETCH_ASSOC);
+$result = $stmt_check_semester1->fetch(PDO::FETCH_ASSOC);
 
-$query_check_semester2 = "SELECT COUNT(*) AS count FROM notes WHERE semestre = 'semestre2' AND etudiant_num = :num_etudiant AND consulted = 0";
-$stmt_check_semester2 = $db->prepare($query_check_semester2);
-$stmt_check_semester2->bindParam(':num_etudiant', $num_etudiant);
-$stmt_check_semester2->execute();
-$result_semester2 = $stmt_check_semester2->fetch(PDO::FETCH_ASSOC);
-
-// Si il n'y a pas de notes non consultées dans le semestre 1, on redirige vers le semestre 2
-if ($result_semester1['count'] == 0 && $result_semester2['count'] > 0) {
+if ($result['count'] == 0) {
+    // Si aucune note non consultée dans le semestre 1, afficher les notes du semestre 2
     $selected_semester = 'semestre2';
 }
 
@@ -81,7 +77,6 @@ if ($result_semester1['count'] == 0 && $result_semester2['count'] > 0) {
         <div class="small-boxes">
             <h3>Compétences</h3>
             <?php
-
             // Récupérer toutes les matières distinctes pour l'utilisateur connecté
             $query = "SELECT DISTINCT competence FROM notes";
             $stmt = $db->prepare($query);
@@ -95,11 +90,11 @@ if ($result_semester1['count'] == 0 && $result_semester2['count'] > 0) {
                 $stmt_count = $db->prepare($query_count);
                 $stmt_count->bindParam(':competence', $row['competence']);
                 $stmt_count->bindParam(':num_etudiant', $num_etudiant);
-                $stmt_count->bindParam(':semester', $selected_semester);
+                $stmt_count->bindParam(':semester', $semestre_choisi);
                 $stmt_count->execute();
                 $count_row = $stmt_count->fetch(PDO::FETCH_ASSOC);
 
-                echo "<button class='small-box' data-competence='$competenceClass'>" . htmlspecialchars($row['competence']) . " (". $count_row['count'] .") </button>";
+                echo "<button class='small-box' data-competence='$competenceClass'>" . htmlspecialchars($row['competence']) . " (" . $count_row['count'] . ")</button>";
             }
             ?>
         </div>
@@ -109,26 +104,42 @@ if ($result_semester1['count'] == 0 && $result_semester2['count'] > 0) {
             <form method="POST" action="" id="semester-form">
                 <div class="semester-dropdown">
                     <select id="semester" name="semester" onchange="submitForm()">
-                        <option value="semestre1" <?php echo ($selected_semester == 'semestre1') ? 'selected' : ''; ?>>Semestre 1</option>
-                        <option value="semestre2" <?php echo ($selected_semester == 'semestre2') ? 'selected' : ''; ?>>Semestre 2</option>
+                        <option value="semestre1" <?php echo isset($_POST['semester']) && $_POST['semester'] == 'semestre1' ? 'selected' : ''; ?>>Semestre 1</option>
+                        <option value="semestre2" <?php echo isset($_POST['semester']) && $_POST['semester'] == 'semestre2' ? 'selected' : ''; ?>>Semestre 2</option>
                     </select>
                 </div>
             </form>
 
             <?php
+            // Vérifier si une compétence est sélectionnée via le filtre
+            $selected_competence = isset($_POST['competence']) ? $_POST['competence'] : null;
+
             // Sélectionner toutes les notes pour un semestre spécifique et l'utilisateur connecté
-            $query = "SELECT * FROM notes WHERE semestre = :semester AND etudiant_num = :num_etudiant";
-            $stmt = $db->prepare($query);
-            $stmt->bindParam(':semester', $selected_semester);
-            $stmt->bindParam(':num_etudiant', $num_etudiant);
+            if ($selected_competence) {
+                // Si une compétence est sélectionnée, afficher les notes uniquement pour cette compétence
+                $query = "SELECT * FROM notes WHERE semestre = :semester AND etudiant_num = :num_etudiant AND competence = :competence";
+                $stmt = $db->prepare($query);
+                $stmt->bindParam(':semester', $semestre_choisi);
+                $stmt->bindParam(':num_etudiant', $num_etudiant);
+                $stmt->bindParam(':competence', $selected_competence);
+            } else {
+                // Sinon, afficher toutes les notes pour le semestre sélectionné
+                $query = "SELECT * FROM notes WHERE semestre = :semester AND etudiant_num = :num_etudiant";
+                $stmt = $db->prepare($query);
+                $stmt->bindParam(':semester', $semestre_choisi);
+                $stmt->bindParam(':num_etudiant', $num_etudiant);
+            }
             $stmt->execute();
 
             // Afficher les contrôles et leurs notes
+            $competence_found = false;
             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 $competenceClass = str_replace(' ', '-', strtolower($row['competence']));
+                $competence_found = true;
+
                 echo "<div class='control-row $competenceClass'>";
                 echo "<div class='control-info'>";                
-                
+
                 // Ajouter une icône si consulted = 0
                 if ($row['consulted'] == 0) {
                     echo " <p class='gras'><i class='fa-solid fa-circle-exclamation' title='Nouvelle note'></i>" . htmlspecialchars($row['controle_nom']) . "</p>";
@@ -143,7 +154,11 @@ if ($result_semester1['count'] == 0 && $result_semester2['count'] > 0) {
                 echo "<div class='control-note'>" . htmlspecialchars($row['note']) . "/20</div>";
                 echo "</div>";
             }
-            
+
+            // Si aucune note n'a été trouvée pour la compétence, afficher un message
+            if ($selected_competence && !$competence_found) {
+                echo "<p>Aucune note pour cette compétence pour le moment.</p>";
+            }
             ?>
 
             <div class="separator"></div>
@@ -152,17 +167,27 @@ if ($result_semester1['count'] == 0 && $result_semester2['count'] > 0) {
                     <p class="gras">Moyenne</p>
                 </div>
                 <?php
-                // Calculer la moyenne pour l'utilisateur connecté
-                $query = "SELECT AVG(note) AS moyenne FROM notes WHERE semestre = :semester AND etudiant_num = :num_etudiant";
-                $stmt = $db->prepare($query);
-                $stmt->bindParam(':semester', $selected_semester);
-                $stmt->bindParam(':num_etudiant', $num_etudiant);
-                $stmt->execute();
-                $row = $stmt->fetch(PDO::FETCH_ASSOC);
-                
-                // Vérifier si la moyenne est null et la définir sur 0 si nécessaire
-                $moyenne = $row['moyenne'] ?? 0;  
-                echo "<div class='control-note'>" . number_format($moyenne, 2) . "/20</div>";
+                // Calculer la moyenne pour l'utilisateur connecté et filtrée par compétence si nécessaire
+                if (isset($selected_semester)) {
+                    if ($selected_competence) {
+                        $query = "SELECT AVG(note) AS moyenne FROM notes WHERE semestre = :semester AND etudiant_num = :num_etudiant AND competence = :competence";
+                        $stmt = $db->prepare($query);
+                        $stmt->bindParam(':semester', $selected_semester);
+                        $stmt->bindParam(':num_etudiant', $num_etudiant);
+                        $stmt->bindParam(':competence', $selected_competence);
+                    } else {
+                        $query = "SELECT AVG(note) AS moyenne FROM notes WHERE semestre = :semester AND etudiant_num = :num_etudiant";
+                        $stmt = $db->prepare($query);
+                        $stmt->bindParam(':semester', $selected_semester);
+                        $stmt->bindParam(':num_etudiant', $num_etudiant);
+                    }
+                    $stmt->execute();
+                    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+                    
+                    // Vérifier si la moyenne est null et la définir sur 0 si nécessaire
+                    $moyenne = $row['moyenne'] ?? 0;  
+                    echo "<div class='control-note'>" . number_format($moyenne, 2) . "/20</div>";
+                }
                 ?>
             </div>
         </div>
@@ -171,7 +196,7 @@ if ($result_semester1['count'] == 0 && $result_semester2['count'] > 0) {
 
 </section>
 
-<?php include('footer.php');?>
+<?php include('footer.php'); ?>
 
 </body>
 </html>
