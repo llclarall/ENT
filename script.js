@@ -271,11 +271,16 @@ function archiveMessage(messageId, isArchived, event) {
 
 
 
-/* NOTES dropdown */
+/* NOTES CLARA */
 
+/* dropdown semestre */
 document.getElementById('semester').addEventListener('change', function() {
     this.form.submit();
 });
+
+
+
+
 
 
 

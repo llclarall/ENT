@@ -1,8 +1,6 @@
 <?php
 include 'header.php';
 
-
-
 $num_etudiant = $_SESSION['num_etudiant'];
 
 
@@ -29,6 +27,36 @@ if (isset($_GET['mark_as_read'])) {
         function submitForm() {
             document.getElementById("semester-form").submit();
         }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const buttons = document.querySelectorAll(".small-box");
+            const rows = document.querySelectorAll(".control-row");
+
+            buttons.forEach(button => {
+                button.addEventListener("click", () => {
+                    const competenceClass = button.dataset.competence;
+
+                    if (button.classList.contains("active")) {
+                        // Si le bouton est actif, réinitialise tout
+                        rows.forEach(row => row.style.display = "flex");
+                        buttons.forEach(btn => btn.classList.remove("active"));
+                    } else {
+                        // Filtrer les éléments en fonction de la compétence
+                        rows.forEach(row => {
+                            if (row.classList.contains(competenceClass)) {
+                                row.style.display = "flex";
+                            } else {
+                                row.style.display = "none";
+                            }
+                        });
+
+                        // Activer le bouton cliqué et désactiver les autres
+                        buttons.forEach(btn => btn.classList.remove("active"));
+                        button.classList.add("active");
+                    }
+                });
+            });
+        });
     </script>
 </head>
 <body>
@@ -45,9 +73,19 @@ if (isset($_GET['mark_as_read'])) {
             $stmt = $db->prepare($query);
             $stmt->execute();
 
-            // Afficher chaque matière dans une boîte
+            // Afficher chaque compétence dans une boîte
             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                echo "<button class='small-box'>" . htmlspecialchars($row['competence']) . "</button>";
+                $competenceClass = str_replace(' ', '-', strtolower($row['competence']));
+
+                $query_count = "SELECT COUNT(*) AS count FROM notes WHERE competence = :competence AND etudiant_num = :num_etudiant AND semestre = :semester";
+                $stmt_count = $db->prepare($query_count);
+                $stmt_count->bindParam(':competence', $row['competence']);
+                $stmt_count->bindParam(':num_etudiant', $num_etudiant);
+                $stmt_count->bindParam(':semester', $_POST['semester']);
+                $stmt_count->execute();
+                $count_row = $stmt_count->fetch(PDO::FETCH_ASSOC);
+
+                echo "<button class='small-box' data-competence='$competenceClass'>" . htmlspecialchars($row['competence']) . " (". $count_row['count'] .") </button>";
             }
             ?>
         </div>
@@ -82,15 +120,18 @@ if (isset($_GET['mark_as_read'])) {
 
             // Afficher les contrôles et leurs notes
             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                echo "<div class='control-row'>";
+                $competenceClass = str_replace(' ', '-', strtolower($row['competence']));
+                echo "<div class='control-row $competenceClass'>";
                 echo "<div class='control-info'>";
                 echo "<p class='gras'>" . htmlspecialchars($row['controle_nom']) . "</p>";
+                echo "<p>" . htmlspecialchars($row['matiere']) . "</p>";
                 $date = new DateTime($row['date']);
                 echo "<p class='date'>" . $date->format('d/m/Y') . "</p>";
                 echo "</div>";
                 echo "<div class='control-note'>" . htmlspecialchars($row['note']) . "/20</div>";
                 echo "</div>";
             }
+            
             ?>
 
             <div class="separator"></div>

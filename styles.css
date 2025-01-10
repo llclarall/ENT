@@ -2854,6 +2854,7 @@ width: 90%;
     justify-content: space-evenly;
     width: 100%;
     max-width: 220px;
+    height: 100%;
 }
 
 
@@ -2874,6 +2875,12 @@ width: 90%;
 
 .page-notes .small-box:hover {
     background-color: var(--bleu-hover);
+    color: var(--bg-color);
+}
+
+.page-notes .small-box.active {
+    background-color: var(--bleu-hover);
+    color: var(--bg-color);
 }
 
 .page-notes .large-box {
@@ -2900,6 +2907,7 @@ width: 90%;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    gap: 5px;
 }
 
 .page-notes .control-info p {
@@ -2947,7 +2955,6 @@ width: 90%;
 
 .page-notes .gras {
     font-weight: bold;
-    padding-bottom: 8px;
 }
 
 
