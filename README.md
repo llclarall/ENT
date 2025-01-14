@@ -1,5 +1,5 @@
 Notre site web :
-https://ent.moubarak.o2switch.butmmi.o2switch.site/
+https://ent.moubarak.butmmi.o2switch.site/index.php
 
 Pour un étudiant : 
 
