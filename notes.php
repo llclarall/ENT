@@ -148,6 +148,7 @@ if ($result['count'] == 0) {
                     echo "<p class='gras'>" . htmlspecialchars($row['controle_nom']) . "</p>";
                 }
 
+                echo "<p class='date'>" . $row['matiere'] . "</p>";
                 $date = new DateTime($row['date']);
                 echo "<p class='date'>" . $date->format('d/m/Y') . "</p>";
                 echo "</div>";
